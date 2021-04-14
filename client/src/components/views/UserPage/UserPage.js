@@ -1,22 +1,33 @@
-import React from 'react';
-
-import NavBar from '../../NavBar/NavBar';
+import {React, Suspense, lazy }from 'react';
+import { Route, useRouteMatch, Switch } from 'react-router-dom';
 import HeadingTitle from '../../HeadingTitle/HeadingTitle';
 import CourseList from '../../CourseList/CourseList';
 import RoomList from '../../RoomList/RoomList';
+import LoadingContainer from '../../../utils/LoadingContainer/LoadingContainer';
 import Footer from '../../Footer/Footer';
 
 const UserPage = ({user}) => {
+    const { path } = useRouteMatch();
     return(
-        <div>
-            <NavBar userName={user ? user.userName : ''} userMode="user"/>
+        <Suspense fallback={(<LoadingContainer style="bar"/>)}>
             <main>
-                <HeadingTitle title={`Welcome to English Online Center Mr/Ms ${user ? user.userName : ''}`} subtitle={"It's a pleasure to have you here with us!"}/>
-                <CourseList/>
-                <RoomList/>
-                <Footer/>
+                <HeadingTitle title="User Dashboard"/>
+                <Switch>
+                    <Route path={`${path}/room`}>
+                        <RoomList/>
+                    </Route>
+                    <Route path={`${path}/course`}>
+                        <CourseList/>
+                    </Route>
+                    <Route path={`${path}/progress`}>
+                        <LoadingContainer/>
+                    </Route>
+                    <Route path={`${path}/information`}>
+                        <LoadingContainer/>
+                    </Route>
+                </Switch>
             </main>
-        </div>
+        </Suspense>
     );
 }
 export default UserPage;

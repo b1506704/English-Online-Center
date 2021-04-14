@@ -1,4 +1,4 @@
-import { React, useRef, useState } from 'react';
+import { React, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Modal from '../Modal/Modal';
@@ -10,15 +10,34 @@ import UserInfo from '../views/UserPage/UserInfo/UserInfo';
 import {logout, setNotification} from '../../actions/user_actions';
 import './NavBar.css';
 
-const NavBar = ({userMode, userName}) => {
+const NavBar = () => {
     const dispatch = useDispatch();
     const modal = useRef(null);
+    const [userMode, setUserMode] = useState('');
+    const [userName, setUserName] = useState('');
     const history = useHistory();
     const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
     const [isCreditPageOpen, setIsCreditPageOpen] = useState(false);
     const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
     const currentUserInfo = useSelector ((state) => state.user_reducer.login);
     const currentNotif = useSelector((state) => state.user_reducer.notif);
+    
+    useEffect(() => {
+        if (currentUserInfo) {
+            if(currentUserInfo.isUser) {
+                setUserMode('user');
+            } else {
+                setUserMode('admin');    
+            }
+            setUserName(currentUserInfo.userName);
+        }
+        return () => {
+            setUserMode('');
+            modal.current.close();
+        }
+    },[currentUserInfo]);
+
+    
     return(
         <header>
             <h1>English <br></br>Online<br></br>Center</h1>
@@ -28,6 +47,7 @@ const NavBar = ({userMode, userName}) => {
                     ? null 
                     : <a className="home_nav" onClick={() => {
                         modal.current.close();
+                        history.push('/');
                     }}>
                         </a>
                 }

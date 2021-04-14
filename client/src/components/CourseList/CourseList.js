@@ -1,10 +1,10 @@
 import React from 'react';
 
-import CardPage from '../CardList/CardList';
+import CardList from '../CardList/CardList';
 
 const CourseList = () => {
     return(
-        <CardPage context="course"/>
+        <CardList context="course"/>
     );
 }
 export default CourseList;

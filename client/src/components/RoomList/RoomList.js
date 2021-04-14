@@ -1,10 +1,10 @@
 import React from 'react';
 
-import CardPage from '../CardList/CardList';
+import CardList from '../CardList/CardList';
 
 const RoomList = () => {
     return(
-        <CardPage context="list"/>
+        <CardList context="list"/>
     );
 }
 export default RoomList;

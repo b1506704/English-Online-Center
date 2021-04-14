@@ -1,21 +1,30 @@
-import React from 'react';
-
-import NavBar from '../../NavBar/NavBar';
+import {React, Suspense, lazy }from 'react';
+import { Route, useRouteMatch, Switch } from 'react-router-dom';
 import HeadingTitle from '../../HeadingTitle/HeadingTitle';
 import EditBankList from '../../EditBankList/EditBankList';
 import Footer from '../../Footer/Footer';
+import LoadingContainer from '../../../utils/LoadingContainer/LoadingContainer';
 import './MarketingManagerPage.css';
 
 const MarketingManagerPage = ({user}) => {
+    const { path } = useRouteMatch();
     return(
-        <div>
-            <NavBar userName={user ? user.userName : ''} userMode="admin"/>
+        <Suspense fallback={(<LoadingContainer style="bar"/>)}>
             <main>
-                <HeadingTitle title="Marketing Manager Dashboard" subtitle="Advertisement and Campaign Management"/>
-                <EditBankList/>
-                <Footer/>
+                <HeadingTitle title="Marketing Manager Dashboard"/>
+                <Switch>
+                    <Route path={`${path}/advertisement`}>
+                        <LoadingContainer/>
+                    </Route>
+                    <Route path={`${path}/affliation`}>
+                        <EditBankList/>
+                    </Route>
+                    <Route path={`${path}/report`}>
+                        <LoadingContainer/>
+                    </Route>
+                </Switch>
             </main>
-        </div>
+        </Suspense>
     );
 }
 export default MarketingManagerPage;

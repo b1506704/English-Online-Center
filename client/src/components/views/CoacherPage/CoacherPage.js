@@ -1,23 +1,39 @@
-import React from 'react';
+import {React, Suspense, lazy }from 'react';
+import { Route, useRouteMatch, Switch } from 'react-router-dom';
 
-import NavBar from '../../NavBar/NavBar';
 import HeadingTitle from '../../HeadingTitle/HeadingTitle';
 import EditCourseList from '../../EditCourseList/EditCourseList';
 import EditRoomList from '../../EditRoomList/EditRoomList';
 import Footer from '../../Footer/Footer';
 import './CoacherPage.css';
+import LoadingContainer from '../../../utils/LoadingContainer/LoadingContainer';
 
-const CoacherPage = ({user}) => {
+const CoacherPage = () => {
+
+    const { path } = useRouteMatch();
+
     return(
-        <div>
-            <NavBar userName={user ? user.userName : ''} userMode="admin"/>
+        <Suspense fallback={(<LoadingContainer style="bar"/>)}>
             <main>
-                <HeadingTitle title="Coacher Dashboard" subtitle="Room and Student Management"/>
-                <EditCourseList/>
-                <EditRoomList/>
-                <Footer/>
+                <HeadingTitle title="Coacher Dashboard"/>
+                <Switch>
+                    <Route path={`${path}/room`}>
+                        <EditRoomList/>
+                    </Route>
+                    <Route path={`${path}/student`}>
+                        <EditCourseList/>
+                    </Route>
+                    <Route path={`${path}/test`}>
+                        <LoadingContainer/>
+                    </Route>
+                    <Route path={`${path}/files`}>
+                        <LoadingContainer/>
+                    </Route>
+                </Switch>
+                {/* <LoadingContainer/> */}
+                {/* <Footer/> */}
             </main>
-        </div>
+        </Suspense>
     );
 }
 export default CoacherPage;

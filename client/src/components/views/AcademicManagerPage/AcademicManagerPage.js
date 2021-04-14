@@ -1,21 +1,33 @@
-import React from 'react';
-
-import NavBar from '../../NavBar/NavBar';
+import {React, Suspense, lazy }from 'react';
+import { Route, useRouteMatch, Switch } from 'react-router-dom';
 import HeadingTitle from '../../HeadingTitle/HeadingTitle';
 import EditCourseList from '../../EditCourseList/EditCourseList';
 import Footer from '../../Footer/Footer';
 import './AcademicManagerPage.css';
+import LoadingContainer from '../../../utils/LoadingContainer/LoadingContainer';
 
 const AcademicManagerPage = ({user}) => {
+    const { path } = useRouteMatch();
     return(
-        <div>
-            <NavBar userName={user ? user.userName : ''} userMode="admin"/>
+        <Suspense fallback={(<LoadingContainer style="bar"/>)}>
             <main>
-                <HeadingTitle title="Academic Manager Dashboard" subtitle="Course And Coacher Management"/>
-                <EditCourseList/>
-                <Footer/>
+                <HeadingTitle title="Academic Manager Dashboard"/>
+                <Switch>
+                    <Route path={`${path}/test`}>
+                        <LoadingContainer/>
+                    </Route>
+                    <Route path={`${path}/course`}>
+                        <EditCourseList/>
+                    </Route>
+                    <Route path={`${path}/coacher`}>
+                        <LoadingContainer/>
+                    </Route>
+                    <Route path={`${path}/curriculum`}>
+                        <LoadingContainer/>
+                    </Route>
+                </Switch>
             </main>
-        </div>
+        </Suspense>
     );
 }
 export default AcademicManagerPage;

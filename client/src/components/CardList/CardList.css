@@ -5,6 +5,7 @@
 	justify-content: center;
 	text-align: center;
 	margin-top: 25px;
+	margin-bottom: 25px;
 }
 
 .card_page .card_header {
@@ -15,7 +16,7 @@
 	width: 80%;
 	text-align: left;
 	text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #9dd7e6;
-	font-size: 34px;
+	font-size: 30px;
 	padding-left: 8vh;
 	letter-spacing: 2px;
 	border-top: 5px double rgba(59, 30, 30, 0.486);
@@ -92,14 +93,10 @@
 	transform: scale(1.15);
 }
 .card_container {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-evenly;
-	align-items: center;
-	flex-wrap: wrap;
-	min-height: 500px;
+	height: 100%;
 	width: 80%;
 	overflow: hidden;
-	background-color: rgba(255, 255, 255, 0.534);
+	color: rgb(8, 0, 0);
+	background-color: rgba(0, 0, 0, 0.041);
 	border-bottom: 5px double rgba(59, 30, 30, 0.486);
 }

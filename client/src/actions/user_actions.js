@@ -140,8 +140,8 @@ export const createRoom = (roomInfo) => async (dispatch) => {
   try {
     const { data } = await api.createRoom(roomInfo);
     await dispatch({ type: CREATE_ROOM, payload: data});
-    await dispatch(fetchRoom());
     await dispatch(setNotification(`Added room ${roomInfo.id}`));
+    await dispatch(fetchRoom());
   } catch (error) {
     dispatch(setNotification("Add failed!"));
   }

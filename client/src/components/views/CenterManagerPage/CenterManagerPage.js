@@ -1,21 +1,33 @@
-import React from 'react';
-
-import NavBar from '../../NavBar/NavBar';
+import {React, Suspense, lazy }from 'react';
+import { Route, useRouteMatch, Switch } from 'react-router-dom';
 import HeadingTitle from '../../HeadingTitle/HeadingTitle';
 import EditCourseList from '../../EditCourseList/EditCourseList';
 import Footer from '../../Footer/Footer';
+import LoadingContainer from '../../../utils/LoadingContainer/LoadingContainer';
 import './CenterManagerPage.css';
 
 const CenterManagerPage = ({user}) => {
+    const { path } = useRouteMatch();
     return(
-        <div>
-            <NavBar userName={user ? user.userName : ''} userMode="admin"/>
+        <Suspense fallback={(<LoadingContainer style="bar"/>)}>
             <main>
-                <HeadingTitle title="Center Manager Dashboard" subtitle="Center Management"/>
-                <EditCourseList/>
-                <Footer/>
+                <HeadingTitle title="Center Manager Dashboard"/>
+                <Switch>
+                    <Route path={`${path}/employee`}>
+                        <LoadingContainer/>
+                    </Route>
+                    <Route path={`${path}/schedule`}>
+                        <EditCourseList/>
+                    </Route>
+                    <Route path={`${path}/activity`}>
+                        <LoadingContainer/>
+                    </Route>
+                    <Route path={`${path}/maintenance`}>
+                        <LoadingContainer/>
+                    </Route>
+                </Switch>
             </main>
-        </div>
+        </Suspense>
     );
 }
 export default CenterManagerPage;

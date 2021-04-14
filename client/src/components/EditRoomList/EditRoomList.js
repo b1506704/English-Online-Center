@@ -1,6 +1,6 @@
 import React from 'react';
 
-import CardPage from '../CardPage/CardPage';
+import CardPage from '../CardList/CardList';
 
 const EditRoomList = ({setCurrentAccList}) => {
     return(

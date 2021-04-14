@@ -6,14 +6,14 @@ import LoadingContainer from './utils/LoadingContainer/LoadingContainer';
 import {fetchRoom, fetchBank, fetchCourse } from './actions/user_actions';
 import './App.css';
 
-const LandingPage = lazy(() => import ('./components/LandingPage/LandingPage'));
-const UserPage = lazy(() => import ('./components/UserPage/UserPage'));
-const CoacherPage = lazy(() => import ('./components/CoacherPage/CoacherPage'));
-const SalesManagerPage = lazy(() => import ('./components/SalesManagerPage/SalesManagerPage'));
-const MarketingManagerPage = lazy(() => import ('./components/MarketingManagerPage/MarketingManagerPage'));
-const CenterManagerPage = lazy(() => import ('./components/CenterManagerPage/CenterManagerPage'));
-const AcademicManagerPage = lazy(() => import ('./components/AcademicManagerPage/AcademicManagerPage'));
-const HRPage = lazy(() => import ('./components/HRPage/HRPage'));
+const LandingPage = lazy(() => import ('./components/views/LandingPage/LandingPage'));
+const UserPage = lazy(() => import ('./components/views/UserPage/UserPage'));
+const CoacherPage = lazy(() => import ('./components/views/CoacherPage/CoacherPage'));
+const SalesManagerPage = lazy(() => import ('./components/views/SalesManagerPage/SalesManagerPage'));
+const MarketingManagerPage = lazy(() => import ('./components/views//MarketingManagerPage/MarketingManagerPage'));
+const CenterManagerPage = lazy(() => import ('./components/views/CenterManagerPage/CenterManagerPage'));
+const AcademicManagerPage = lazy(() => import ('./components/views/AcademicManagerPage/AcademicManagerPage'));
+const HRPage = lazy(() => import ('./components/views/HRPage/HRPage'));
 
 const App = () => {
     const dispatch = useDispatch();
@@ -36,16 +36,6 @@ const App = () => {
     useEffect(()=> {
         dispatch(fetchCourse());
     },[title]);
-
-    
-
-    // if (loginInfo!= null && loginInfo.isCoacher === true) {
-    //         return (<CoacherPage userName ={loginInfo.userName}/>);
-    //     } else if (loginInfo!= null && loginInfo.isCoacher === false){
-    //         return (
-    //             <UserPage user={loginInfo}/>
-    //         );
-    // }
     
     return (
         <Suspense fallback={(<LoadingContainer style="bar"/>)}>
@@ -62,32 +52,21 @@ const App = () => {
                 <Route exact path="/sales">
                     <SalesManagerPage user={loginInfo}/>
                 </Route>
+                <Route exact path="/hr">
+                    <HRPage user={loginInfo}/>
+                </Route>
+                <Route exact path="/academic">
+                    <AcademicManagerPage user={loginInfo}/>
+                </Route>
+                <Route exact path="/center">
+                    <CenterManagerPage user={loginInfo}/>
+                </Route>
+                <Route exact path="/marketing">
+                    <MarketingManagerPage user={loginInfo}/>
+                </Route>
             </Switch>
         </Suspense>
     );
-    
-
-    // if (loginInfo!= null && loginInfo.isCoacher === true) {
-    //     return (<CoacherPage userName ={loginInfo.userName}/>);
-    // } else if (loginInfo!= null && loginInfo.isCoacher === false){
-    //     return (
-    //         <UserPage user={loginInfo}/>
-    //     );
-    // } else if (loginInfo === undefined || loginInfo === null){
-    //     return(
-    //         <div>
-    //             <NavBar/>
-    //             <main>
-    //                 <HeadingTitle title={title} subtitle={subTitle} />
-    //                 <CourseList/>
-    //                 <RoomList/>
-    //                 <Footer/>
-    //             </main>
-    //         </div>
-    //     );
-    // } else {
-    //     return (<LoadingContainer style={"spinner"}/>)
-    // }
 }
 
 export default App;

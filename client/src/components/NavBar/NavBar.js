@@ -2,11 +2,11 @@ import { React, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Modal from '../Modal/Modal';
-import LoginPage from '../LoginPage/LoginPage';
-import RegisterPage from '../RegisterPage/RegisterPage';
-import BankPage from '../BankPage/BankPage';
+import LoginPopup from '../LoginPopup/LoginPopup';
+import RegisterPopup from '../RegisterPopup/RegisterPopup';
+import BankPopup from '../BankPage/BankPopup';
 import Notification from './Notification/Notification';
-import UserInfo from '../UserPage/UserInfo/UserInfo';
+import UserInfo from '../views/UserPage/UserInfo/UserInfo';
 import {logout, setNotification} from '../../actions/user_actions';
 import './NavBar.css';
 
@@ -14,9 +14,9 @@ const NavBar = ({userMode, userName}) => {
     const dispatch = useDispatch();
     const modal = useRef(null);
     const history = useHistory();
-    const [isLoginPageOpen, setIsLoginPageOpen] = useState(false);
+    const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
     const [isCreditPageOpen, setIsCreditPageOpen] = useState(false);
-    const [isRegisterPageOpen, setIsRegisterPageOpen] = useState(false);
+    const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
     const currentUserInfo = useSelector ((state) => state.user_reducer.login);
     const currentNotif = useSelector((state) => state.user_reducer.notif);
     return(
@@ -36,8 +36,8 @@ const NavBar = ({userMode, userName}) => {
                     ? null 
                     : <a className="bank_nav" onClick={() => {
                         setIsCreditPageOpen(true);
-                        setIsRegisterPageOpen(false);
-                        setIsLoginPageOpen(false);
+                        setIsRegisterPopupOpen(false);
+                        setIsLoginPopupOpen(false);
                         modal.current.open();
                     }}>
                         </a>
@@ -63,9 +63,9 @@ const NavBar = ({userMode, userName}) => {
                 {
                     userMode != "admin" && userMode != "user"
                     ? <a className="register_nav" onClick={() => {
-                        setIsRegisterPageOpen(true);
+                        setIsRegisterPopupOpen(true);
                         setIsCreditPageOpen(false);
-                        setIsLoginPageOpen(false);
+                        setIsLoginPopupOpen(false);
                         modal.current.open();
                     }}>
                         </a>
@@ -84,18 +84,18 @@ const NavBar = ({userMode, userName}) => {
                         }}>
                         </a> 
                     : <a className="login_nav" onClick={() => {
-                        setIsLoginPageOpen(true);
+                        setIsLoginPopupOpen(true);
                         setIsCreditPageOpen(false);
-                        setIsRegisterPageOpen(false);
+                        setIsRegisterPopupOpen(false);
                         modal.current.open();
                     }}>
                         </a> 
                 }
             </nav>
             <Modal ref={modal}>
-                { isLoginPageOpen ? (<LoginPage close={() => modal.current.close()}/>) : null}
-                { isCreditPageOpen ? (<BankPage close={() => modal.current.close()}/>) : null}
-                { isRegisterPageOpen ? (<RegisterPage close={() => modal.current.close()}/>) : null}
+                { isLoginPopupOpen ? (<LoginPopup close={() => modal.current.close()}/>) : null}
+                { isCreditPageOpen ? (<BankPopup close={() => modal.current.close()}/>) : null}
+                { isRegisterPopupOpen ? (<RegisterPopup close={() => modal.current.close()}/>) : null}
             </Modal>
             {currentNotif ? <Notification message={currentNotif}/> : null}
             { userMode ? <UserInfo user={currentUserInfo}/> : null}

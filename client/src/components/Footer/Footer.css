@@ -1,0 +1,16 @@
+footer {
+	bottom: 0;
+	user-select: none;
+	background-color: rgba(0, 0, 0, 0.534);
+	color: rgb(238, 253, 255);
+	width: 100%;
+	padding-left: 120px;
+}
+footer h1{
+	font-size: 20px;
+	margin: 0;
+	color: rgb(238, 253, 255);
+	padding: 24px 0;
+	letter-spacing: 2px;
+	background: transparent;
+}

@@ -1,0 +1,50 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  outline: none;
+  font-family: Overall;
+}
+
+@font-face {
+	font-family: Overall;
+	src: url('./assets/fonts/SVN-Elle NovaC-Extra-Light.ttf');
+}
+  
+@font-face {
+	font-family: Detail;
+	src: url('./assets/fonts/UTM-Ericsson-Capital.ttf');
+}
+
+
+
+.shadow {
+	box-shadow: rgba(17, 16, 17, 0.56) 0px 22px 70px 4px;
+}
+.neon {
+	text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #9dd7e6, 0 0 20px rgb(123, 163, 204);
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+	height: 100%;
+	background: url('./assets/imgs/abstract-city-background.jpg') no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	color: #ffffff;
+	margin: 0;
+}
+h1, h2, h3, h4, h5 {
+	color: #fffdfd;
+}
+
+main {
+	margin-left: 220px;
+}
+
+

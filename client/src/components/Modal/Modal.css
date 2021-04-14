@@ -1,0 +1,17 @@
+.modal {
+    position: fixed;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    font-size: 25px;
+    box-sizing: border-box;
+    background-color: rgba(28, 31, 31, 0.664);
+    z-index: 998;
+}

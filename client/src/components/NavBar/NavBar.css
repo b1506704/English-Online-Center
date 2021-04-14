@@ -1,0 +1,73 @@
+header {
+	position: fixed;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 220px;
+	padding-top: 100px;
+	user-select: none;
+	background-color: rgba(179, 179, 166, 0.877);
+	box-shadow: rgba(150, 143, 143, 0.56) 0px 22px 70px 4px;
+	transition: all 0.5s ease-in-out;
+	overflow: visible;
+	z-index: 999;
+}
+header:hover {
+	background-color: rgb(44, 44, 39);
+	
+}
+header h1 {
+	font-size: 30px;
+	text-align: center;
+	margin-bottom: 100px;
+	color: rgb(238, 253, 255);
+	letter-spacing: 2px;
+	text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #9dd7e6;
+}
+header nav {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+header nav a {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
+	color: rgb(255, 249, 249);
+	font-size: 25px;
+	padding-right: 5px;
+	background-repeat: no-repeat;
+	background-position: top center;
+	background-size: contain;
+	margin-bottom: 25px;
+	width: 200px;
+	height: 50px;
+	transition: all 0.35s ease-out;
+}
+header nav .login_nav {
+	background-image: url("../../assets/imgs/login.png");
+}
+header nav .register_nav {
+	background-image: url("../../assets/imgs/sign-up.png");
+}
+header nav .user_nav {
+	background-image: url("../../assets/imgs/profile.png");
+}
+header nav .bank_nav {
+	background-image: url("../../assets/imgs/credit-card.png");
+}
+header nav .logout_nav {
+	background-image: url("../../assets/imgs/logout.png");
+}
+header nav .home_nav {
+	background-image: url("../../assets/imgs/home.png");
+}
+header nav a:hover {
+	background-color: rgb(250, 199, 250);
+}

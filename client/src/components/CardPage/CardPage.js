@@ -3,33 +3,31 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import Card from './Card/Card';
 import LoadingContainer from '../../utils/LoadingContainer/LoadingContainer';
-import {createHouse, createBank, createCategory, fetchCategory, fetchBank, fetchHouse, setNotification, filterHouseByPrice } from '../../actions/user_actions';
+import {createRoom, createBank, createCourse, fetchCourse, fetchBank, fetchRoom, setNotification, filterRoomByPrice } from '../../actions/user_actions';
 import random from '../../utils/RandomNumber';
 import './CardPage.css';
 
 const CardPage = ({context}) => {
     const dispatch = useDispatch();
-    const houseList = useSelector((state) => state.user_reducer.houseList);
+    const roomList = useSelector((state) => state.user_reducer.roomList);
     const bankList = useSelector((state) => state.user_reducer.bankList);
-    const categoryList = useSelector((state) => state.user_reducer.categoryList);
+    const courseList = useSelector((state) => state.user_reducer.courseList);
     const bankProvider = ["Agribank","BIDV","Sacombank","Vietcombank"];   
     const bankValue = [2, 5, 10, 20, 50, 100];   
     const searchInput = useRef(null);
 
-    const addHouse = () => {
+    const addRoom = () => {
         dispatch(
-            createHouse(
+            createRoom(
                 {
                     id: random(1,2000),  
                     price: random(1,200),
-                    category: categoryList !=null && categoryList.length!= 0 ? categoryList[random(0,  categoryList.length - 1)].name : null,
+                    course: courseList !=null && courseList.length!= 0 ? courseList[random(0,  courseList.length - 1)].name : null,
                     imgUrl: null,
-                    isBought: false, 
-                    houseSeller: 'admin',
-                    area: random(1,1000),
-                    front: random(1,1000),
-                    direction: 'Hướng lộ',
-                    address: 'ĐH Thủ Dàu Một'
+                    isFull: false, 
+                    roomCoacher: 'admin',
+                    start: random(1,1000),
+                    end: random(1,1000),
                 }
             )
         );
@@ -43,38 +41,38 @@ const CardPage = ({context}) => {
             }
         ));
     }
-    const addCategory = () => {
-        dispatch(createCategory(
+    const addCourse = () => {
+        dispatch(createCourse(
             {
                 name: random(1,2000),
                 imgUrl: null,
-                houseNum: 0,
+                roomNum: 0,
                 sellNum: 0
             }));
     }
 
-    const loadCategory = () => {
-        dispatch(fetchCategory())
-        .then(() => dispatch(setNotification("Làm mới thành công")));
+    const loadCourse = () => {
+        dispatch(fetchCourse())
+        .then(() => dispatch(setNotification("Successfully Updated")));
     }
 
     const loadBank = () => {
         dispatch(fetchBank())
-        .then(() => dispatch(setNotification("Làm mới thành công")));
+        .then(() => dispatch(setNotification("Successfully Updated")));
     }
 
-    const loadHouse = () => {
-        dispatch(fetchHouse())
-        .then(() => dispatch(setNotification("Làm mới thành công")));
+    const loadRoom = () => {
+        dispatch(fetchRoom())
+        .then(() => dispatch(setNotification("Successfully Updated")));
     }
     
     const searchByPrice = (e) => {
         e.preventDefault();
         const price = parseFloat(searchInput.current.value);
         if (isNaN(price)) {
-            dispatch(setNotification(`Vui lòng nhập giá tiền`));
+            dispatch(setNotification("Not A Valid Value"));
         } else {
-            dispatch(filterHouseByPrice(price));
+            dispatch(filterRoomByPrice(price));
         }
     }
 
@@ -82,52 +80,52 @@ const CardPage = ({context}) => {
         case "list":
             return(
                 <div className="card_page">
-                    <div className="card_header"> <b>Nhà Bán ({houseList ? houseList.length : 0})</b> 
-                        <button type="button" className="card_menu_button refresh_button_user shadow" onClick={loadHouse}></button>
+                    <div className="card_header"> <b>Rooms ({roomList ? roomList.length : 0})</b> 
+                        <button type="button" className="card_menu_button refresh_button_user shadow" onClick={loadRoom}></button>
                         <form onSubmit={(e) => searchByPrice(e)}>
-                            <input type="text" ref={searchInput} className="shadow" placeholder="Tìm theo giá"></input>
+                            <input type="text" ref={searchInput} className="shadow" placeholder="Search by price"></input>
                             <input type="submit" className="shadow"></input>
                         </form>
                     </div>
                     <div className="card_container">
                         {
-                            houseList != null && houseList.length != 0? 
-                            houseList.map ((item,key) => 
-                            (<Card key={key} house={item} type={"house"} mode={"view"}/>))
+                            roomList != null && roomList.length != 0? 
+                            roomList.map ((item,key) => 
+                            (<Card key={key} room={item} type={"room"} mode={"view"}/>))
                             : (<LoadingContainer style={'spinner'}/>)
                         }
                     </div>
                 </div>
             );
-        case "category":
+        case "course":
             return(
                 <div className="card_page">
-                    <div className="card_header"> <b> Loại Nhà ({categoryList ? categoryList.length : 0})</b> 
-                        <button type="button" className="card_menu_button refresh_button_user shadow" onClick={loadCategory}></button>
+                    <div className="card_header"> <b> Courses ({courseList ? courseList.length : 0})</b> 
+                        <button type="button" className="card_menu_button refresh_button_user shadow" onClick={loadCourse}></button>
                     </div>
 
                     <div className="card_container">
                         {
-                            categoryList != null && categoryList.length != 0 ? 
-                            categoryList.map ((item,key) => 
-                            (<Card key={key} category={item} type={"category"} mode={"view"}/>))
+                            courseList != null && courseList.length != 0 ? 
+                            courseList.map ((item,key) => 
+                            (<Card key={key} course={item} type={"course"} mode={"view"}/>))
                             : (<LoadingContainer style={'spinner'}/>)
                         }
                     </div>
                 </div>
             );
-        case "edit_category":
+        case "edit_course":
             return(
                 <div className="card_page">
-                    <div className="card_header"> <b>Quản Lý Loại Nhà ({categoryList ? categoryList.length : 0})</b> 
-                        <button type="button" className="card_menu_button add_button shadow" onClick={addCategory}></button>
-                        <button type="button" className="card_menu_button refresh_button shadow" onClick={loadCategory}></button>
+                    <div className="card_header"> <b>Course Management ({courseList ? courseList.length : 0})</b> 
+                        <button type="button" className="card_menu_button add_button shadow" onClick={addCourse}></button>
+                        <button type="button" className="card_menu_button refresh_button shadow" onClick={loadCourse}></button>
                     </div>
                     <div className="card_container">
                         {
-                            categoryList != null && categoryList.length != 0 ? 
-                            categoryList.map ((item,key) => 
-                            (<Card key={key} category={item} type={"category"} mode={"edit"}/>))
+                            courseList != null && courseList.length != 0 ? 
+                            courseList.map ((item,key) => 
+                            (<Card key={key} course={item} type={"course"} mode={"edit"}/>))
                             : (<LoadingContainer style={'spinner'}/>)
                         }
                     </div>
@@ -136,15 +134,15 @@ const CardPage = ({context}) => {
         case "edit_list":
             return(
                 <div className="card_page">
-                    <div className="card_header"> <b>Quản Lý Nhà Bán ({houseList ? houseList.length : 0})</b> 
-                        <button type="button" className="card_menu_button add_button shadow" onClick={addHouse}></button>
-                        <button type="button" className="card_menu_button refresh_button shadow" onClick={loadHouse}></button>
+                    <div className="card_header"> <b>Room Management ({roomList ? roomList.length : 0})</b> 
+                        <button type="button" className="card_menu_button add_button shadow" onClick={addRoom}></button>
+                        <button type="button" className="card_menu_button refresh_button shadow" onClick={loadRoom}></button>
                     </div>
                     <div className="card_container">
                         {
-                            houseList != null && houseList.length != 0?
-                            houseList.map ((item,key) => 
-                            (<Card key={key} house={item} type={"house"} mode={"edit"}/>))
+                            roomList != null && roomList.length != 0?
+                            roomList.map ((item,key) => 
+                            (<Card key={key} room={item} type={"room"} mode={"edit"}/>))
                             : <LoadingContainer style={'spinner'}/>
                         }
                     </div>
@@ -153,7 +151,7 @@ const CardPage = ({context}) => {
         case "edit_card":
             return(
                 <div className="card_page">
-                    <div className="card_header"> <b>Quản Lý Tài Khoản Ngân Hàng ({bankList ? bankList.length : 0})</b> 
+                    <div className="card_header"> <b>Bank Management ({bankList ? bankList.length : 0})</b> 
                         <button type="button" className="card_menu_button add_button shadow" onClick={addBank}></button>
                         <button type="button" className="card_menu_button refresh_button shadow" onClick={loadBank}></button>
                     </div>

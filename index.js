@@ -6,9 +6,9 @@ import path from 'path';
 import dotenv from 'dotenv';
 import bodyParser from 'express';
 import userRoutes from './routes/users.js';
-import houseRoutes from './routes/houses.js';
+import roomRoutes from './routes/rooms.js';
 import bankRoutes from './routes/banks.js';
-import categoryRoutes from './routes/categories.js';
+import courseRoutes from './routes/courses.js';
 
 const app = express();
 const __dirname = path.resolve();
@@ -22,9 +22,9 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.use('/users', userRoutes);
-app.use('/houses', houseRoutes);
+app.use('/rooms', roomRoutes);
 app.use('/banks', bankRoutes);
-app.use('/categories', categoryRoutes);
+app.use('/courses', courseRoutes);
 
 const dbUri = process.env.MONGODB_URI;
 

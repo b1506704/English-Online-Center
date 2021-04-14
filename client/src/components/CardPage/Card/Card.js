@@ -2,16 +2,15 @@ import {React, useRef, useState} from 'react';
 import FileBase from 'react-file-base64';
 import {useDispatch, useSelector} from 'react-redux';
 import LoadingContainer from '../../../utils/LoadingContainer/LoadingContainer';
-import GoogleMap from '../../../utils/GoogleMap/GoogleMap';
 import {
-  buyHouse, 
-  filterHouse, 
-  deleteHouse, 
+  registerRoom, 
+  filterRoom, 
+  deleteRoom, 
   deleteBank, 
-  deleteCategory, 
+  deleteCourse, 
   setNotification,
-  updateHouse,
-  updateCategory,
+  updateRoom,
+  updateCourse,
   updateBank,
   getUser
 } from '../../../actions/user_actions';
@@ -21,19 +20,15 @@ import Agribank from '../../../assets/imgs/agribank.png'
 import Sacombank from '../../../assets/imgs/sacombank.jpeg'
 import Vietcombank  from '../../../assets/imgs/vietcombank.png';
 
-const Card = ({house, category, bank, type, mode}) => {
-    const houseInputRef = 
+const Card = ({room, course, bank, type, mode}) => {
+    const roomInputRef = 
       {
-        categoryRef: useRef(null),
+        courseRef: useRef(null),
         priceRef: useRef(null),
-        area: useRef(null),
-        front: useRef(null),
-        direction: useRef(null),
-        address: useRef(null),
-        lat: useRef(null),
-        lng: useRef(null)
+        start: useRef(null),
+        end: useRef(null),
       };
-    const categoryInputRef = 
+    const courseInputRef = 
     {
       nameRef: useRef(null),
     };
@@ -48,16 +43,16 @@ const Card = ({house, category, bank, type, mode}) => {
     const [isEditing, setIsEditing] = useState(false);
     const [currentImg, setCurrentImg] = useState(null);
     const currentLoginUser = useSelector((state) => state.user_reducer.login);
-    const currentCategory = useSelector((state) => state.user_reducer.categoryList);
-    const currentHouse = useSelector((state) => state.user_reducer.houseList);
+    const currentCourse = useSelector((state) => state.user_reducer.courseList);
+    const currentRoom = useSelector((state) => state.user_reducer.roomList);
     const providerList = ["Agribank","BIDV","Sacombank","Vietcombank"];   
     const bankValueList = [2, 5, 10, 20, 100];   
     
     const countCtgByName = (name) => {
-      if (currentHouse) {
+      if (currentRoom) {
         let count = 0;
-        for (let i = 0; i < currentHouse.length; i++) {
-          if (currentHouse[i].category === name) {
+        for (let i = 0; i < currentRoom.length; i++) {
+          if (currentRoom[i].course === name) {
             count++;
           }
         }
@@ -67,9 +62,9 @@ const Card = ({house, category, bank, type, mode}) => {
 
     const countCtgBySell = (name) => {
       let count = 0;
-      if (currentHouse) {
-        for (let i = 0; i < currentHouse.length; i++) {
-          if (currentHouse[i].category === name && currentHouse[i].isBought === true) {
+      if (currentRoom) {
+        for (let i = 0; i < currentRoom.length; i++) {
+          if (currentRoom[i].course === name && currentRoom[i].isFull === true) {
             count++;
           }
         }
@@ -78,14 +73,14 @@ const Card = ({house, category, bank, type, mode}) => {
     }
 
     const onCardSelect = () => {
-      if (type === "category") {
-        dispatch(filterHouse(category.name));
+      if (type === "course") {
+        dispatch(filterRoom(course.name));
       }
-      if (type === "house") {
+      if (type === "room") {
         if (currentLoginUser === null || currentLoginUser === undefined) {
-          dispatch(setNotification("Cần đăng nhập để sử dụng chức năng này!"));
+          dispatch(setNotification("Please login first!"));
         } else {
-          dispatch(buyHouse(currentLoginUser.userName, house))
+          dispatch(registerRoom(currentLoginUser.userName, room))
           .then(() => dispatch(getUser(currentLoginUser.userName)));
         } 
       }
@@ -94,26 +89,22 @@ const Card = ({house, category, bank, type, mode}) => {
       setIsEditing(true);
     }
     const onCardUpdate = () => {
-      if (type === "house") {
-        const updatedHouse = {
-          price: houseInputRef.priceRef.current.value || null,
-          category: houseInputRef.categoryRef.current.value || null,
+      if (type === "room") {
+        const updatedRoom = {
+          price: roomInputRef.priceRef.current.value || null,
+          course: roomInputRef.courseRef.current.value || null,
           imgUrl:  currentImg ? currentImg : null,
-          area: houseInputRef.area.current.value || null,
-          front: houseInputRef.front.current.value || null,
-          direction: houseInputRef.direction.current.value || null,
-          address: houseInputRef.address.current.value || null,
-          lat: parseFloat(houseInputRef.lat.current.value) || null,
-          lng: parseFloat(houseInputRef.lng.current.value) || null
+          start: roomInputRef.start.current.value || null,
+          end: roomInputRef.end.current.value || null,
         };
-          dispatch(updateHouse(house.id, updatedHouse))
+          dispatch(updateRoom(room.id, updatedRoom))
           .then(() => setIsEditing(false));
-      } else if (type === "category") {
-          const updatedCategory = {
-            name: categoryInputRef.nameRef.current.value || category.name,
-            imgUrl: currentImg ? currentImg : category.imgUrl,
+      } else if (type === "course") {
+          const updatedCourse = {
+            name: courseInputRef.nameRef.current.value || course.name,
+            imgUrl: currentImg ? currentImg : course.imgUrl,
           };
-          dispatch(updateCategory(category.name, updatedCategory))
+          dispatch(updateCourse(course.name, updatedCourse))
           .then(() => setIsEditing(false));
       } else if (type === "bank") {
           const updatedBank = {
@@ -128,92 +119,65 @@ const Card = ({house, category, bank, type, mode}) => {
       setIsEditing(false);
     }
     const onCardDelete = () => {
-      if (type === "house") {
-        dispatch(deleteHouse(house.id));
+      if (type === "room") {
+        dispatch(deleteRoom(room.id));
       } else if (type === "bank") {
         dispatch(deleteBank(bank.id));
-      } else if (type === "category") {
-        dispatch(deleteCategory(category.name));
+      } else if (type === "course") {
+        dispatch(deleteCourse(course.name));
       }
     }
     
     return (
       <div className="card_detail shadow">
         <div className="title_bar shadow">
-          { type === "house" ? '#' + house.id : type === "category" ? '#' + category.name : type ==="bank" ? '#' + bank.id : null }            
+          { type === "room" ? '#' + room.id : type === "course" ? '#' + course.name : type ==="bank" ? '#' + bank.id : null }            
         </div>
         { 
-          type === "house" 
-          ? <div className="house_info">
-              <div> Loại nhà: &nbsp; 
-                { isEditing === false ? house.category
-                  : (<select ref={houseInputRef.categoryRef}>
-                      { currentCategory != null 
-                        ? currentCategory.map((ele, key) => (<option value={ele.name} key={key}>{ele.name}</option>))
+          type === "room" 
+          ? <div className="room_info">
+              <div> Course: &nbsp; 
+                { isEditing === false ? room.course
+                  : (<select ref={roomInputRef.courseRef}>
+                      { currentCourse != null 
+                        ? currentCourse.map((ele, key) => (<option value={ele.name} key={key}>{ele.name}</option>))
                         : null
                       }
                     </select>)
                 }
               </div>
-              <div> Giá: &nbsp;
-                { isEditing === false ? house.price + " Tỷ VND"
-                  : (<input ref={houseInputRef.priceRef} type="text" placeholder={house.price}></input>)
+              <div> Price: &nbsp;
+                { isEditing === false ? room.price + " VND"
+                  : (<input ref={roomInputRef.priceRef} type="text" placeholder={room.price}></input>)
                 }
               </div>
-              <div style={{color: "yellow"}}>Tình trạng: &nbsp;{house.isBought ? "Đã bán" : "Chưa bán"}</div>
-              <div style={{color: "yellow"}}>Người mua:&nbsp; {house.houseOwner}</div>
-              <div style={{color: "yellow"}}>Người bán:&nbsp; {house.houseSeller}</div>
-              <div> Diện tích:&nbsp;
-              { isEditing === false ? house.area + " m2"
-                : (<input ref={houseInputRef.area} type="text" placeholder={house.area}></input>)
+              <div style={{color: "red"}}>Status &nbsp;{room.isFull ? "Full" : "Ready"}</div>
+              <div style={{color: "red"}}>Participants:&nbsp; {room.roomParticipants}</div>
+              <div style={{color: "red"}}>Coacher:&nbsp; {room.roomCoacher}</div>
+              <div>Start:&nbsp;
+              { isEditing === false ? room.start
+                : (<input ref={roomInputRef.start} type="text" placeholder={room.start}></input>)
               }
               </div>
-              <div> Mặt tiền:&nbsp;
-              { isEditing === false ? house.front + " m2"
-                : (<input ref={houseInputRef.front} type="text" placeholder={house.front}></input>)
+              <div>End:&nbsp;
+              { isEditing === false ? room.end
+                : (<input ref={roomInputRef.end} type="text" placeholder={room.end}></input>)
               }
               </div>
-              <div> Hướng:&nbsp;
-              { isEditing === false ? house.direction
-                : (<input ref={houseInputRef.direction} type="text" placeholder={house.direction}></input>)
-              }
-              </div>
-              <div> Địa chỉ:&nbsp;
-                
-              { isEditing === false 
-                ? <>
-                    {house.address + ` (lat: ${house.lat}, lng: ${house.lng})`}
-                    <GoogleMap lat={house.lat} lng={house.lng}/>
-                  </>
-                : <>
-                    <input ref={houseInputRef.address} type="text" placeholder={house.address}></input>
-                    <div> Lat: 
-                      <input ref={houseInputRef.lat} type="text" placeholder={house.lat}></input>
-                    </div>
-                    <div> Lng: 
-                      <input ref={houseInputRef.lng} type="text" placeholder={house.lng}></input>
-                    </div>
-                    <div>
-                      <GoogleMap lat={house.lat} lng={house.lng}/>
-                    </div>
-                  </>
-              }
-              </div>
-              
             </div>
-          : type === "category" 
-            ? <div className="house_info">
-                <div> Loại nhà:
-                  { isEditing === false ? category.name
-                  : (<input ref={categoryInputRef.nameRef} type="text" placeholder={category.name}></input>)
+          : type === "course" 
+            ? <div className="room_info">
+                <div> Course Name:
+                  { isEditing === false ? course.name
+                  : (<input ref={courseInputRef.nameRef} type="text" placeholder={course.name}></input>)
                   }
                 </div>
-                <div style={{color: "yellow"}}> Số nhà rao bán:&nbsp; {countCtgByName(category.name) || null}</div>
-                <div style={{color: "yellow"}}> Đã bán:&nbsp; {countCtgBySell(category.name) || null}</div>
+                <div style={{color: "red"}}> Total Linked Room:&nbsp; {countCtgByName(course.name) || null}</div>
+                <div style={{color: "red"}}> Crowded Room: &nbsp; {countCtgBySell(course.name) || null}</div>
               </div>
               : type === "bank"
-                ? <div className="house_info">
-                    <div> Ngân hàng:&nbsp;
+                ? <div className="room_info">
+                    <div> Bank:&nbsp;
                         { isEditing === false ? bank.provider
                           : (<select ref={bankInputRef.providerRef}>
                               { providerList != null 
@@ -223,8 +187,8 @@ const Card = ({house, category, bank, type, mode}) => {
                             </select>)
                         }
                     </div>
-                    <div> Số dư: &nbsp;
-                        { isEditing === false ? bank.value + " Tỷ VND"
+                    <div> Balance: &nbsp;
+                        { isEditing === false ? bank.value + " Billion VND"
                           : (<select ref={bankInputRef.valueRef}>
                               { bankValueList != null 
                                 ? bankValueList.map((ele, key) => (<option value={ele} key={key}>{ele}</option>))
@@ -233,12 +197,12 @@ const Card = ({house, category, bank, type, mode}) => {
                             </select>)
                         }
                     </div>
-                    <div> Chủ sở hữu: &nbsp;
+                    <div> Owner: &nbsp;
                         { isEditing === false ? bank.owner
                           : null
                         }
                     </div>
-                    <div style={{color: "yellow"}}> Tình trạng:&nbsp;  {bank.isOwned ? "Đã liên kết" : "Chưa liên kết" }</div>
+                    <div style={{color: "red"}}> Status: &nbsp;  {bank.isOwned ? "Linked" : "Unlinked" }</div>
                   </div>
                   : null   
         }
@@ -246,8 +210,8 @@ const Card = ({house, category, bank, type, mode}) => {
           mode === "view"
           ? <>
               {
-                type === "house" ? <button type="button" className="card_button buy_button shadow" onClick={onCardSelect}></button>   
-                : type === "category" ? <button type="button" className="card_button browse_button shadow" onClick={onCardSelect}></button>
+                type === "room" ? <button type="button" className="card_button buy_button shadow" onClick={onCardSelect}></button>   
+                : type === "course" ? <button type="button" className="card_button browse_button shadow" onClick={onCardSelect}></button>
                 : null   
               } 
             </>
@@ -258,7 +222,7 @@ const Card = ({house, category, bank, type, mode}) => {
                   </button>) 
                 : <>
                   { type === "bank" ? null : (<div className="card_button base64_button shadow">
-                    Upload hình ảnh:
+                    Image Upload:
                     <FileBase className="base64"  type="file" multiple={false} onDone = {({base64}) => {setCurrentImg(base64)}}></FileBase>  
                   </div>)}
                   <button type="button" className="card_button cancel_button shadow" onClick={onCardCancel}>
@@ -275,13 +239,13 @@ const Card = ({house, category, bank, type, mode}) => {
             </>
         }
         <div className="image_container">
-          { type === "house" && (house.imgUrl || currentImg) ? 
-            (<img className="image" alt="Loading..." src={currentImg || house.imgUrl}/>)
-            : type === "category" && (category.imgUrl || currentImg ) ?
+          { type === "room" && (room.imgUrl || currentImg) ? 
+            (<img className="image" alt="Loading..." src={currentImg || room.imgUrl}/>)
+            : type === "course" && (course.imgUrl || currentImg ) ?
             (<img className="image" 
               alt="Loading..." 
               src={
-                currentImg || category.imgUrl
+                currentImg || course.imgUrl
             }/>)   
           : type === "bank" ?
             (<img className="image" 

@@ -30,13 +30,41 @@ const userSchema = mongoose.Schema({
         type: String,
         default: ''
     },
-    houseOwnList: Array,
-    houseSellList: Array,
+    //student
+    roomRegisterList: Array,
+    //coacher
+    roomCoachingList: Array,
+    //academic manager
+    
     isLogin: {
         type: Boolean,
         default: false
     },
-    isAdmin: {
+    isUser: {
+        type: Boolean,
+        default: true
+    },
+    isCoacher: {
+        type: Boolean,
+        default: false
+    },
+    isCenterManager: {
+        type: Boolean,
+        default: false
+    },
+    isMarketingManager: {
+        type: Boolean,
+        default: false
+    },
+    isSalesManager: {
+        type: Boolean,
+        default: false
+    },
+    isAcademicManager: {
+        type: Boolean,
+        default: false
+    },
+    isHRManager: {
         type: Boolean,
         default: false
     }

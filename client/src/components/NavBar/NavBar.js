@@ -1,6 +1,6 @@
 import { React, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { useHistory } from 'react-router-dom';
 import Modal from '../Modal/Modal';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
@@ -13,6 +13,7 @@ import './NavBar.css';
 const NavBar = ({userMode, userName}) => {
     const dispatch = useDispatch();
     const modal = useRef(null);
+    const history = useHistory();
     const [isLoginPageOpen, setIsLoginPageOpen] = useState(false);
     const [isCreditPageOpen, setIsCreditPageOpen] = useState(false);
     const [isRegisterPageOpen, setIsRegisterPageOpen] = useState(false);
@@ -20,7 +21,7 @@ const NavBar = ({userMode, userName}) => {
     const currentNotif = useSelector((state) => state.user_reducer.notif);
     return(
         <header>
-            <h1>Real <br></br>Estate<br></br> Service</h1>
+            <h1>English <br></br>Online<br></br>Center</h1>
             <nav>
                 {
                     userMode === "admin" || userMode === "user" 
@@ -75,7 +76,10 @@ const NavBar = ({userMode, userName}) => {
                     ? <a className="logout_nav" onClick={() => {
                         
                         dispatch(logout(currentUserInfo))
-                        .then(() => dispatch(setNotification("Đăng xuất thành công")));
+                        .then(() => {
+                            dispatch(setNotification("Logout successfully"));
+                            history.push('/');
+                        });
                         modal.current.close();
                         }}>
                         </a> 

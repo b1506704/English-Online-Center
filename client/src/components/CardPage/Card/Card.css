@@ -97,21 +97,21 @@
 
 .card_detail .card_button:hover {
   opacity: 1;
-  background-color: rgb(147, 194, 255);
+  background-color: rgba(0, 0, 0, 0.5);
 }
   
-.house_info {
+.room_info {
   position: absolute;
   padding-top: 100px;
   padding-bottom: 15px;
-  color: rgb(255, 255, 255);
+  color: rgb(3, 3, 3);
   height: 250px;
   width: 100%;
   bottom: 0vh;
   overflow-y: auto;
   background: transparent;
 }  
-.house_info div {
+.room_info div {
   text-align: left;
   margin-top: 8px;
   font-size: 15px;
@@ -119,7 +119,7 @@
   letter-spacing: 0.5px;
   padding-left: 20px;
 }
-.house_info div div {
+.room_info div div {
   padding-left: 0px;
 }
 .image_container {

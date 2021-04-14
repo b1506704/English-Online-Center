@@ -1,29 +1,32 @@
-import {React, useEffect, useState} from 'react';
+import {React, useEffect, useState, Suspense, lazy} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Route, Switch} from 'react-router-dom'
 
-import NavBar from './components/NavBar/NavBar';
-import HouseCategory from './components/HouseCategory/HouseCategory';
-import HouseList from './components/HouseList/HouseList';
-import UserPage from './components/UserPage/UserPage';
-import AdminPage from './components/AdminPage/AdminPage';
-import HeadingTitle from './components/HeadingTitle/HeadingTitle';
 import LoadingContainer from './utils/LoadingContainer/LoadingContainer';
-import Footer from './components/Footer/Footer';
-import {fetchHouse, fetchBank, fetchCategory } from './actions/user_actions';
+import {fetchRoom, fetchBank, fetchCourse } from './actions/user_actions';
 import './App.css';
+
+const LandingPage = lazy(() => import ('./components/LandingPage/LandingPage'));
+const UserPage = lazy(() => import ('./components/UserPage/UserPage'));
+const CoacherPage = lazy(() => import ('./components/CoacherPage/CoacherPage'));
+const SalesManagerPage = lazy(() => import ('./components/SalesManagerPage/SalesManagerPage'));
+const MarketingManagerPage = lazy(() => import ('./components/MarketingManagerPage/MarketingManagerPage'));
+const CenterManagerPage = lazy(() => import ('./components/CenterManagerPage/CenterManagerPage'));
+const AcademicManagerPage = lazy(() => import ('./components/AcademicManagerPage/AcademicManagerPage'));
+const HRPage = lazy(() => import ('./components/HRPage/HRPage'));
 
 const App = () => {
     const dispatch = useDispatch();
     const storeState = useSelector ((state) => state.user_reducer);
     const loginInfo = useSelector((state) => state.user_reducer.login);
-    const [title, setTitle] = useState("Dịch vụ mua bán bất động sản RealEstaee");
-    const [subTitle, setSubTitle] = useState("Giao dịch uy tín, nhanh chóng");
+    const [title, setTitle] = useState("English Online Center");
+    const [subTitle, setSubTitle] = useState("Real-time and highly interactive learning platform");
     
     console.log(storeState);
 
 
     useEffect(()=> {
-        dispatch(fetchHouse());
+        dispatch(fetchRoom());
     },[title]);
     
     useEffect(()=> {
@@ -31,30 +34,60 @@ const App = () => {
     },[title]);
 
     useEffect(()=> {
-        dispatch(fetchCategory());
+        dispatch(fetchCourse());
     },[title]);
+
     
-    if (loginInfo!= null && loginInfo.isAdmin === true) {
-        return (<AdminPage userName ={loginInfo.userName}/>);
-    } else if (loginInfo!= null && loginInfo.isAdmin === false){
-        return (
-            <UserPage user={loginInfo}/>
-        );
-    } else if (loginInfo === undefined || loginInfo === null){
-        return(
-            <div>
-                <NavBar/>
-                <main>
-                    <HeadingTitle title={title} subtitle={subTitle} />
-                    <HouseCategory/>
-                    <HouseList/>
-                    <Footer/>
-                </main>
-            </div>
-        );
-    } else {
-        return (<LoadingContainer style={"spinner"}/>)
-    }
+
+    // if (loginInfo!= null && loginInfo.isCoacher === true) {
+    //         return (<CoacherPage userName ={loginInfo.userName}/>);
+    //     } else if (loginInfo!= null && loginInfo.isCoacher === false){
+    //         return (
+    //             <UserPage user={loginInfo}/>
+    //         );
+    // }
+    
+    return (
+        <Suspense fallback={(<LoadingContainer style="bar"/>)}>
+            <Switch>
+                <Route exact path="/" >
+                    <LandingPage title={title} subTitle={subTitle}/>
+                </Route>
+                <Route exact path="/user">
+                    <UserPage user={loginInfo}/>
+                </Route>
+                <Route exact path="/coacher">
+                    <CoacherPage user={loginInfo}/>
+                </Route>
+                <Route exact path="/sales">
+                    <SalesManagerPage user={loginInfo}/>
+                </Route>
+            </Switch>
+        </Suspense>
+    );
+    
+
+    // if (loginInfo!= null && loginInfo.isCoacher === true) {
+    //     return (<CoacherPage userName ={loginInfo.userName}/>);
+    // } else if (loginInfo!= null && loginInfo.isCoacher === false){
+    //     return (
+    //         <UserPage user={loginInfo}/>
+    //     );
+    // } else if (loginInfo === undefined || loginInfo === null){
+    //     return(
+    //         <div>
+    //             <NavBar/>
+    //             <main>
+    //                 <HeadingTitle title={title} subtitle={subTitle} />
+    //                 <CourseList/>
+    //                 <RoomList/>
+    //                 <Footer/>
+    //             </main>
+    //         </div>
+    //     );
+    // } else {
+    //     return (<LoadingContainer style={"spinner"}/>)
+    // }
 }
 
 export default App;

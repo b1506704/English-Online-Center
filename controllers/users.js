@@ -3,7 +3,7 @@ import express from 'express';
 import isValidPurchase from '../middleware/transaction_auth.js';
 import User from '../models/user.js';
 import Bank from '../models/bank.js';
-import House from '../models/house.js';
+import Room from '../models/room.js';
 
 
 const router = express.Router();
@@ -82,39 +82,39 @@ export const addBank = async (req, res) => {
     }
 }
 
-export const buyHouse = async (req, res) => { 
+export const registerRoom = async (req, res) => { 
     const { userName } = req.params;
     const { id } = req.body;
-    //todo: reduce bank value
+    //todo: push user to room participants
     try {
         const user = await User.findOne({userName: userName});
-        const house = await House.findOne({id});
-        const seller = await User.findOne({userName: house.houseSeller});
+        const room = await Room.findOne({id});
+        const coacher = await User.findOne({userName: room.roomCoacher});
         const bank = await Bank.findOne({owner: user.userName});
-        if (house.isBought === false 
-            && isValidPurchase(user.balance,house.price)  
-            && user.userName != seller.userName
+        if (room.isFull === false 
+            && isValidPurchase(user.balance,room.price)  
+            && user.userName != coacher.userName
             ) {
-            const updatedHouse = await House.findOneAndUpdate({id: id},{isBought: true, houseOwner: userName}, {new: true});
-            const updatedSeller = await User.findOneAndUpdate(
-                {userName: seller.userName},
+            const updatedRoom = await Room.findOneAndUpdate({id: id},{isFull: true, roomParticipants: userName}, {new: true});
+            const updatedCoacher = await User.findOneAndUpdate(
+                {userName: coacher.userName},
                 {
-                    balance: seller.balance + updatedHouse.price,
-                    $push: {houseSellList: updatedHouse.id},
+                    balance: coacher.balance + updatedRoom.price,
+                    $push: {roomCoachingList: updatedRoom.id},
                 },
                 {new: true}
             );
             const updatedUser = await User.findOneAndUpdate(
                 {userName: userName},
                 {
-                    balance: user.balance - updatedHouse.price,
-                    $push: {houseOwnList: updatedHouse.id},
+                    balance: user.balance - updatedRoom.price,
+                    $push: {roomRegisterList: updatedRoom.id},
                 },
                 {new: true}
             );
             const updatedBank = await Bank.findOneAndUpdate(
                 {owner: bank.owner},
-                {value: bank.value - updatedHouse.price},
+                {value: bank.value - updatedRoom.price},
                 {new: true}
             );
 

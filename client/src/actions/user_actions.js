@@ -3,13 +3,13 @@ import {
   GET_USER,
   REGISTER_USER,
   LOGOUT_USER,
-  FETCH_HOUSE,
-  DELETE_HOUSE,
-  BUY_HOUSE,
-  FILTER_HOUSE,
-  FILTER_HOUSE_BY_PRICE,
-  CREATE_HOUSE,
-  UPDATE_HOUSE,
+  FETCH_ROOM,
+  DELETE_ROOM,
+  BUY_ROOM,
+  FILTER_ROOM,
+  FILTER_ROOM_BY_PRICE,
+  CREATE_ROOM,
+  UPDATE_ROOM,
   ADD_BANK,
   FETCH_BANK,
   DELETE_BANK,
@@ -29,9 +29,9 @@ export const login = (userInfo) => async (dispatch) => {
   try {
     const { data } = await api.login(userInfo);
     await dispatch({ type: LOGIN_USER, payload: data});
-    await dispatch(setNotification("Đăng nhập thành công"));
+    await dispatch(setNotification("Login successfully"));
   } catch (error) {
-    dispatch(setNotification("Đăng nhập thất bại"));
+    dispatch(setNotification("Login failed!"));
   }
 };
 
@@ -58,9 +58,9 @@ export const register = (userInfo) => async (dispatch) => {
   try {
     const { data } = await api.createUser(userInfo);
     await dispatch({ type: REGISTER_USER, payload: data});
-    await dispatch(setNotification(`Đăng ký thành công`));
+    await dispatch(setNotification("Register sucessfully"));
   } catch (error) {
-    dispatch(setNotification("Đăng ký thất bại"));
+    dispatch(setNotification("Register failed!"));
   }
 };
 
@@ -68,82 +68,82 @@ export const addBank = (userName, bankInfo) => async (dispatch) => {
   try {
     const { data } = await api.addBank(userName, bankInfo);
     await dispatch({ type: ADD_BANK, payload: data});
-    await dispatch(setNotification("Cập nhật thành công"));
+    await dispatch(setNotification("Update successfully"));
   } catch (error) {
-    dispatch(setNotification("Cập nhật thất bại"));
+    dispatch(setNotification("Update failed!"));
   }
 };
 
-export const filterHouse = (categoryName) => async (dispatch) => {
+export const filterRoom = (courseName) => async (dispatch) => {
   try {
-    await dispatch(fetchHouse());
-    await dispatch({ type: FILTER_HOUSE, payload: categoryName});
-    await dispatch(setNotification(`Duyệt theo ${categoryName} `));
+    await dispatch(fetchRoom());
+    await dispatch({ type: FILTER_ROOM, payload: courseName});
+    await dispatch(setNotification(`Filter with Course= ${courseName} `));
   } catch (error) {
     console.log(error.message);
   }
 };
 
-export const filterHouseByPrice = (price) => async (dispatch) => {
+export const filterRoomByPrice = (price) => async (dispatch) => {
   try {
-    await dispatch(fetchHouse());
-    await dispatch({ type: FILTER_HOUSE_BY_PRICE, payload: price});
-    await dispatch(setNotification(`Duyệt theo giá: ${price} `));
+    await dispatch(fetchRoom());
+    await dispatch({ type: FILTER_ROOM_BY_PRICE, payload: price});
+    await dispatch(setNotification(`Filter with Price= ${price} `));
   } catch (error) {
     console.log(error.message);
   }
 };
 
-export const buyHouse = (userName, houseInfo) => async (dispatch) => {
+export const registerRoom = (userName, roomInfo) => async (dispatch) => {
   try {
-    const { data } = await api.buyHouse(userName, houseInfo);
-    await dispatch({ type: BUY_HOUSE, payload: data});
-    await dispatch(fetchHouse());
-    await dispatch(setNotification("Mua thành công"));
+    const { data } = await api.registerRoom(userName, roomInfo);
+    await dispatch({ type: BUY_ROOM, payload: data});
+    await dispatch(fetchRoom());
+    await dispatch(setNotification("Enroll OK"));
   } catch (error) {
-    dispatch(setNotification("Mua thất bại"));
+    dispatch(setNotification("Cannot enroll!"));
   }
 };
 
-export const fetchHouse = () => async (dispatch) => {
+export const fetchRoom = () => async (dispatch) => {
   try {
-    const { data } = await api.fetchHouse();
-    dispatch({ type: FETCH_HOUSE, payload: data});
+    const { data } = await api.fetchRoom();
+    dispatch({ type: FETCH_ROOM, payload: data});
   } catch (error) {
     console.log(error.message);
   }
 };
 
-export const deleteHouse = (id) => async (dispatch) => {
+export const deleteRoom = (id) => async (dispatch) => {
   try {
-    const { data } = await api.deleteHouse(id);
-    await dispatch({ type: DELETE_HOUSE, payload: data});
-    await dispatch(fetchHouse());
-    await dispatch(setNotification("Xóa hoàn tất"));
+    const { data } = await api.deleteRoom(id);
+    await dispatch({ type: DELETE_ROOM, payload: data});
+    await dispatch(fetchRoom());
+    await dispatch(setNotification(`Deleted room #${id}`));
   } catch (error) {
-    dispatch(setNotification("Xóa thất bại"));
+    dispatch(setNotification("Delete failed!"));
   }
 };
 
-export const updateHouse = (id, houseInfo) => async (dispatch) => {
+export const updateRoom = (id, roomInfo) => async (dispatch) => {
   try {
-    const { data } = await api.updateHouse(id, houseInfo);
-    await dispatch({ type: UPDATE_HOUSE, payload: data});
-    await dispatch(fetchHouse());
-    await dispatch(setNotification("Cập nhật hoàn tất"));
+    const { data } = await api.updateRoom(id, roomInfo);
+    await dispatch({ type: UPDATE_ROOM, payload: data});
+    await dispatch(fetchRoom());
+    await dispatch(setNotification(`Updated room ${id}`));
   } catch (error) {
-    dispatch(setNotification("Cập nhật thất bại"));
+    dispatch(setNotification("Update failed!"));
   }
 };
 
-export const createHouse = (houseInfo) => async (dispatch) => {
+export const createRoom = (roomInfo) => async (dispatch) => {
   try {
-    const { data } = await api.createHouse(houseInfo);
-    await dispatch({ type: CREATE_HOUSE, payload: data});
-    await dispatch(fetchHouse());
-    await dispatch(setNotification("Thêm hoàn tất"));
+    const { data } = await api.createRoom(roomInfo);
+    await dispatch({ type: CREATE_ROOM, payload: data});
+    await dispatch(fetchRoom());
+    await dispatch(setNotification(`Added room ${roomInfo.id}`));
   } catch (error) {
-    dispatch(setNotification("Thêm thất bại"));
+    dispatch(setNotification("Add failed!"));
   }
 };
 
@@ -161,9 +161,9 @@ export const deleteBank = (id) => async (dispatch) => {
     const { data } = await api.deleteBank(id);
     await dispatch({ type: DELETE_BANK, payload: data});
     await dispatch(fetchBank());
-    await dispatch(setNotification("Xóa hoàn tất"));
+    await dispatch(setNotification(`Delete bank #${id}`));
   } catch (error) {
-    dispatch(setNotification("Xóa thất bại"));
+    dispatch(setNotification("Delete failed!"));
   }
 };
 
@@ -172,9 +172,9 @@ export const createBank = (bankInfo) => async (dispatch) => {
     const { data } = await api.createBank(bankInfo);
     await dispatch({ type: CREATE_BANK, payload: data});
     await dispatch(fetchBank());
-    await dispatch(setNotification("Thêm hoàn tất"));
+    await dispatch(setNotification(`Added bank #${bankInfo.id}`));
   } catch (error) {
-    dispatch(setNotification("Thêm thất bại"));
+    dispatch(setNotification("Add failed!"));
   }
 };
 export const updateBank = (id, bankInfo) => async (dispatch) => {
@@ -182,51 +182,51 @@ export const updateBank = (id, bankInfo) => async (dispatch) => {
     const { data } = await api.updateBank(id, bankInfo);
     await dispatch({ type: UPDATE_BANK, payload: data});
     await dispatch(fetchBank());
-    await dispatch(setNotification("Cập nhật hoàn tất"));
+    await dispatch(setNotification(`Updated bank ${id}`));
   } catch (error) {
-    dispatch(setNotification("Cập nhật thất bại"));
+    dispatch(setNotification("Update failed!"));
   }
 };
-//category action
-export const fetchCategory = () => async (dispatch) => {
+//course action
+export const fetchCourse = () => async (dispatch) => {
   try {
-    const { data } = await api.fetchCategory();
+    const { data } = await api.fetchCourse();
     dispatch({ type: FETCH_CATEGORY, payload: data});
   } catch (error) {
     console.log(error.message);
   }
 };
 
-export const deleteCategory = (name) => async (dispatch) => {
+export const deleteCourse = (name) => async (dispatch) => {
   try {
-    const { data } = await api.deleteCategory(name);
+    const { data } = await api.deleteCourse(name);
     await dispatch({ type: DELETE_CATEGORY, payload: data});
-    await dispatch(fetchCategory());
-    await dispatch(setNotification("Xóa hoàn tất"));
+    await dispatch(fetchCourse());
+    await dispatch(setNotification(`Deleted course ${id}`));
   } catch (error) {
-    dispatch(setNotification("Xóa thất bại"));
+    dispatch(setNotification("Delete failed!"));
   }
 };
 
-export const createCategory = (categoryInfo) => async (dispatch) => {
+export const createCourse = (courseInfo) => async (dispatch) => {
   try {
-    const { data } = await api.createCategory(categoryInfo);
+    const { data } = await api.createCourse(courseInfo);
     await dispatch({ type: CREATE_CATEGORY, payload: data});
-    await dispatch(fetchCategory());
-    await dispatch(setNotification("Thêm hoàn tất"));
+    await dispatch(fetchCourse());
+    await dispatch(setNotification(`Added course ${courseInfo.name}`));
   } catch (error) {
     dispatch(setNotification("Thêm thất bại"));
   }
 };
 
-export const updateCategory = (name, categoryInfo) => async (dispatch) => {
+export const updateCourse = (name, courseInfo) => async (dispatch) => {
   try {
-    const { data } = await api.updateCategory(name, categoryInfo);
+    const { data } = await api.updateCourse(name, courseInfo);
     await dispatch({ type: UPDATE_CATEGORY, payload: data});
-    await dispatch(fetchCategory());
-    await dispatch(setNotification("Cập nhật hoàn tất"));
+    await dispatch(fetchCourse());
+    await dispatch(setNotification(`Updated course ${name}`));
   } catch (error) {
-    dispatch(setNotification("Cập nhật thất bại"));
+    dispatch(setNotification("Update failed!"));
   }
 };
 

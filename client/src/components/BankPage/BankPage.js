@@ -44,17 +44,17 @@ const BankPage = ({close}) => {
     return(
         <div className="bank_container shadow">
             <div ref={modalRef} className="scroll_position_holder"></div>
-            <h1>Nhập Thông Tin Thẻ</h1>
+            <h1>Credit Card</h1>
             <form onSubmit={(e) => {
                     e.preventDefault();
-                    setBankInfo({id: e.target.ma_the.value, provider: selectedCreName});
+                    setBankInfo({id: e.target.series_number.value, provider: selectedCreName});
                 }}>
                 <div>
-                    <label>Mã Thẻ:</label>
-                    <input type="text" autoFocus={true} name="ma_the"></input>
+                    <label>Series Number:</label>
+                    <input type="text" autoFocus={true} name="series_number"></input>
                 </div>
                 <div>
-                    <label>Ngân Hàng:</label>
+                    <label>Bank:</label>
                     <select value={selectedCreName} onChange={onCreNameChange}>
                         {bankName.map((item, key) => (
                             <option value={item} key={key}>
@@ -65,8 +65,8 @@ const BankPage = ({close}) => {
                 </div>
                 
                 <div className="button_container">
-                    <input type="submit" className="drop_shadow" value="Lưu"></input>
-                    <input type="button" className="drop_shadow" value="Thoát" onClick={close}></input>
+                    <input type="submit" className="drop_shadow" value="Save"></input>
+                    <input type="button" className="drop_shadow" value="Close" onClick={close}></input>
                 </div>
             </form>
             

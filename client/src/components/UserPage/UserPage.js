@@ -2,18 +2,18 @@ import React from 'react';
 
 import NavBar from '../NavBar/NavBar';
 import HeadingTitle from '../HeadingTitle/HeadingTitle';
-import HouseCategory from '../HouseCategory/HouseCategory';
-import HouseList from '../HouseList/HouseList';
+import CourseList from '../CourseList/CourseList';
+import RoomList from '../RoomList/RoomList';
 import Footer from '../Footer/Footer';
 
 const UserPage = ({user}) => {
     return(
         <div>
-            <NavBar userName={user.userName} userMode="user"/>
+            <NavBar userName={user ? user.userName : ''} userMode="user"/>
             <main>
-                <HeadingTitle title={`Chào mừng ${user.userName} đến với sàn giao dịch`} subtitle={"Giao dịch uy tín, chất lượng"}/>
-                <HouseCategory/>
-                <HouseList/>
+                <HeadingTitle title={`Welcome to English Online Center Mr/Ms ${user ? user.userName : ''}`} subtitle={"It's a pleasure to have you here with us!"}/>
+                <CourseList/>
+                <RoomList/>
                 <Footer/>
             </main>
         </div>

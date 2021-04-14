@@ -31,7 +31,7 @@ html {
 }
 body {
 	height: 100%;
-	background: url('./assets/imgs/background.jpg') no-repeat center center fixed; 
+	background: url('./assets/imgs/abstract-city-background.jpg') no-repeat center center fixed; 
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -40,7 +40,7 @@ body {
 	margin: 0;
 }
 h1, h2, h3, h4, h5 {
-	color: #f1dfdf;
+	color: #fffdfd;
 }
 
 main {

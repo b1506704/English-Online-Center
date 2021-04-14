@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useDispatch , useSelector} from 'react-redux';
-import { getUser, createHouse, setNotification } from '../../../actions/user_actions';
+import { getUser, createRoom, setNotification } from '../../../actions/user_actions';
 import FileBase from 'react-file-base64';
 import random from '../../../utils/RandomNumber';
 
@@ -9,17 +9,13 @@ import './UserInfo.css';
 const UserInfo = () => {
     const dispatch = useDispatch();
     const [currentImg, setCurrentImg] = useState(null);
-    const currentCategory = useSelector((state) => state.user_reducer.categoryList);
-    const houseInputRef = 
+    const currentCourse = useSelector((state) => state.user_reducer.courseList);
+    const roomInputRef = 
     {
-        categoryRef: useRef(null),
+        courseRef: useRef(null),
         priceRef: useRef(null),
-        area: useRef(null),
-        front: useRef(null),
-        direction: useRef(null),
-        address: useRef(null),
-        lat: useRef(null),
-        lng: useRef(null)
+        start: useRef(null),
+        end: useRef(null),
     };
     const currentLoginUser = useSelector((state) => state.user_reducer.login);
     const user = useSelector((state) => state.user_reducer.currentUser);
@@ -30,96 +26,77 @@ const UserInfo = () => {
         }
     },[currentLoginUser]);
 
-    const onHouseUpload = () => {
-        const uploadHouse = 
+    const onRoomUpload = () => {
+        const uploadRoom = 
         {
             id: random(1,10000),  
-            price: houseInputRef.priceRef.current.value || null,
-            category: houseInputRef.categoryRef.current.value || null,
+            price: roomInputRef.priceRef.current.value || null,
+            course: roomInputRef.courseRef.current.value || null,
             imgUrl:  currentImg ? currentImg : null,
-            houseSeller:  user ? user.userName : null,
-            area: houseInputRef.area.current.value || null,
-            front: houseInputRef.front.current.value || null,
-            direction: houseInputRef.direction.current.value || null,
-            address: houseInputRef.address.current.value || null,
-            lat: parseFloat(houseInputRef.lat.current.value) || null,
-            lng: parseFloat(houseInputRef.lng.current.value) || null
+            roomCoacher:  user ? user.userName : null,
+            start: roomInputRef.start.current.value || null,
+            end: roomInputRef.end.current.value || null,
         };
-        dispatch(createHouse(uploadHouse));
+        dispatch(createRoom(uploadRoom));
         
     }
 
     const refresh = () => {
         dispatch(getUser(currentLoginUser.userName))
-        .then(() => dispatch(setNotification("Làm mới thành công")));
+        .then(() => dispatch(setNotification("Successfully Updated")));
     }
 
     return(
         <div className="user_info_container shadow">
             <h2 className="icon"> {"||"} </h2>
-            <h2 className="title"> Thông Tin Người Dùng { user ? user.userName : null} </h2>
+            <h2 className="title"> User Information  </h2>
             <div className="info_panel">
                 <div> 
                     <button type="button" className="shadow refresh_button" onClick={refresh}></button>
                 </div>
                 
-                {currentLoginUser && currentLoginUser.isAdmin === true ?
-                <> 
-                <div style={{color: "yellow"}}> Thu Nhập: { user ? user.balance : null} Tỷ VND</div>
-                <div> Nhà Đã Bán Được: &nbsp; 
+                {currentLoginUser && currentLoginUser.isCoacher === true ?
+                <>
+                <div> Username: { user ? user.userName : null}</div> 
+                <div style={{color: "yellow"}}> Balance: { user ? user.balance : null} VND</div>
+                <div> Coaching Rooms: &nbsp; 
                 </div> 
                     {
-                        user ? user.houseSellList.map((e,k) => (<span key={k}>{e}</span>)) : 'Chưa có'
+                        user ? user.roomCoachingList.map((e,k) => (<span key={k}>{e}</span>)) : null
                     } 
                 </>
                 : null}
                 
-                {currentLoginUser && currentLoginUser.isAdmin === false ?
+                {currentLoginUser && currentLoginUser.isCoacher === false ?
                     <> 
                         <div> Email: { user ? user.email : null}</div>
-                        <div style={{color: "yellow"}}> Mã Thẻ Ngân Hàng: { user ? user.bankID : null}</div>
-                        <div style={{color: "yellow"}}> Ngân Hàng: { user ? user.bankProvider : null}</div>
-                        <div style={{color: "yellow"}}> Số Dư Tài Khoản: { user ? user.balance : null} Tỷ VND</div>
-                        <div> Nhà Đã Mua: &nbsp; 
+                        <div style={{color: "yellow"}}> Series Number: { user ? user.bankID : null}</div>
+                        <div style={{color: "yellow"}}> Bank: { user ? user.bankProvider : null}</div>
+                        <div style={{color: "yellow"}}> Bank Balance: { user ? user.balance : null} VND</div>
+                        <div> Register Rooms: &nbsp; 
                         </div>
                             {
-                                user ? user.houseOwnList.map((e,k) => (<span key={k}>{e}</span>)) : 'Chưa có'
+                                user ? user.roomRegisterList.map((e,k) => (<span key={k}>{e}</span>)) : null
                             } 
-                        <div> Nhà Đã Bán Được: &nbsp; 
-                        </div>
-                            {
-                                user ? user.houseSellList.map((e,k) => (<span key={k}>{e}</span>)) : 'Chưa có'
-                            } 
-                        <div style={{backgroundColor: "black", paddingLeft: "15vh"}}> Đăng tin bán nhà </div>
-                        <div> Loại Nhà: &nbsp; 
-                            <select ref={houseInputRef.categoryRef}>
-                                { currentCategory != null 
-                                ? currentCategory.map((ele, key) => (<option value={ele.name} key={key}>{ele.name}</option>))
+                        {/* <div style={{backgroundColor: "black", paddingLeft: "15vh"}}> Đăng tin bán nhà </div>
+                        <div> Khóa Học: &nbsp; 
+                            <select ref={roomInputRef.courseRef}>
+                                { currentCourse != null 
+                                ? currentCourse.map((ele, key) => (<option value={ele.name} key={key}>{ele.name}</option>))
                                 : null
                                 }
                             </select>
                         </div>
-                        <div> Giá: &nbsp;
-                            <input ref={houseInputRef.priceRef} type="text"></input>
+                        <div> Price: &nbsp;
+                            <input ref={roomInputRef.priceRef} type="text"></input>
                         </div>
-                        <div> Diện Tích:&nbsp;
-                            <input ref={houseInputRef.area} type="text"></input>
+                        <div> Giờ Bắt Đầu:&nbsp;
+                            <input ref={roomInputRef.start} type="text"></input>
                         </div>
-                        <div> Mặt Tiền:&nbsp;
-                            <input ref={houseInputRef.front} type="text"></input>
+                        <div> Giờ Kết Thúc: &nbsp;
+                            <input ref={roomInputRef.end} type="text"></input>
                         </div>
-                        <div> Hướng:&nbsp;
-                            <input ref={houseInputRef.direction} type="text"></input>
-                        </div>
-                        <div> Địa chỉ:&nbsp;
-                            <input ref={houseInputRef.address} type="text"></input>
-                        </div>
-                        <div> Lat:&nbsp;
-                            <input ref={houseInputRef.lat} type="text"></input>
-                        </div>
-                        <div> Lng:&nbsp;
-                            <input ref={houseInputRef.lng} type="text"></input>
-                        </div>
+                       
                         <div>
                             <FileBase className="base64"  type="file" multiple={false} onDone = {({base64}) => {setCurrentImg(base64)}}></FileBase>  
                         </div>
@@ -127,8 +104,8 @@ const UserInfo = () => {
                             <img className="image" alt="Chọn Anh Để Upload" src={currentImg}/>
                         </div>
                         <div> 
-                            <button type="button" className="shadow upload_button" onClick={onHouseUpload}></button>
-                        </div>
+                            <button type="button" className="shadow upload_button" onClick={onRoomUpload}></button>
+                        </div> */}
                     </>
                     : null
                 }

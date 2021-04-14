@@ -11,9 +11,9 @@
 	width: 100%;
 	letter-spacing: 2px;
 	font-size: 50px;
-	border-top: bisque solid 2px;
-	border-bottom: bisque solid 2px;
-	color: rgb(255, 255, 255);
+	border-top: rgb(0, 0, 0) solid 2px;
+	border-bottom: rgb(0, 0, 0) solid 2px;
+	color: rgb(15, 15, 15);
 	padding-bottom: 15px;
 	padding-top: 25px;
 }
@@ -22,7 +22,8 @@
 	margin: 0;
 	width: 100%;
 	font-size: 34px;
-	color: rgb(252, 189, 189);
+	font-weight: bold;
+	color: rgb(25, 35, 44);
 	letter-spacing: 2px;
 	padding-bottom: 10px;
 	padding-top: 10px;

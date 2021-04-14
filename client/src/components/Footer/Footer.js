@@ -7,7 +7,7 @@ const Footer = () => {
     return(
         <footer>
             <div className="content-wrapper">
-                <h1>&copy; { date.getFullYear() }, Real Estate Shop</h1>
+                <h1>&copy; { date.getFullYear() }, English Online Center. Developed by Le Bao Anh - B1506704 from CTU </h1>
             </div>
         </footer>
     );

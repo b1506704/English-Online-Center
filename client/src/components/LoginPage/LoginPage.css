@@ -36,15 +36,15 @@
      border-radius: 5px;
  }
  .login_container input[type=submit], .login_container input[type=button]  {
-     height: 80px;
-     width: 80px;
-     font-size: 20px;
-     border-radius: 100%;
-     color: rgb(233, 223, 223);
-     border-style: none;
-     background-color: rgb(78, 68, 68);
-     transition: all 0.35s ease-in-out;
-     margin: 0;
+    height: 80px;
+    width: 80px;
+    font-size: 20px;
+    border-radius: 100%;
+    color: rgb(233, 223, 223);
+    border-style: none;
+    background-color: rgb(78, 68, 68);
+    transition: all 0.35s ease-in-out;
+    margin: 0;
  }
  .button_container {
      display: flex;

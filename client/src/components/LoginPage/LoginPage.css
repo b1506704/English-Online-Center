@@ -1,0 +1,71 @@
+.login_container {
+    height: 0px;
+    opacity: 0;
+    width: 450px;
+    background-color: rgba(5, 1, 1, 0.507);
+    border-radius: 15px;
+    animation-name: appear_h430;
+    animation-duration: 0.85s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+ }
+ .login_container h1 {
+     text-align: center;
+     width: 100%;
+     margin-bottom: 25px;
+     margin-top: 25px;
+ }
+ .login_container div {
+     padding-left: 100px;
+     padding-right: 100px;
+     width: 100%;
+     margin-bottom: 25px;
+ }
+ .login_container div label {
+     font-size: 30px;
+     font-weight: bold;
+ }
+ .login_container input[type='text'], .login_container input[type='password'] {
+     color: rgb(255, 255, 255);
+     font-size: 25px;
+     font-weight: bold;
+     padding: 5px;
+     height: 40px;
+     width: 250px;
+     background-color: rgba(233, 233, 216, 0.6);
+     border-radius: 5px;
+ }
+ .login_container input[type=submit], .login_container input[type=button]  {
+     height: 80px;
+     width: 80px;
+     font-size: 20px;
+     border-radius: 100%;
+     color: rgb(233, 223, 223);
+     border-style: none;
+     background-color: rgb(78, 68, 68);
+     transition: all 0.35s ease-in-out;
+     margin: 0;
+ }
+ .button_container {
+     display: flex;
+     justify-content: space-evenly;
+     align-items: center;
+     margin: 0;
+ }
+ .login_container input[type=submit]:hover, .login_container input[type=button]:hover {
+     transform: scale(1.05);
+ }
+ .login_container .scroll_position_holder {
+     position: relative;
+     top: -25vh;
+ }
+ @keyframes appear_h430 {
+    from {
+       height: 0;
+       opacity: 0;
+    }
+    to {
+       height: 430px;
+       opacity: 1;
+    }
+}

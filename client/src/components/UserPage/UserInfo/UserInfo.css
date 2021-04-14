@@ -1,0 +1,105 @@
+.user_info_container {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    top: 20vh;
+    right: 0vh;
+    height: 400px;
+    width: 0px;
+    overflow-x: hidden;
+    border-radius: 5px;
+    padding-left: 0px;
+    padding-right: 25px;
+    background-color: rgba(24, 23, 22, 0.582);
+    transition: all 0.4s ease-out;
+}
+.user_info_container:hover {
+    width: 410px;
+    overflow-y: auto;
+}
+
+.user_info_container .title {
+    position: sticky;
+    top: 0;
+    color: rgb(252, 252, 252);
+}
+.user_info_container span {
+    color: rgb(235, 199, 199);
+    background-color: rgb(65, 65, 59);
+    border-radius: 5px;
+    padding: 5px;
+}
+.user_info_container .icon {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center ;
+    height: 100%;
+    width: 25px;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    background-color: black;
+    color: rgb(252, 252, 252);
+}
+.user_info_container .info_panel {
+    position: relative;
+    display: flex;
+    overflow: auto;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items:center ;
+    left: 5vh;
+    top: 0vh;
+    color: rgb(252, 252, 252);
+}
+.user_info_container div {
+    margin-top: 2vh;
+    display: flex;
+    padding-right: 10px;
+    letter-spacing: 2px;
+    justify-content: space-between;
+    align-items: center;
+    word-wrap: break-word;
+    width: 100%;
+    font-size: 20px;
+}
+.user_info_container div .image {
+   height: 100%;
+   border-radius: 5px;
+   width: 100%;
+}
+.user_info_container button {
+    height: 50px;
+    width: 100%;
+    margin-bottom: 10px;
+    border-style: none;
+    background-size: contain;
+    background-position: center top;
+    background-repeat: no-repeat;
+    color: transparent;
+    transition: all 0.5s ease-in-out;
+}
+.user_info_container button .refresh_button {
+    background: url("../../../assets/imgs/refresh.png");
+}
+.user_info_container .upload_button {
+    background-size: contain !important;
+    background-position: center top !important;
+    background-repeat: no-repeat !important;
+    background: url("../../../assets/imgs/upload.png");
+}
+.user_info_container button:hover {
+    background-color: rgba(177, 195, 255, 0.288);
+}
+
+.user_info_container input, .user_info_container select {
+    font-size: 18px;
+    border-radius: 5px;
+    padding-left: 1vh;
+    color: rgb(255, 253, 253);
+    background-color: rgba(19, 18, 18, 0.678);
+    width: 200px;
+}

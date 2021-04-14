@@ -1,0 +1,143 @@
+.card_detail {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  border: transparent;
+  background: #b9c3ce71;
+  user-select: none;
+  overflow: hidden;
+  min-height: 400px;
+  width: 310px;
+  border-radius: 10px;
+  margin-top: 25px;
+  font-weight: 1000;
+  margin-bottom: 25px;
+  transition: all 0.3s ease-in-out;
+}
+.card_detail:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 5px #fff, 0 0 10px #fff;
+}
+.card_detail .title_bar {
+  position: absolute;
+  top: 5vh;
+  text-align: right;
+  padding-right: 10px;
+  border: transparent;
+  background: rgba(50, 52, 53, 0.651);
+  user-select: none;
+  overflow: hidden;
+  height: 40px; 
+  color: rgb(215, 234, 255);
+  font-size: 25px;
+  width: 100%;
+  z-index: 2;
+}
+.card_detail input, .card_detail select {
+  background-color:rgba(237, 243, 248, 0.801);
+  position: absolute;
+  color: black;
+  height: 20px;
+  width: 80px;
+  right: 2vh;
+  font-weight: bold;
+  text-align: center;
+  margin-left: 2vh;
+  border-radius: 5px;
+}
+.card_detail .card_button {
+  position: absolute;
+  opacity: 0.3;
+  bottom: 3vh;
+  border-style: none;
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+  color: transparent;
+  user-select: none;
+  overflow: hidden;
+  height: 33px; 
+  width: 100%;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.browse_button {
+  background: url("../../../assets/imgs/filter.png");
+}
+.buy_button {
+  background: url("../../../assets/imgs/shopping-cart.png");
+}
+.edit_button {
+  background: url("../../../assets/imgs/pencil.png");
+  bottom: 23vh !important;
+}
+.save_button {
+  background: url("../../../assets/imgs/save.png");
+  bottom: 23vh !important;
+}
+.base64_button {
+  display: flex !important;
+  align-items: center !important;
+  text-align: left !important;
+  font-size: 15px;
+  padding-left: 15px;
+  justify-content: flex-start !important;
+  bottom: 38vh !important;
+}
+.delete_button {
+  background: url("../../../assets/imgs/trash-bin.png");
+  bottom: 55vh !important;
+}
+.cancel_button {
+  background: url("../../../assets/imgs/cancel.png");
+  bottom: 30vh !important;
+}
+
+.card_detail .card_button:hover {
+  opacity: 1;
+  background-color: rgb(147, 194, 255);
+}
+  
+.house_info {
+  position: absolute;
+  padding-top: 100px;
+  padding-bottom: 15px;
+  color: rgb(255, 255, 255);
+  height: 250px;
+  width: 100%;
+  bottom: 0vh;
+  overflow-y: auto;
+  background: transparent;
+}  
+.house_info div {
+  text-align: left;
+  margin-top: 8px;
+  font-size: 15px;
+  font-family: Detail;
+  letter-spacing: 0.5px;
+  padding-left: 20px;
+}
+.house_info div div {
+  padding-left: 0px;
+}
+.image_container {
+  position: absolute;
+  top: -0.5vh;
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  justify-content: center;
+  height: 250px;
+  z-index: 1;
+  width: 101%; 
+}
+.image_container .image {
+  height: 100%;
+  width: 100%; 
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+

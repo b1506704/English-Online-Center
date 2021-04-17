@@ -10,7 +10,7 @@
 
 @font-face {
 	font-family: Overall;
-	src: url('./assets/fonts/SVN-Elle NovaC-Extra-Light.ttf');
+	src: url('./assets/fonts/SVN-Elle\ NovaC-Extra-Light.ttf');
 }
   
 @font-face {
@@ -25,6 +25,9 @@
 }
 .neon {
 	text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #9dd7e6, 0 0 20px rgb(123, 163, 204);
+}
+.neon_border {
+	box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #9dd7e6, 0 0 20px rgb(123, 163, 204);
 }
 html {
   scroll-behavior: smooth;

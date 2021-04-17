@@ -46,7 +46,7 @@ const Card = ({room, course, bank, type, mode}) => {
     const currentCourse = useSelector((state) => state.user_reducer.courseList);
     const currentRoom = useSelector((state) => state.user_reducer.roomList);
     const providerList = ["Agribank","BIDV","Sacombank","Vietcombank"];   
-    const bankValueList = [2, 5, 10, 20, 100];   
+    const bankValueList = [200000, 500000, 1000000, 2000000, 1000000];   
     
     const countCtgByName = (name) => {
       if (currentRoom) {

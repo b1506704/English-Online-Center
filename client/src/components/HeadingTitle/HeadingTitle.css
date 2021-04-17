@@ -22,9 +22,10 @@
 	z-index: 999;
     display: inline-block;
 	margin: 0;
-	width: 100%;
+	width: 80%;
 	font-size: 20px;
 	font-weight: bold;
+	border-bottom: rgb(0, 0, 0) solid 2px;
 	color: rgb(25, 35, 44);
 	letter-spacing: 2px;
 	padding-bottom: 10px;

@@ -1,4 +1,4 @@
-import {Children, React, useRef, useState} from 'react';
+import { React, useEffect, useRef, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {Carousel} from 'react-responsive-carousel'
 
@@ -15,7 +15,7 @@ const CardList = ({context}) => {
     const bankList = useSelector((state) => state.user_reducer.bankList);
     const courseList = useSelector((state) => state.user_reducer.courseList);
     const bankProvider = ["Agribank","BIDV","Sacombank","Vietcombank"];   
-    const bankValue = [2, 5, 10, 20, 50, 100];   
+    const bankValue = [200000, 500000, 1000000, 2000000, 5000000, 1000000];   
     const searchInput = useRef(null);
     const [currentItem, setCurrentItem] = useState(0);
 
@@ -69,28 +69,32 @@ const CardList = ({context}) => {
         .then(() => dispatch(setNotification("Successfully Updated")));
     }
     
-    const searchByPrice = (e) => {
+    const searchByID = (e) => {
         e.preventDefault();
-        const price = parseFloat(searchInput.current.value);
-        if (isNaN(price)) {
-            dispatch(setNotification("Not A Valid Value"));
+        const id = searchInput.current.value;
+        if (id.trim() === '') {
+            dispatch(setNotification("Please enter id"));
         } else {
-            dispatch(filterRoomByPrice(price));
+            dispatch(filterRoomByPrice(id));
         }
     }
 
+    useEffect (() => {
+        if (roomList) setCurrentItem(0);
+    },[roomList]);
+    
     const customCarousel  = (children) => (
         <Carousel 
             className="card_container"
             centerMode={true} 
             centerSlidePercentage={65} 
             swipeable
-            autoPlay 
-            infiniteLoop 
+            showIndicators={false} 
             useKeyboardArrows
-            stopOnHove={false}
+            stopOnHove={true}
             showThumbs={false}
             showStatus={false}
+            selectedItem={currentItem}
             onChange= {(key,card) => setCurrentItem(key)}
         >
             {children}
@@ -103,8 +107,8 @@ const CardList = ({context}) => {
                 <div className="card_page">
                     <div className="card_header"> <b>Room ({currentItem + 1} of {roomList ? roomList.length : 0})</b> 
                         <button type="button" className="card_menu_button refresh_button_user shadow" onClick={loadRoom}></button>
-                        <form onSubmit={(e) => searchByPrice(e)}>
-                            <input type="text" ref={searchInput} className="shadow" placeholder="Search by price"></input>
+                        <form onSubmit={(e) => searchByID(e)}>
+                            <input type="text" ref={searchInput} className="shadow" placeholder="Search by id"></input>
                             <input type="submit" className="shadow"></input>
                         </form>
                     </div>

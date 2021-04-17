@@ -9,6 +9,7 @@ import Notification from './Notification/Notification';
 import UserInfo from '../views/UserPage/UserInfo/UserInfo';
 import {logout, setNotification} from '../../actions/user_actions';
 import './NavBar.css';
+import LoadingContainer from '../../utils/LoadingContainer/LoadingContainer';
 
 const NavBar = () => {
     const dispatch = useDispatch();
@@ -21,6 +22,7 @@ const NavBar = () => {
     const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
     const currentUserInfo = useSelector ((state) => state.user_reducer.login);
     const currentNotif = useSelector((state) => state.user_reducer.notif);
+    const isLoading = useSelector((state) => state.user_reducer.isLoading);
     
     useEffect(() => {
         if (currentUserInfo) {
@@ -40,7 +42,8 @@ const NavBar = () => {
     
     return(
         <header>
-            <h1>English <br></br>Online<br></br>Center</h1>
+            {isLoading && <LoadingContainer style="spinner"/>}
+            {isLoading === true ? null : <h1>English <br></br>Online<br></br>Center</h1>}
             <nav>
                 {
                     userMode === "admin" || userMode === "user" 

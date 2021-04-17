@@ -10,7 +10,7 @@ import {
   BUY_ROOM,
   FILTER_ROOM,
   UPDATE_ROOM,
-  FILTER_ROOM_BY_PRICE,
+  FILTER_ROOM_BY_ID,
   ADD_BANK,
   CREATE_BANK,
   FETCH_BANK,
@@ -21,7 +21,8 @@ import {
   DELETE_CATEGORY,
   UPDATE_CATEGORY,
   SET_NOTIFICATION,
-  SHOW_USER_INFO
+  SHOW_USER_INFO,
+  IS_LOADING
 } from '../constants/actionTypes';
 
 export default (state = {}, action) => {
@@ -56,10 +57,10 @@ export default (state = {}, action) => {
             ...state, 
                 roomList: state.roomList.filter((room) => room.course === action.payload)
         }
-    case FILTER_ROOM_BY_PRICE:
+    case FILTER_ROOM_BY_ID:
         return { 
             ...state, 
-                roomList: state.roomList.filter((room) => room.price === action.payload)
+                roomList: state.roomList.filter((room) => room.id === action.payload)
         }
     case FETCH_BANK:
         return { ...state, bankList: action.payload}
@@ -83,6 +84,8 @@ export default (state = {}, action) => {
         return { ...state, notif: action.payload}
     case SHOW_USER_INFO:
         return { ...state, isShowUserInfo: action.payload}
+    case IS_LOADING:
+        return { ...state, isLoading: action.payload}
     default:
         return state;
   }

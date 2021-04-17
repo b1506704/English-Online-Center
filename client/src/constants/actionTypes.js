@@ -13,7 +13,7 @@ export const DELETE_ROOM = 'delete_room';
 export const CREATE_ROOM = 'create_room';
 export const UPDATE_ROOM = 'update_room';
 export const FILTER_ROOM = 'filter_room';
-export const FILTER_ROOM_BY_PRICE = 'filter_room_by_price';
+export const FILTER_ROOM_BY_ID = 'FILTER_ROOM_BY_ID';
 // bank actions
 export const CREATE_BANK = 'create_bank';
 export const DELETE_BANK = 'delete_bank';
@@ -27,3 +27,4 @@ export const UPDATE_CATEGORY = 'update_course';
 // notification actions
 export const SET_NOTIFICATION = 'set_notification';
 export const SHOW_USER_INFO = 'show_user_info';
+export const IS_LOADING = 'is_loading';

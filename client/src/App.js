@@ -25,17 +25,10 @@ const App = () => {
     
     console.log(storeState);
 
-
     useEffect(()=> {
-        dispatch(fetchRoom());
-    },[title]);
-    
-    useEffect(()=> {
-        dispatch(fetchBank());
-    },[title]);
-
-    useEffect(()=> {
-        dispatch(fetchCourse());
+            dispatch(fetchRoom());
+            dispatch(fetchBank());
+            dispatch(fetchCourse());
     },[title]);
     
     return (

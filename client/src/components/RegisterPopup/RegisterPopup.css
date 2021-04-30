@@ -1,6 +1,10 @@
 .register_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
     height: 0px;
-    width: 450px;
+    /* width: 450px; */
     opacity: 0;
     background-color: rgba(5, 1, 1, 0.507);
     border-radius: 15px;
@@ -8,6 +12,7 @@
     animation-duration: 0.85s;
     animation-timing-function: linear;
     animation-fill-mode: forwards;
+    overflow-y: auto;
  }
  .register_container h1 {
      text-align: center;
@@ -16,24 +21,33 @@
      margin-top: 25px;
  }
  .register_container div {
+     display: flex;
+     flex-direction: row;
+     justify-content: space-between;
      padding-left: 100px;
      padding-right: 100px;
      width: 100%;
      margin-bottom: 25px;
  }
  .register_container div label {
-     font-size: 30px;
+     font-size: 25px;
+     margin-right: 25px;
  }
  .register_container input[type='text'], 
  .register_container input[type='password']
   {
-     color: rgb(255, 255, 255);
+     color: rgb(0, 0, 0);
      font-size: 25px;
      padding: 5px;
      height: 40px;
+     font-weight: bold;
      width: 250px;
-     background-color: rgba(233, 233, 216, 0.6);
+     background-color: rgb(233, 233, 216);
      border-radius: 5px;
+ }
+ .register_container input[type=radio] {
+     height: 35px;
+     width: 35px;
  }
  .register_container input[type=submit], 
  .register_container input[type=button]  {
@@ -51,7 +65,7 @@
      display: flex;
      justify-content: space-evenly;
      align-items: center;
-     margin: 0;
+     margin-bottom: 25px;
  }
  .register_container input[type=submit]:hover, .register_container input[type=button]:hover {
      transform: translateY(2.5px);

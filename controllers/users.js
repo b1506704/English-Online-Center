@@ -18,6 +18,16 @@ export const getUsers = async (req, res) => {
     }
 }
 
+export const deleteUser = async (req, res) => { 
+    const { userName } = req.params;
+    try {
+        const user = await User.findOneAndDelete({userName: userName});
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
 export const getUser = async (req, res) => {
     const { userName } = req.params;
     try {
@@ -53,8 +63,8 @@ export const logout = async (req, res) => {
 }
 
 export const register = async (req, res) => {
-    const { userName, passWord, email } = req.body;
-    const newUser = new User({ userName, passWord, email });
+    const { userName, passWord, gender, fullName, email, question_1 } = req.body;
+    const newUser = new User({ userName, passWord, gender, fullName, email, question_1 });
 
     try {
         await newUser.save();
@@ -63,6 +73,21 @@ export const register = async (req, res) => {
         res.status(409).json({ message: error.message });
     }
 }
+export const updateUser = async (req, res) => { 
+    const { userName, passWord, gender, fullName, email } = req.body;
+    try {
+        const user = await User.findOne({userName: req.params.userName});
+        const updatedUser = await User.findOneAndUpdate(
+            {userName: user.userName},
+            {userName, passWord, gender, fullName, email} , 
+            {new: true}
+        );
+        res.status(200).json(updatedUser);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
 
 export const addBank = async (req, res) => { 
     const { userName } = req.params;
@@ -121,6 +146,25 @@ export const registerRoom = async (req, res) => {
             res.status(200).json(updatedUser.balance);
         } else {
             res.status(404).json("Xảy ra lỗi!");
+        }
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
+export const setNewPassword = async (req, res) => { 
+    const { userName, passWord, question_1 } = req.body;
+    try {
+        const user = await User.findOne({userName: req.params.userName});
+        if (question_1 === user.question_1) {
+            const updatedUser = await User.findOneAndUpdate(
+                {userName: user.userName},
+                {userName, passWord} , 
+                {new: true}
+            );
+            res.status(200).json(updatedUser);
+        } else {
+            res.status(404).json("Incorrect Answer!");    
         }
     } catch (error) {
         res.status(404).json({ message: error.message });

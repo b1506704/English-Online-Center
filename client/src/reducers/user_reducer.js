@@ -7,7 +7,7 @@ import {
   FETCH_ROOM,
   DELETE_ROOM,
   CREATE_ROOM,
-  BUY_ROOM,
+  REGISTER_ROOM,
   FILTER_ROOM,
   UPDATE_ROOM,
   FILTER_ROOM_BY_ID,
@@ -22,23 +22,26 @@ import {
   UPDATE_CATEGORY,
   SET_NOTIFICATION,
   SHOW_USER_INFO,
-  IS_LOADING
+  IS_LOADING,
+  JOIN_ROOM
 } from '../constants/actionTypes';
-
-export default (state = {}, action) => {
+const loggedInUser = JSON.parse(localStorage.getItem('user'));
+export default (state = { loggedInUser }, action) => {
   switch (action.type) {
     case REGISTER_USER:
         return { ...state, register: action.payload }
     case LOGIN_USER:
-        return { ...state, login: action.payload }
+        return { ...state, loggedInUser: action.payload }
     case GET_USER:
         return { ...state, currentUser: action.payload }
     case FETCH_USER:
         return { ...state, userList: action.payload }                
     case LOGOUT_USER:
-        return { ...state, login: action.payload}  
+        return { ...state, loggedInUser: action.payload}  
     case FETCH_ROOM:
         return { ...state, roomList: action.payload }
+    case JOIN_ROOM:
+        return { ...state, currentRoom: action.payload }
     case DELETE_ROOM:
         return {...state, 
                 roomList: state.roomList.filter((room) => room.id != action.payload )
@@ -50,7 +53,7 @@ export default (state = {}, action) => {
             }
     case UPDATE_ROOM:
         return { ...state, updatedRoom: action.payload}            
-    case BUY_ROOM:
+    case REGISTER_ROOM:
         return { ...state, credit: action.payload }
     case FILTER_ROOM:
         return { 

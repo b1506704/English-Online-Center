@@ -21,7 +21,8 @@
 	letter-spacing: 2px;
 	border-top: 5px double rgba(59, 30, 30, 0.486);
 	border-bottom: 5px double rgba(59, 30, 30, 0.486);
-	background-color: rgba(36, 12, 12, 0.507);
+	/* background-color: rgba(36, 12, 12, 0.507); */
+	background-color: rgba(87, 56, 56, 0.986);
 	padding-bottom: 10px;
 	padding-top: 10px;
 	color: #fafffe;
@@ -96,7 +97,8 @@
 	height: 100%;
 	width: 80%;
 	overflow: hidden;
-	color: rgb(8, 0, 0);
-	background-color: rgba(0, 0, 0, 0.041);
+	color: rgb(255, 254, 254);
+	background-color: rgba(87, 56, 56, 0.986);
+	/* background-color: rgba(0, 0, 0, 0.041); */
 	border-bottom: 5px double rgba(59, 30, 30, 0.486);
 }

@@ -14,7 +14,7 @@ const BankPopup = ({close}) => {
         id: '',
         provider: ''
     });
-    const currentUserName = useSelector((state) => state.user_reducer.login.userName);
+    const currentUserName = useSelector((state) => state.user_reducer.loggedInUser.userName);
     
     useEffect(() => {
         scrollToModal();

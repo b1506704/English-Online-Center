@@ -17,7 +17,7 @@ const UserInfo = () => {
         start: useRef(null),
         end: useRef(null),
     };
-    const currentLoginUser = useSelector((state) => state.user_reducer.login);
+    const currentLoginUser = useSelector((state) => state.user_reducer.loggedInUser);
     const user = useSelector((state) => state.user_reducer.currentUser);
     
     useEffect(()=> {
@@ -78,34 +78,6 @@ const UserInfo = () => {
                             {
                                 user ? user.roomRegisterList.map((e,k) => (<span key={k}>{e}</span>)) : null
                             } 
-                        {/* <div style={{backgroundColor: "black", paddingLeft: "15vh"}}> Đăng tin bán nhà </div>
-                        <div> Khóa Học: &nbsp; 
-                            <select ref={roomInputRef.courseRef}>
-                                { currentCourse != null 
-                                ? currentCourse.map((ele, key) => (<option value={ele.name} key={key}>{ele.name}</option>))
-                                : null
-                                }
-                            </select>
-                        </div>
-                        <div> Price: &nbsp;
-                            <input ref={roomInputRef.priceRef} type="text"></input>
-                        </div>
-                        <div> Giờ Bắt Đầu:&nbsp;
-                            <input ref={roomInputRef.start} type="text"></input>
-                        </div>
-                        <div> Giờ Kết Thúc: &nbsp;
-                            <input ref={roomInputRef.end} type="text"></input>
-                        </div>
-                       
-                        <div>
-                            <FileBase className="base64"  type="file" multiple={false} onDone = {({base64}) => {setCurrentImg(base64)}}></FileBase>  
-                        </div>
-                        <div>
-                            <img className="image" alt="Chọn Anh Để Upload" src={currentImg}/>
-                        </div>
-                        <div> 
-                            <button type="button" className="shadow upload_button" onClick={onRoomUpload}></button>
-                        </div> */}
                     </>
                     : null
                 }

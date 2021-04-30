@@ -5,7 +5,9 @@ export const GET_USER = 'get_user';
 export const FETCH_USER = 'fetch_user';
 export const REGISTER_USER = 'register_user';
 export const ADD_BANK = 'add_bank';
-export const BUY_ROOM = 'buy_room';
+export const REGISTER_ROOM = 'REGISTER_ROOM';
+export const JOIN_ROOM = 'join_room';
+export const INVITE_USER = 'invite_room';
 
 // room actions
 export const FETCH_ROOM = 'fetch_room';
@@ -28,3 +30,13 @@ export const UPDATE_CATEGORY = 'update_course';
 export const SET_NOTIFICATION = 'set_notification';
 export const SHOW_USER_INFO = 'show_user_info';
 export const IS_LOADING = 'is_loading';
+
+// classroom 
+export const GET_ROOM_USER = 'get_room_user'
+export const GET_QUESTION = 'get_question'
+export const ACTIVATE_CAMERA = 'activate_camera'
+    //user
+export const SEND_MESSAGE = 'send_message'
+export const ANSWER_QUESTION = 'answer_question'
+    //coacher
+export const SHOW_QUESTION = 'show_question'

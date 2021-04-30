@@ -12,6 +12,8 @@ const userSchema = mongoose.Schema({
         require: true,
         maxlength: 12
     },
+    gender: String,
+    fullName: String,
     balance: {
         type: Number,
         min: 0,
@@ -67,7 +69,8 @@ const userSchema = mongoose.Schema({
     isHRManager: {
         type: Boolean,
         default: false
-    }
+    },
+    question_1: String
 });
 
 var User = mongoose.model('User', userSchema);

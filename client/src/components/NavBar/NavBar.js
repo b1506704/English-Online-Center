@@ -20,7 +20,7 @@ const NavBar = () => {
     const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
     const [isCreditPageOpen, setIsCreditPageOpen] = useState(false);
     const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
-    const currentUserInfo = useSelector ((state) => state.user_reducer.login);
+    const currentUserInfo = useSelector ((state) => state.user_reducer.loggedInUser);
     const currentNotif = useSelector((state) => state.user_reducer.notif);
     const isLoading = useSelector((state) => state.user_reducer.isLoading);
     
@@ -52,6 +52,7 @@ const NavBar = () => {
                         modal.current.close();
                         history.push('/');
                     }}>
+                        Home
                         </a>
                 }
                 {
@@ -63,23 +64,20 @@ const NavBar = () => {
                         setIsLoginPopupOpen(false);
                         modal.current.open();
                     }}>
+                        Bank
                         </a>
                 }
                 {
                     userMode === "user" 
                     ? <>
-                        <span className="neon"> | {userName} |</span>
-                        <a className="user_nav neon"></a>
-
+                        <a className="user_nav neon">{userName}</a>
                     </>
                     : null
                 }
                 {
                     userMode === "admin" 
                     ? <>
-                        <span className="neon"> | {userName} |</span>
-                        <a className="user_nav neon"></a>
-
+                        <a className="user_nav neon">{userName}</a>
                     </>
                     : null
                 }
@@ -91,6 +89,7 @@ const NavBar = () => {
                         setIsLoginPopupOpen(false);
                         modal.current.open();
                     }}>
+                        Register
                         </a>
                     : null 
                 }
@@ -105,6 +104,7 @@ const NavBar = () => {
                         });
                         modal.current.close();
                         }}>
+                            Logout
                         </a> 
                     : <a className="login_nav" onClick={() => {
                         setIsLoginPopupOpen(true);
@@ -112,6 +112,7 @@ const NavBar = () => {
                         setIsRegisterPopupOpen(false);
                         modal.current.open();
                     }}>
+                        Login
                         </a> 
                 }
             </nav>

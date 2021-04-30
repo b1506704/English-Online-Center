@@ -1,5 +1,6 @@
 import {React, useRef, useState} from 'react';
 import FileBase from 'react-file-base64';
+import { useHistory } from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import LoadingContainer from '../../../utils/LoadingContainer/LoadingContainer';
 import {
@@ -21,7 +22,10 @@ import Sacombank from '../../../assets/imgs/sacombank.jpeg'
 import Vietcombank  from '../../../assets/imgs/vietcombank.png';
 
 const Card = ({room, course, bank, type, mode}) => {
-    const roomInputRef = 
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  const roomInputRef = 
       {
         courseRef: useRef(null),
         priceRef: useRef(null),
@@ -39,10 +43,9 @@ const Card = ({room, course, bank, type, mode}) => {
       valueRef: useRef(null),
     };
     
-    const dispatch = useDispatch();
     const [isEditing, setIsEditing] = useState(false);
     const [currentImg, setCurrentImg] = useState(null);
-    const currentLoginUser = useSelector((state) => state.user_reducer.login);
+    const currentLoginUser = useSelector((state) => state.user_reducer.loggedInUser);
     const currentCourse = useSelector((state) => state.user_reducer.courseList);
     const currentRoom = useSelector((state) => state.user_reducer.roomList);
     const providerList = ["Agribank","BIDV","Sacombank","Vietcombank"];   
@@ -80,8 +83,10 @@ const Card = ({room, course, bank, type, mode}) => {
         if (currentLoginUser === null || currentLoginUser === undefined) {
           dispatch(setNotification("Please login first!"));
         } else {
-          dispatch(registerRoom(currentLoginUser.userName, room))
-          .then(() => dispatch(getUser(currentLoginUser.userName)));
+          // route user
+          history.push(`room/${room.id}`);
+          // dispatch(registerRoom(currentLoginUser.userName, room))
+          // .then(() => dispatch(getUser(currentLoginUser.userName)));
         } 
       }
     }

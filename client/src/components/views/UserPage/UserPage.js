@@ -1,10 +1,10 @@
-import {React, Suspense, lazy }from 'react';
+import {React, Suspense }from 'react';
 import { Route, useRouteMatch, Switch } from 'react-router-dom';
 import HeadingTitle from '../../HeadingTitle/HeadingTitle';
 import CourseList from '../../CourseList/CourseList';
 import RoomList from '../../RoomList/RoomList';
 import LoadingContainer from '../../../utils/LoadingContainer/LoadingContainer';
-import Footer from '../../Footer/Footer';
+import RoomDetail from '../../RoomDetail/RoomDetail';
 
 const UserPage = ({user}) => {
     const { path } = useRouteMatch();
@@ -24,6 +24,9 @@ const UserPage = ({user}) => {
                     </Route>
                     <Route path={`${path}/information`}>
                         <LoadingContainer/>
+                    </Route>
+                    <Route path={`${path}/room:id`}>
+                        <RoomDetail/>    
                     </Route>
                 </Switch>
             </main>

@@ -34,7 +34,8 @@ html {
 }
 body {
 	height: 100%;
-	background: url('./assets/imgs/abstract-city-background.jpg') no-repeat center center fixed; 
+	background: url('./assets/imgs/dark-background-4.jpg') no-repeat center center fixed; 
+	/* background: url('./assets/imgs/abstract-city-background.jpg') no-repeat center center fixed;  */
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;

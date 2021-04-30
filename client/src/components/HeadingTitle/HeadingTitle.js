@@ -6,7 +6,7 @@ import './HeadingTitle.css';
 
 const HeadingTitle = ({title, subtitle}) => {
     const {url} = useRouteMatch();
-    const currentUserInfo = useSelector ((state) => state.user_reducer.login);
+    const currentUserInfo = useSelector ((state) => state.user_reducer.loggedInUser);
     const [userMode, setUserMode] = useState('');
 
     useEffect(() => {
@@ -25,7 +25,7 @@ const HeadingTitle = ({title, subtitle}) => {
                 setUserMode('sales');    
             } else if(currentUserInfo.isCenterManager) {
                 setUserMode('center');    
-            } 
+            }
         }
         return () => {
             setUserMode('');
@@ -102,13 +102,34 @@ const HeadingTitle = ({title, subtitle}) => {
             </nav>
         </>
         );
-
+    const renderUserRoomMenu = (
+        <>
+            <nav>
+                <Link to={`${url}/oral`}>Oral Practice</Link>
+                <Link to={`${url}/test`}>Test</Link>
+                <Link to={`${url}/file`}>File</Link>
+            </nav>
+        </>
+        );
+    const renderCoacherRoomMenu = (
+        <>
+            <nav>
+                <Link to={`${url}/oral`}>Oral Practice</Link>
+                <Link to={`${url}/test`}>Test</Link>
+                <Link to={`${url}/file`}>File</Link>
+            </nav>
+        </>
+        );
     const renderMenu = () => {
         switch (userMode) {
             case "user":
                 return renderUserMenu;
+            case "user_room":
+                return renderUserRoomMenu;
             case "coacher":
                 return renderCoacherMenu;
+            case "coacher_room":
+                return renderCoacherRoomMenu;
             case "hr":
                 return renderHRMenu;
             case "sales":

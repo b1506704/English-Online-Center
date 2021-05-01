@@ -84,7 +84,7 @@ const Card = ({room, course, bank, type, mode}) => {
           dispatch(setNotification("Please login first!"));
         } else {
           // route user
-          history.push(`room/${room.id}`);
+          history.push(`/user/room/${room.id}`);
           // dispatch(registerRoom(currentLoginUser.userName, room))
           // .then(() => dispatch(getUser(currentLoginUser.userName)));
         } 

@@ -22,7 +22,8 @@ import {
   UPDATE_CATEGORY,
   SET_NOTIFICATION,
   SHOW_USER_INFO,
-  IS_LOADING
+  IS_LOADING,
+  FETCH_USER
 } from '../constants/actionTypes';
 
 import * as api from '../api/index.js';
@@ -47,6 +48,18 @@ export const getUser = (userName) => async (dispatch) => {
     const { data } = await api.getUser(userName);
     await dispatch(setIsLoading(false));
     dispatch({ type: GET_USER, payload: data});
+  } catch (error) {
+    dispatch(setIsLoading(false));
+    console.log(error.message);
+  }
+};
+
+export const fetchUser = () => async (dispatch) => {
+  try {
+    await dispatch(setIsLoading(true));
+    const { data } = await api.fetchUser();
+    await dispatch(setIsLoading(false));
+    dispatch({ type: FETCH_USER, payload: data});
   } catch (error) {
     dispatch(setIsLoading(false));
     console.log(error.message);

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Route, Switch} from 'react-router-dom'
 import { useHistory } from 'react-router-dom';
 import LoadingContainer from './utils/LoadingContainer/LoadingContainer';
-import {fetchRoom, fetchBank, fetchCourse } from './actions/user_actions';
+import {fetchRoom, fetchBank, fetchCourse, fetchUser } from './actions/user_actions';
 import * as auth from './utils/FakeAuth.js';
 import './App.css';
 import NavBar from './components/NavBar/NavBar';
@@ -33,6 +33,7 @@ const App = () => {
         dispatch(fetchRoom());
         dispatch(fetchBank());
         dispatch(fetchCourse());
+        dispatch(fetchUser());
         if (loginInfo) {
             if (auth.isHRManager(loginInfo)) history.push('/hr');
             if (auth.isSalesManager(loginInfo)) history.push('/sales');

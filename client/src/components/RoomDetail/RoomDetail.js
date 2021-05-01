@@ -12,6 +12,7 @@ const RoomDetail = () => {
     const dateRef = useRef(null);
     const roomList = useSelector((state) => state.user_reducer.roomList);
     const currentUser = useSelector((state) => state.user_reducer.loggedInUser);
+    const userList = useSelector((state) => state.user_reducer.userList);
     const [room, setRoom] = useState(null);
     const roomInputRef = 
       {
@@ -42,48 +43,63 @@ const RoomDetail = () => {
           inline: "nearest"
         });
       };
-
+    
+    const renderParticipants = () => {
+        const participants = userList?.filter((user) => user.isUser)
+                            .map((user, key) => 
+                            (<a 
+                                className="participant shadow" key={key} user={user}
+                                onClick={() => history.push(`/user/${user.userName}`)}>
+                                {user.userName}
+                            </a>));
+        return participants;
+    }  
     return(
         <div className="detail_page">
             <div ref={modalRef} className="scroll_position_holder"></div>
-            <div className="house_message shadow">
-                {room?.title}            
-            </div>
-            <div className="house_detail">
+            <h2 className="room_message neon shadow">
+                {"Room " + room?.id}            
+            </h2>
+            <div className="room_detail">
                 <div className="detail_image shadow">
                     <img className="image" alt="Loading..." src={room?.imgUrl}/>
                 </div>
-                <div className="detail_info">
-                    <div style={{color: "yellow"}}>Participants:&nbsp; {room?.roomParticipants}</div>
-                    <div style={{color: "yellow"}}>Participants:&nbsp; {room?.isFull}</div>
+                <div className="detail_info shadow">
+                    <h2>Information</h2>
+                    <div style={{color: "yellow"}}>Participants:&nbsp; <span>{room?.roomParticipants.length ? room.roomParticipants.length : "0"}</span></div>
+                    <div style={{color: "yellow"}}>Ownership:&nbsp; <span>{room?.roomParticipants.find((e) => e.id === currentUser?.id) ? "Yes" : "No"}</span></div>
+                    <div style={{color: "yellow"}}>Status:&nbsp; <span>{room?.isFull ? "Full" : "Available"}</span></div>
                     <div> Course: &nbsp; 
-                        {room?.course}
+                        <span>{room?.course}</span>
                     </div>
                     <div> Coacher: &nbsp; 
-                        {room?.coacher}
+                        <span>{room?.roomCoacher}</span>
                     </div>
                     <div> Price: &nbsp;
-                        { room?.price + " Tỷ VND"}
+                        <span>{ room?.price + " VND"}</span>
                     </div>
                     <div> Start:&nbsp;
-                        { room?.start}
+                        <span>{ room?.start ? room.start : "Not set"}</span>
                     </div>
                     <div> End:&nbsp;
-                        { room?.end}
+                        <span>{ room?.end ? room.end : "Not set"}</span>
                     </div>
                     
-                    <form className="add_schedule" onSubmit={(e) => onSubmitSchedule(e)}>
-                        <div>Chọn lịch hẹn</div>
-                        <input ref={dateRef} type="date" required></input>
-                        <input type="submit" value="Đặt lịch hẹn"></input>
+                    <form className="members" onSubmit={(e) => onSubmitSchedule(e)}>
+                        <h2>Members</h2>
+                        <div className="participants">
+                            {renderParticipants()}
+                        </div>
+                        <input type="submit" className="shadow neon" value="Join"></input>
+                        <input type="submit" className="shadow neon" value="Invite"></input>
                     </form>
                 </div>
             </div>
-            <div className="map_container">
-                <div className="house_message shadow">
-                    Vị trí trên Google Map
-                </div>
-                
+            <h2 className="room_message shadow">
+                Course Content
+            </h2>
+            <div className="content_container">
+
             </div>
         </div>
     );

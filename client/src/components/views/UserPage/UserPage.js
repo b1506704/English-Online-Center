@@ -5,6 +5,7 @@ import CourseList from '../../CourseList/CourseList';
 import RoomList from '../../RoomList/RoomList';
 import LoadingContainer from '../../../utils/LoadingContainer/LoadingContainer';
 import RoomDetail from '../../RoomDetail/RoomDetail';
+import Footer from '../../Footer/Footer';
 
 const UserPage = ({user}) => {
     const { path } = useRouteMatch();
@@ -13,22 +14,23 @@ const UserPage = ({user}) => {
             <main>
                 <HeadingTitle title="User Dashboard"/>
                 <Switch>
-                    <Route path={`${path}/room`}>
-                        <RoomList/>
-                    </Route>
-                    <Route path={`${path}/course`}>
+                    <Route exact path={`${path}/course`}>
                         <CourseList/>
                     </Route>
-                    <Route path={`${path}/progress`}>
+                    <Route exact path={`${path}/progress`}>
                         <LoadingContainer/>
                     </Route>
-                    <Route path={`${path}/information`}>
+                    <Route exact path={`${path}/information`}>
                         <LoadingContainer/>
                     </Route>
-                    <Route path={`${path}/room:id`}>
+                    <Route exact path={`${path}/room`}>
+                        <RoomList/>
+                    </Route>
+                    <Route path={`${path}/room/:id`}>
                         <RoomDetail/>    
                     </Route>
                 </Switch>
+                <Footer/>
             </main>
         </Suspense>
     );

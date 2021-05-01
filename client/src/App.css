@@ -48,7 +48,9 @@ h1, h2, h3, h4, h5 {
 }
 
 main {
-	margin-left: 220px;
+	/* width: 100%; */
+	overflow: hidden;
+	margin-left: 120px;
 }
 
 

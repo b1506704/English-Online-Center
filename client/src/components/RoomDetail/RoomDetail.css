@@ -31,7 +31,7 @@
     display: flex;
     justify-content: space-evenly;
     font-size: 25px;
-    align-items: center;
+    align-items: flex-start;
     width: 100%;
     background: transparent;
 }
@@ -54,14 +54,20 @@
     position: absolute;
     right: 8vh;
 }
-.detail_page .detail_image {
+.detail_page .detail_media {
     background-color: transparent;
     border-radius: 15px;
     border-style: none;
-    height: 600px;
+    /* height: 600px; */
     width: 600px; 
 }
-.detail_page .detail_image img {
+.detail_page .detail_media h2 {
+    text-align: center;
+    background-color: rgb(0, 0, 0);
+    margin-bottom: 10px;
+    width: 100%;
+}
+.detail_page .detail_media img {
     border-radius: 15px;
     height: 100%;
     width: 100%; 
@@ -118,7 +124,7 @@
     font-weight: bold;
     background-color: rgba(253, 253, 253, 0.5);
     color: rgb(2, 2, 2);
-    border-radius: 15px;
+    border-radius: 5px;
     height: 50px;
     margin-bottom: 10px;
     width: 200px;

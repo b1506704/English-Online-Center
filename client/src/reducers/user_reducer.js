@@ -3,6 +3,9 @@ import {
   REGISTER_USER,
   GET_USER,
   FETCH_USER,
+  DELETE_USER,
+  UPDATE_USER,
+  RESET_USER,
   LOGOUT_USER,
   FETCH_ROOM,
   DELETE_ROOM,
@@ -12,10 +15,6 @@ import {
   UPDATE_ROOM,
   FILTER_ROOM_BY_ID,
   ADD_BANK,
-  CREATE_BANK,
-  FETCH_BANK,
-  DELETE_BANK,
-  UPDATE_BANK,
   CREATE_CATEGORY,
   FETCH_CATEGORY,
   DELETE_CATEGORY,
@@ -36,6 +35,14 @@ export default (state = { loggedInUser }, action) => {
         return { ...state, currentUser: action.payload }
     case FETCH_USER:
         return { ...state, userList: action.payload }                
+    case DELETE_USER:
+        return {...state, 
+                userList: state.userList.filter((user) => user.userName != action.payload )
+            }
+    case UPDATE_USER:
+        return { ...state, updatedUser: action.payload}            
+    case RESET_USER:
+        return { ...state, resetUser: action.payload}            
     case LOGOUT_USER:
         return { ...state, loggedInUser: action.payload}  
     case FETCH_ROOM:
@@ -65,14 +72,6 @@ export default (state = { loggedInUser }, action) => {
             ...state, 
                 roomList: state.roomList.filter((room) => room.id === action.payload)
         }
-    case FETCH_BANK:
-        return { ...state, bankList: action.payload}
-    case DELETE_BANK:
-        return { ...state, deleteBank: action.payload }
-    case CREATE_BANK:
-        return { ...state, createdBank: action.payload }        
-    case UPDATE_BANK:
-        return { ...state, updatedBank: action.payload}            
     case ADD_BANK:
         return { ...state, credit: action.payload}
     case FETCH_CATEGORY:

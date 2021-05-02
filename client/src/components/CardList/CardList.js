@@ -4,7 +4,7 @@ import {Carousel} from 'react-responsive-carousel'
 
 import Card from './Card/Card';
 import LoadingContainer from '../../utils/LoadingContainer/LoadingContainer';
-import {createRoom, createBank, createCourse, fetchCourse, fetchBank, fetchRoom, setNotification, filterRoomByPrice } from '../../actions/user_actions';
+import {createRoom, createCourse, fetchCourse, fetchRoom, setNotification, filterRoomByPrice, register, fetchUser, setIsLoading  } from '../../actions/user_actions';
 import random from '../../utils/RandomNumber';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import './CardList.css';
@@ -12,11 +12,11 @@ import './CardList.css';
 const CardList = ({context}) => {
     const dispatch = useDispatch();
     const roomList = useSelector((state) => state.user_reducer.roomList);
-    const bankList = useSelector((state) => state.user_reducer.bankList);
     const courseList = useSelector((state) => state.user_reducer.courseList);
-    const bankProvider = ["Agribank","BIDV","Sacombank","Vietcombank"];   
-    const bankValue = [200000, 500000, 1000000, 2000000, 5000000, 1000000];   
+    const userList = useSelector((state) => state.user_reducer.userList);
+    const currentUser = useSelector((state) => state.user_reducer.currentUser);
     const searchInput = useRef(null);
+
     const [currentItem, setCurrentItem] = useState(0);
 
     const addRoom = () => {
@@ -24,26 +24,18 @@ const CardList = ({context}) => {
             createRoom(
                 {
                     id: random(1,2000),  
-                    price: random(1,200),
+                    price: 0,
                     course: courseList !=null && courseList.length!= 0 ? courseList[random(0,  courseList.length - 1)].name : null,
                     imgUrl: null,
                     isFull: false, 
-                    roomCoacher: 'admin',
-                    start: random(1,1000),
-                    end: random(1,1000),
+                    roomCoacher: currentUser.userName,
+                    start: '',
+                    end: '',
                 }
             )
         );
     }
-    const addBank = () => {
-        dispatch(createBank(
-            {
-                id: random(1,2000),
-                provider: bankProvider[random(0, bankProvider.length-1)],
-                value: bankValue[random(0, bankValue.length-1)]
-            }
-        ));
-    }
+    
     const addCourse = () => {
         dispatch(createCourse(
             {
@@ -54,13 +46,26 @@ const CardList = ({context}) => {
             }));
     }
 
-    const loadCourse = () => {
-        dispatch(fetchCourse())
-        .then(() => dispatch(setNotification("Successfully Updated")));
+    const addUser = () => {
+        dispatch(register(
+            {
+                userName: random(1,2000),
+                passWord: '',
+                gender: 'Male',
+                email: random(1,20000)
+            }
+        ));
     }
 
-    const loadBank = () => {
-        dispatch(fetchBank())
+    const loadUser = () => {
+        dispatch(setIsLoading(true));
+        dispatch(fetchUser())
+        .then(() => dispatch(setNotification("Làm mới thành công")))
+        .then(() => dispatch(setIsLoading(false)));
+    }
+
+    const loadCourse = () => {
+        dispatch(fetchCourse())
         .then(() => dispatch(setNotification("Successfully Updated")));
     }
 
@@ -78,18 +83,38 @@ const CardList = ({context}) => {
             dispatch(filterRoomByPrice(id));
         }
     }
+    const toLastArray = (array) => {
+        if (array) {
+            setCurrentItem(array.length-1);
+        }
+    }
 
     useEffect (() => {
-        if (roomList) setCurrentItem(0);
-    },[roomList]);
-    
+        switch (context) {
+            case "list":
+            case "edit_list":
+                toLastArray(roomList);
+                break;
+            case "course":
+            case "edit_course":
+                toLastArray(courseList);
+                break;
+            case "edit_user":
+                toLastArray(userList);
+                break;
+            default:
+                setCurrentItem(0);
+                break;
+        }
+    },[roomList, userList, courseList]);
+
     const customCarousel  = (children) => (
         <Carousel 
             className="card_container"
             centerMode={true} 
             centerSlidePercentage={65} 
             swipeable
-            showIndicators={false} 
+            showIndicators={true} 
             useKeyboardArrows
             stopOnHove={true}
             showThumbs={false}
@@ -105,7 +130,7 @@ const CardList = ({context}) => {
         case "list":
             return(
                 <div className="card_page">
-                    <div className="card_header"> <b>Room ({currentItem + 1} of {roomList ? roomList.length : 0})</b> 
+                    <div className="card_header"> <b>Room</b> 
                         <button type="button" className="card_menu_button refresh_button_user shadow" onClick={loadRoom}></button>
                         <form onSubmit={(e) => searchByID(e)}>
                             <input type="text" ref={searchInput} className="shadow" placeholder="Search by id"></input>
@@ -126,7 +151,7 @@ const CardList = ({context}) => {
         case "course":
             return(
                 <div className="card_page">
-                    <div className="card_header"> <b> Course ({currentItem + 1} of {courseList ? courseList.length : 0})</b> 
+                    <div className="card_header"> <b> Course</b> 
                         <button type="button" className="card_menu_button refresh_button_user shadow" onClick={loadCourse}></button>
                     </div>
                     {
@@ -143,7 +168,7 @@ const CardList = ({context}) => {
         case "edit_course":
             return(
                 <div className="card_page">
-                    <div className="card_header"> <b>Course Management ({currentItem + 1} of {courseList ? courseList.length : 0})</b> 
+                    <div className="card_header"> <b>Course Management</b> 
                         <button type="button" className="card_menu_button add_button shadow" onClick={addCourse}></button>
                         <button type="button" className="card_menu_button refresh_button shadow" onClick={loadCourse}></button>
                     </div>
@@ -161,7 +186,7 @@ const CardList = ({context}) => {
         case "edit_list":
             return(
                 <div className="card_page">
-                    <div className="card_header"> <b>Room Management ({currentItem + 1} of {roomList ? roomList.length : 0})</b> 
+                    <div className="card_header"> <b>Room Management</b> 
                         <button type="button" className="card_menu_button add_button shadow" onClick={addRoom}></button>
                         <button type="button" className="card_menu_button refresh_button shadow" onClick={loadRoom}></button>
                     </div>
@@ -176,24 +201,25 @@ const CardList = ({context}) => {
                     }
                 </div>
             );
-        case "edit_card":
+        case "edit_user":
             return(
                 <div className="card_page">
-                    <div className="card_header"> <b>Bank Management ({currentItem + 1} of {bankList ? bankList.length : 0})</b> 
-                        <button type="button" className="card_menu_button add_button shadow" onClick={addBank}></button>
-                        <button type="button" className="card_menu_button refresh_button shadow" onClick={loadBank}></button>
+                    <div className="card_header"> <b>Student Management </b> 
+                        <button type="button" className="card_menu_button add_button shadow" onClick={addUser}></button>
+                        <button type="button" className="card_menu_button refresh_button shadow" onClick={loadUser}></button>
                     </div>
                     {
                         customCarousel
                         (
-                            bankList != null && bankList.length != 0 ?
-                            bankList.map ((item,key) => 
-                            (<Card key={key} bank={item} type={"bank"} mode={"edit"}/>))
-                            : <LoadingContainer style={'spinner'}/>
+                            userList != null && userList.length != 0 ? 
+                            userList.filter((user) => user.isUser)
+                            .map ((item,key) => 
+                            (<Card key={key} user={item} type={"user"} mode={"edit"}/>))
+                            : (<LoadingContainer style={'spinner'}/>)
                         )
-                    }
+                    }               
                 </div>
-            );                
+            );
         default:
             return (<LoadingContainer style={'dot'}/>);
     }

@@ -1,8 +1,6 @@
-import {React, Suspense, lazy }from 'react';
+import {React, Suspense }from 'react';
 import { Route, useRouteMatch, Switch } from 'react-router-dom';
 import HeadingTitle from '../../HeadingTitle/HeadingTitle';
-import EditBankList from '../../EditBankList/EditBankList';
-import Footer from '../../Footer/Footer';
 import LoadingContainer from '../../../utils/LoadingContainer/LoadingContainer';
 import './MarketingManagerPage.css';
 
@@ -17,7 +15,7 @@ const MarketingManagerPage = ({user}) => {
                         <LoadingContainer/>
                     </Route>
                     <Route path={`${path}/affliation`}>
-                        <EditBankList/>
+                        <LoadingContainer/>
                     </Route>
                     <Route path={`${path}/report`}>
                         <LoadingContainer/>

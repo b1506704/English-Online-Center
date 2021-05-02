@@ -6,7 +6,7 @@
 	text-align: center;
 }
 .heading_container h2 {
-	z-index: 999;
+	z-index: 5;
     display: inline-block;
 	margin: 0;
 	width: 80%;
@@ -19,7 +19,7 @@
 	padding-top: 25px;
 }
 .heading_container div, .heading_container p {
-	z-index: 999;
+	z-index: 5;
     display: inline-block;
 	margin: 0;
 	width: 80%;

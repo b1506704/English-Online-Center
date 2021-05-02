@@ -1,8 +1,7 @@
-import {React, Suspense, lazy }from 'react';
+import {React, Suspense }from 'react';
 import { Route, useRouteMatch, Switch } from 'react-router-dom';
 import HeadingTitle from '../../HeadingTitle/HeadingTitle';
 import EditCourseList from '../../EditCourseList/EditCourseList';
-import Footer from '../../Footer/Footer';
 import './AcademicManagerPage.css';
 import LoadingContainer from '../../../utils/LoadingContainer/LoadingContainer';
 

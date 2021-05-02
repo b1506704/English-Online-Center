@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 
-const arrayLimit = (val) => val.length <=6;
 const roomSchema = mongoose.Schema({
     id: {
         type: String,
@@ -18,11 +17,8 @@ const roomSchema = mongoose.Schema({
         default: false,
     },
     roomParticipants: {
-        type: [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'            
-        }],
-        validate: [arrayLimit, '{PATH exceed limit range']
+        type: Array,
+        length: 6
     },
     roomCoacher: String,
     start: String,

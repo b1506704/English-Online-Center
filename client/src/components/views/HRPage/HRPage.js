@@ -1,8 +1,6 @@
 import {React, Suspense, lazy }from 'react';
 import { Route, useRouteMatch, Switch } from 'react-router-dom';
 import HeadingTitle from '../../HeadingTitle/HeadingTitle';
-import EditBankList from '../../EditBankList/EditBankList';
-import Footer from '../../Footer/Footer';
 import LoadingContainer from '../../../utils/LoadingContainer/LoadingContainer';
 import './HRPage.css';
 
@@ -17,7 +15,7 @@ const HRPage = ({user}) => {
                         <LoadingContainer/>
                     </Route>
                     <Route path={`${path}/contact`}>
-                        <EditBankList/>
+                        <LoadingContainer/>
                     </Route>
                     <Route path={`${path}/recruitment`}>
                         <LoadingContainer/>

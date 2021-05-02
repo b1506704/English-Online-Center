@@ -1,6 +1,7 @@
 import express from 'express';
 
 import Room from '../models/room.js';
+import User from '../models/user.js';
 
 const router = express.Router();
 
@@ -70,5 +71,31 @@ export const updateRoom = async (req, res) => {
         res.status(404).json({ message: error.message });
     }
 }
+
+export const joinRoom = async (req, res) => { 
+    const { id } = req.params;
+    const { userName } = req.body;
+    //todo: push user to room participants
+    try {
+        // const user = await User.findOne({userName: userName});
+        const room = await Room.findOne({id});
+        if (room.isFull === false 
+            ) {
+            const updatedRoom = await Room.findOneAndUpdate(
+                {id: room.id},
+                {
+                    $push: {roomParticipants: userName}
+                },
+                {new: true}
+            );
+            res.status(200).json(updatedRoom);
+        } else {
+            res.status(404).json("Xảy ra lỗi!");
+        }
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
 
 export default router;

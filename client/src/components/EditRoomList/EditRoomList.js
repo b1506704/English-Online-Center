@@ -1,12 +1,9 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
-
 import CardList from '../CardList/CardList';
 
-const EditRoomList = ({setCurrentAccList}) => {
-    const { name } = useParams();
+const EditRoomList = () => {
     return(
-        <CardList context="edit_list" setCurrentAccList={setCurrentAccList}/>
+        <CardList context="edit_list"/>
     );
 }
 export default EditRoomList;

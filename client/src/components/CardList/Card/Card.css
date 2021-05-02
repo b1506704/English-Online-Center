@@ -10,10 +10,10 @@
   min-height: 400px;
   width: 310px;
   border-radius: 10px;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-top: 25px;
   margin-left: 50px;
   font-weight: 1000;
+  margin-bottom: 25px;
   transition: all 0.3s ease-in-out;
 }
 .card_detail:hover {
@@ -52,10 +52,13 @@
   opacity: 0.3;
   bottom: 3vh;
   border-style: none;
+  text-align: center ;
+  background-position: left 15% center;
   background-size: contain;
-  background-position: center center;
   background-repeat: no-repeat;
-  color: transparent;
+  color: rgb(0, 0, 0);
+  font-size: 25px;
+  font-weight: bold;
   user-select: none;
   overflow: hidden;
   height: 33px; 
@@ -67,8 +70,16 @@
 .browse_button {
   background: url("../../../assets/imgs/filter.png");
 }
+.confirm_button {
+  bottom: 23vh !important;
+  background: url("../../../assets/imgs/tick.png");
+}
+.reject_button {
+  bottom: 30vh !important;
+  background: url("../../../assets/imgs/cancel.png");
+}
 .buy_button {
-  background: url("../../../assets/imgs/shopping-cart.png");
+  background: url("../../../assets/imgs/schedule.png");
 }
 .edit_button {
   background: url("../../../assets/imgs/pencil.png");
@@ -98,14 +109,14 @@
 
 .card_detail .card_button:hover {
   opacity: 1;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgb(147, 194, 255);
 }
   
 .room_info {
   position: absolute;
   padding-top: 100px;
   padding-bottom: 15px;
-  color: rgb(247, 247, 247);
+  color: rgb(255, 255, 255);
   height: 250px;
   width: 100%;
   bottom: 0vh;

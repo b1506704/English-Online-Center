@@ -5,22 +5,19 @@ export const GET_USER = 'get_user';
 export const FETCH_USER = 'fetch_user';
 export const REGISTER_USER = 'register_user';
 export const ADD_BANK = 'add_bank';
-export const REGISTER_ROOM = 'REGISTER_ROOM';
-export const JOIN_ROOM = 'join_room';
-export const INVITE_USER = 'invite_room';
-
+export const DELETE_USER = 'delete_user';
+export const UPDATE_USER = 'update_user';
+export const RESET_USER = 'reset_user';
 // room actions
+export const INVITE_ROOM = 'invite_room';
+export const REGISTER_ROOM = 'register_room';
+export const JOIN_ROOM = 'join_room';
 export const FETCH_ROOM = 'fetch_room';
 export const DELETE_ROOM = 'delete_room';
 export const CREATE_ROOM = 'create_room';
 export const UPDATE_ROOM = 'update_room';
 export const FILTER_ROOM = 'filter_room';
 export const FILTER_ROOM_BY_ID = 'FILTER_ROOM_BY_ID';
-// bank actions
-export const CREATE_BANK = 'create_bank';
-export const DELETE_BANK = 'delete_bank';
-export const UPDATE_BANK = 'update_bank';
-export const FETCH_BANK = 'fetch_bank';
 // course actions
 export const CREATE_CATEGORY = 'create_course';
 export const DELETE_CATEGORY = 'delete_course';

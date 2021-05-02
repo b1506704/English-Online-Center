@@ -1,7 +1,6 @@
-import {React, Suspense, lazy }from 'react';
+import {React, Suspense }from 'react';
 import { Route, useRouteMatch, Switch } from 'react-router-dom';
 import HeadingTitle from '../../HeadingTitle/HeadingTitle';
-import EditBankList from '../../EditBankList/EditBankList';
 import './SalesManagerPage.css';
 import LoadingContainer from '../../../utils/LoadingContainer/LoadingContainer';
 
@@ -16,7 +15,7 @@ const SalesManagerPage = ({user}) => {
                         <LoadingContainer/>
                     </Route>
                     <Route path={`${path}/payment`}>
-                        <EditBankList/>
+                        <LoadingContainer/>
                     </Route>
                     <Route path={`${path}/discount`}>
                         <LoadingContainer/>

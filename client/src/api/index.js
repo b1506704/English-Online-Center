@@ -1,16 +1,16 @@
 import axios from 'axios';
 
-const userUrl = 'https://account-trading-shop.herokuapp.com/users';
-const roomUrl = 'https://account-trading-shop.herokuapp.com/rooms';
-const classRoomUrl = 'https://account-trading-shop.herokuapp.com/class_rooms';
-const courseUrl = 'https://account-trading-shop.herokuapp.com/courses';
-const bankUrl = 'https://account-trading-shop.herokuapp.com/banks';
+// const userUrl = 'https://account-trading-shop.herokuapp.com/users';
+// const roomUrl = 'https://account-trading-shop.herokuapp.com/rooms';
+// const classRoomUrl = 'https://account-trading-shop.herokuapp.com/class_rooms';
+// const courseUrl = 'https://account-trading-shop.herokuapp.com/courses';
+// const bankUrl = 'https://account-trading-shop.herokuapp.com/banks';
 
-// const userUrl = 'http://localhost:80/users';
-// const roomUrl = 'http://localhost:80/rooms';
-// const courseUrl = 'http://localhost:80/courses';
-// const bankUrl = 'http://localhost:80/banks';
-// const classRoomUrl = 'http://localhost:80/class_rooms';
+const userUrl = 'http://localhost:80/users';
+const roomUrl = 'http://localhost:80/rooms';
+const courseUrl = 'http://localhost:80/courses';
+const bankUrl = 'http://localhost:80/banks';
+const classRoomUrl = 'http://localhost:80/class_rooms';
 
 
 // user routes
@@ -19,11 +19,14 @@ export const getUser = (userName) => axios.get(`${userUrl}/${userName}`);
 export const login = (userInfo) => axios.post(`${userUrl}/${userInfo}`, userInfo);
 export const logout = (userInfo) => axios.post(`${userUrl}/logout/${userInfo}`, userInfo);
 export const fetchUser = () => axios.get(userUrl);
+export const deleteUser = (userName) => axios.delete(`${userUrl}/${userName}`);
+export const updateUser = (userName, toUpdateUser) => axios.post(`${userUrl}/updateUser/${userName}`, toUpdateUser);
 // room
 export const fetchRoom = () => axios.get(roomUrl);
 export const createRoom = (newRoom) => axios.post(roomUrl, newRoom);
 export const deleteRoom = (id) => axios.delete(`${roomUrl}/${id}`);
 export const updateRoom = (id, toUpdateRoom) => axios.post(`${roomUrl}/updateRoom/${id}`, toUpdateRoom);
+export const joinRoom = (id, userInfo) => axios.post(`${roomUrl}/joinRoom/${id}`, userInfo);
 export const registerRoom = (userName, roomInfo) => axios.post(`${userUrl}/registerRoom/${userName}`, roomInfo);
 // bank
 export const addBank = (userName, bankInfo) => axios.post(`${userUrl}/addBank/${userName}`, bankInfo);

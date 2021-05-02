@@ -12,6 +12,7 @@ const userSchema = mongoose.Schema({
         require: true,
         maxlength: 12
     },
+    imgUrl: String,
     gender: String,
     fullName: String,
     balance: {

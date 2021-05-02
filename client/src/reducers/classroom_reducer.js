@@ -18,9 +18,9 @@ export default (state = {}, action) => {
         case ANSWER_QUESTION:
             return {...state, selectedAnswer: action.payload}            
         case GET_QUESTION:
-            return {state, questionList: action.payload}
+            return {...state, questionList: action.payload}
         case SHOW_QUESTION:
-            return {state, currentQuestion: action.payload}
+            return {...state, currentQuestion: action.payload}
         default:
             return state;
     }

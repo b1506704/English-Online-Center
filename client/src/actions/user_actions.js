@@ -3,6 +3,8 @@ import {
   GET_USER,
   REGISTER_USER,
   LOGOUT_USER,
+  UPDATE_USER,
+  DELETE_USER,
   FETCH_ROOM,
   DELETE_ROOM,
   REGISTER_ROOM,
@@ -12,10 +14,6 @@ import {
   CREATE_ROOM,
   UPDATE_ROOM,
   ADD_BANK,
-  FETCH_BANK,
-  DELETE_BANK,
-  CREATE_BANK,
-  UPDATE_BANK,
   FETCH_CATEGORY,
   DELETE_CATEGORY,
   CREATE_CATEGORY,
@@ -34,6 +32,7 @@ export const login = (userInfo) => async (dispatch) => {
     const { data } = await api.login(userInfo);
     localStorage.setItem('user', JSON.stringify(data));
     await dispatch({ type: LOGIN_USER, payload: data});
+    await dispatch(fetchUser());
     await dispatch(setIsLoading(false));
     await dispatch(setNotification("Login successfully"));
   } catch (error) {
@@ -56,13 +55,39 @@ export const getUser = (userName) => async (dispatch) => {
 
 export const fetchUser = () => async (dispatch) => {
   try {
-    await dispatch(setIsLoading(true));
+    // await dispatch(setIsLoading(true));
     const { data } = await api.fetchUser();
-    await dispatch(setIsLoading(false));
+    // await dispatch(setIsLoading(false));
     dispatch({ type: FETCH_USER, payload: data});
   } catch (error) {
     dispatch(setIsLoading(false));
     console.log(error.message);
+  }
+};
+
+export const deleteUser = (userName) => async (dispatch) => {
+  try {
+    await dispatch(setIsLoading(true));
+    const { data } = await api.deleteUser(userName);
+    await dispatch({ type: DELETE_USER, payload: data});
+    await dispatch(fetchUser());
+    await dispatch(setNotification("Deleted"));
+    await dispatch(setIsLoading(false));
+  } catch (error) {
+    dispatch(setNotification("Xóa thất bại"));
+  }
+};
+
+export const updateUser = (userName, userInfo) => async (dispatch) => {
+  try {
+    await dispatch(setIsLoading(true));
+    const { data } = await api.updateUser(userName, userInfo);
+    await dispatch({ type: UPDATE_USER, payload: data});
+    await dispatch(fetchUser());
+    await dispatch(setNotification("Cập nhật hoàn tất"));
+    await dispatch(setIsLoading(false));
+  } catch (error) {
+    dispatch(setNotification("Cập nhật thất bại"));
   }
 };
 
@@ -85,8 +110,9 @@ export const register = (userInfo) => async (dispatch) => {
     await dispatch(setIsLoading(true));
     const { data } = await api.createUser(userInfo);
     await dispatch({ type: REGISTER_USER, payload: data});
-    await dispatch(setIsLoading(false));
     await dispatch(setNotification("Register sucessfully"));
+    await dispatch(fetchUser());
+    await dispatch(setIsLoading(false));
   } catch (error) {
     dispatch(setIsLoading(false));
     dispatch(setNotification("Register failed!"));
@@ -146,11 +172,11 @@ export const registerRoom = (userName, roomInfo) => async (dispatch) => {
   }
 };
 //todo
-export const joinRoom = (userName, roomInfo) => async (dispatch) => {
+export const joinRoom = (id, userInfo) => async (dispatch) => {
   try {
     await dispatch(setIsLoading(true));
-    // const { data } = await api.registerRoom(userName, roomInfo);
-    await dispatch({ type: JOIN_ROOM, payload: roomInfo});
+    const { data } = await api.joinRoom(id, userInfo);
+    await dispatch({ type: JOIN_ROOM, payload: data});
     await dispatch(fetchRoom());
     await dispatch(setIsLoading(false));
     await dispatch(setNotification("Join room successfully"));
@@ -209,63 +235,10 @@ export const createRoom = (roomInfo) => async (dispatch) => {
     await dispatch(fetchRoom());
     await dispatch(setIsLoading(false));
   } catch (error) {
-    dispatch(setIsLoading(false));
-    dispatch(setNotification("Add failed!"));
+    dispatch(setNotification("Added failed!"));
   }
 };
 
-export const fetchBank = () => async (dispatch) => {
-  try {
-    await dispatch(setIsLoading(true));
-    const { data } = await api.fetchBank();
-    dispatch({ type: FETCH_BANK, payload: data});
-    await dispatch(setIsLoading(false));
-  } catch (error) {
-    dispatch(setIsLoading(false));
-    console.log(error.message);
-  }
-};
-
-export const deleteBank = (id) => async (dispatch) => {
-  try {
-    await dispatch(setIsLoading(true));
-    const { data } = await api.deleteBank(id);
-    await dispatch({ type: DELETE_BANK, payload: data});
-    await dispatch(fetchBank());
-    await dispatch(setIsLoading(false));
-    await dispatch(setNotification(`Delete bank #${id}`));
-  } catch (error) {
-    dispatch(setIsLoading(false));
-    dispatch(setNotification("Delete failed!"));
-  }
-};
-
-export const createBank = (bankInfo) => async (dispatch) => {
-  try {
-    await dispatch(setIsLoading(true));
-    const { data } = await api.createBank(bankInfo);
-    await dispatch({ type: CREATE_BANK, payload: data});
-    await dispatch(fetchBank());
-    await dispatch(setIsLoading(false));
-    await dispatch(setNotification(`Added bank #${bankInfo.id}`));
-  } catch (error) {
-    dispatch(setIsLoading(false));
-    dispatch(setNotification("Add failed!"));
-  }
-};
-export const updateBank = (id, bankInfo) => async (dispatch) => {
-  try {
-    await dispatch(setIsLoading(true));
-    const { data } = await api.updateBank(id, bankInfo);
-    await dispatch({ type: UPDATE_BANK, payload: data});
-    await dispatch(fetchBank());
-    await dispatch(setIsLoading(false));
-    await dispatch(setNotification(`Updated bank ${id}`));
-  } catch (error) {
-    dispatch(setIsLoading(false));
-    dispatch(setNotification("Update failed!"));
-  }
-};
 //course action
 export const fetchCourse = () => async (dispatch) => {
   try {

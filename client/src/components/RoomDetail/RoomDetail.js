@@ -3,24 +3,18 @@ import { useParams } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import './RoomDetail.css';
+import { joinRoom } from '../../actions/user_actions';
 
 const RoomDetail = () => {
     const {id} = useParams();
     const history = useHistory();
     const dispatch = useDispatch();
     const modalRef = useRef();
-    const dateRef = useRef(null);
     const roomList = useSelector((state) => state.user_reducer.roomList);
     const currentUser = useSelector((state) => state.user_reducer.loggedInUser);
+    const currentRoom = useSelector((state) => state.user_reducer.currentRoom);
     const userList = useSelector((state) => state.user_reducer.userList);
     const [room, setRoom] = useState(null);
-    const roomInputRef = 
-      {
-        chatMessage: useRef(null),
-        selectedChoice: useRef(null),
-        textAnswer: useRef(null),
-        emoji: useRef(null),
-      };
 
     useEffect(() => {
         scrollToModal();
@@ -45,15 +39,20 @@ const RoomDetail = () => {
       };
     
     const renderParticipants = () => {
-        const participants = userList?.filter((user) => user.isUser)
+        const participants = currentRoom?.roomParticipants
                             .map((user, key) => 
                             (<a 
-                                className="participant shadow" key={key} user={user}
-                                onClick={() => history.push(`/user/${user.userName}`)}>
-                                {user.userName}
+                                className="participant shadow" key={key} 
+                                onClick={() => history.push(`/user/${user}`)}>
+                                {user}
                             </a>));
         return participants;
-    }  
+    }
+    
+    const onJoin = () => {
+        dispatch(joinRoom(id, currentUser));
+    }
+
     return(
         <div className="detail_page">
             <div ref={modalRef} className="scroll_position_holder"></div>
@@ -61,13 +60,14 @@ const RoomDetail = () => {
                 {"Room " + room?.id}            
             </h2>
             <div className="room_detail">
-                <div className="detail_image shadow">
+                <div className="detail_media shadow">
+                    <h2>Media Preview</h2>
                     <img className="image" alt="Loading..." src={room?.imgUrl}/>
                 </div>
                 <div className="detail_info shadow">
                     <h2>Information</h2>
                     <div style={{color: "yellow"}}>Participants:&nbsp; <span>{room?.roomParticipants.length ? room.roomParticipants.length : "0"}</span></div>
-                    <div style={{color: "yellow"}}>Ownership:&nbsp; <span>{room?.roomParticipants.find((e) => e.id === currentUser?.id) ? "Yes" : "No"}</span></div>
+                    <div style={{color: "yellow"}}>Ownership:&nbsp; <span>{room?.roomParticipants.find((e) => e?.userName === currentUser?.userName) ? "Yes" : "No"}</span></div>
                     <div style={{color: "yellow"}}>Status:&nbsp; <span>{room?.isFull ? "Full" : "Available"}</span></div>
                     <div> Course: &nbsp; 
                         <span>{room?.course}</span>
@@ -90,7 +90,7 @@ const RoomDetail = () => {
                         <div className="participants">
                             {renderParticipants()}
                         </div>
-                        <input type="submit" className="shadow neon" value="Join"></input>
+                        <input type="submit" className="shadow neon" value="Join" onClick={onJoin}></input>
                         <input type="submit" className="shadow neon" value="Invite"></input>
                     </form>
                 </div>

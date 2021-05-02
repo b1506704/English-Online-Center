@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { login, register, getUser, logout, addBank, registerRoom, getUsers } from '../controllers/users.js';
+import { login, register, getUser, logout, addBank, getUsers, updateUser, deleteUser, setNewPassword } from '../controllers/users.js';
 
 const router = express.Router();
 
@@ -10,6 +10,8 @@ router.get('/', getUsers);
 router.post('/:userInfo', login);
 router.post('/logout/:userInfo', logout);
 router.post('/addBank/:userName', addBank);
-router.post('/registerRoom/:userName', registerRoom);
+router.delete('/:userName', deleteUser);
+router.post('/updateUser/:userName', updateUser);
+router.post('/setNewPassword/:userName', setNewPassword);
 
 export default router;

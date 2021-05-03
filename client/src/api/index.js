@@ -1,11 +1,11 @@
 import axios from 'axios';
-
+// for heroku server
 const userUrl = 'https://account-trading-shop.herokuapp.com/users';
 const roomUrl = 'https://account-trading-shop.herokuapp.com/rooms';
 const classRoomUrl = 'https://account-trading-shop.herokuapp.com/class_rooms';
 const courseUrl = 'https://account-trading-shop.herokuapp.com/courses';
 const bankUrl = 'https://account-trading-shop.herokuapp.com/banks';
-
+// for local server
 // const userUrl = 'http://localhost:80/users';
 // const roomUrl = 'http://localhost:80/rooms';
 // const courseUrl = 'http://localhost:80/courses';

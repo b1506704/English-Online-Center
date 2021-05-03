@@ -35,7 +35,8 @@
      margin-right: 25px;
  }
  .register_container input[type='text'], 
- .register_container input[type='password']
+ .register_container input[type='password'],
+ .register_container input[type='date']
   {
      color: rgb(0, 0, 0);
      font-size: 25px;

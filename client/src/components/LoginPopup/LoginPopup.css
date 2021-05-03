@@ -35,7 +35,9 @@
      font-weight: bold;
      margin-right: 25px;
  }
- .login_container input[type='text'], .login_container input[type='password'] {
+ .login_container input[type='text'],
+ .login_container input[type='password'],
+ .login_container input[type='date'] {
      color: rgb(255, 255, 255);
      font-size: 25px;
      font-weight: bold;
@@ -46,12 +48,14 @@
      border-radius: 5px;
  }
  .login_container input[type=checkbox] {
-     height: 35px;
-     width: 35px;
+     height: 25px;
+     margin-left: -16vh !important;
+     width: 15px;
  }
  .login_container a {
      text-decoration: none;
      font-weight: bold;
+     font-style: oblique;
      font-size: 20px;
      color: rgb(255, 255, 255);
  }

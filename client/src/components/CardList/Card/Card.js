@@ -73,7 +73,8 @@ const Card = ({room, course, user, bank, type, mode}) => {
 
     const onCardSelect = () => {
       if (type === "course") {
-        dispatch(filterRoom(course.name));
+        dispatch(filterRoom(course.name))
+        .then(() => history.push("/user/room"));
       }
       if (type === "room") {
         if (currentLoginUser === null || currentLoginUser === undefined) {

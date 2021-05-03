@@ -87,16 +87,16 @@ const LoginPopup = ({close}) => {
                         <input type="password" required minLength={1} maxLength={8} placeholder="<=8 letters" name="password"></input>
                     </div>
                     <div>
-                        <label>Remember Me:</label>
+                        <label style={{fontSize: "15px"}}>Remember Me:</label>
                         <input type="checkbox" name="remember_acc" onClick={() => setIsRemember(true)}></input>
-                        <a onClick={() => setIsForget(true)}>Forget Password</a>
+                        <a style={{fontSize: "15px"}} onClick={() => setIsForget(true)}>Forget Password</a>
                     </div>
                 </> 
                 : 
                 <>
                     <div>
-                        <label>Your father date of birth:</label>
-                        <input type="text" require placeholder="YYYY" name="question_1"></input>
+                        <label>Father's Birthdate:</label>
+                        <input type="date" require placeholder="DD-MM-YYYY" name="question_1"></input>
                     </div>
                     <div>
                         <label>New Password:</label>

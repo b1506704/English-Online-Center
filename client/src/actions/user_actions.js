@@ -83,8 +83,8 @@ export const updateUser = (userName, userInfo) => async (dispatch) => {
     await dispatch(setIsLoading(true));
     const { data } = await api.updateUser(userName, userInfo);
     await dispatch({ type: UPDATE_USER, payload: data});
-    await dispatch(fetchUser());
     await dispatch(setNotification("Cập nhật hoàn tất"));
+    await dispatch(fetchUser());
     await dispatch(setIsLoading(false));
   } catch (error) {
     dispatch(setNotification("Cập nhật thất bại"));

@@ -108,6 +108,10 @@ const CardList = ({context}) => {
         }
     },[roomList, userList, courseList]);
 
+    useEffect (() => {
+        setCurrentItem(0);
+    },[]);
+
     const customCarousel  = (children) => (
         <Carousel 
             className="card_container"
@@ -193,7 +197,7 @@ const CardList = ({context}) => {
                     {
                         customCarousel
                         (
-                             roomList != null && roomList.length != 0?
+                            roomList != null && roomList.length != 0?
                             roomList.map ((item,key) => 
                             (<Card key={key} room={item} type={"room"} mode={"edit"}/>))
                             : <LoadingContainer style={'spinner'}/>

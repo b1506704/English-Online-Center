@@ -33,6 +33,9 @@ const userSchema = mongoose.Schema({
         type: String,
         default: ''
     },
+    address: String,
+    phoneNumber: String,
+    birthDate: String,
     //student
     roomRegisterList: Array,
     //coacher

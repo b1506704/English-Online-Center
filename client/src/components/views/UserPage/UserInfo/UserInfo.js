@@ -1,21 +1,25 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useDispatch , useSelector} from 'react-redux';
-import { getUser, createRoom, setNotification } from '../../../../actions/user_actions';
 import FileBase from 'react-file-base64';
-import random from '../../../../utils/RandomNumber';
+import { getUser, updateUser } from '../../../../actions/user_actions';
 
 import './UserInfo.css';
 
 const UserInfo = () => {
     const dispatch = useDispatch();
+
     const [currentImg, setCurrentImg] = useState(null);
-    const currentCourse = useSelector((state) => state.user_reducer.courseList);
-    const roomInputRef = 
+    const [isEditing, setIsEditing] = useState(false);
+    // const currentCourse = useSelector((state) => state.user_reducer.courseList);
+    const userInputRef = 
     {
-        courseRef: useRef(null),
-        priceRef: useRef(null),
-        start: useRef(null),
-        end: useRef(null),
+        fullName: useRef(null),
+        email: useRef(null),
+        passWord: useRef(null),
+        address: useRef(null),
+        gender: useRef(null),
+        phoneNumber: useRef(null),
+        birthDate: useRef(null)
     };
     const currentLoginUser = useSelector((state) => state.user_reducer.loggedInUser);
     const user = useSelector((state) => state.user_reducer.currentUser);
@@ -25,63 +29,119 @@ const UserInfo = () => {
             dispatch(getUser(currentLoginUser.userName));
         }
     },[currentLoginUser]);
-
-    const onRoomUpload = () => {
-        const uploadRoom = 
-        {
-            id: random(1,10000),  
-            price: roomInputRef.priceRef.current.value || null,
-            course: roomInputRef.courseRef.current.value || null,
-            imgUrl:  currentImg ? currentImg : null,
-            roomCoacher:  user ? user.userName : null,
-            start: roomInputRef.start.current.value || null,
-            end: roomInputRef.end.current.value || null,
-        };
-        dispatch(createRoom(uploadRoom));
-        
+    const onProfileEdit = () => {
+        setIsEditing(true);
+    }
+    const onProfileCancel = () => {
+        setIsEditing(false);
     }
 
-    const refresh = () => {
-        dispatch(getUser(currentLoginUser.userName))
-        .then(() => dispatch(setNotification("Successfully Updated")));
+    const onProfileUpdate = (e) => {
+        e.preventDefault();
+        const updatedUser = 
+        {
+            userName: user.userName,
+            fullName: userInputRef.fullName.current.value || user.fullName,
+            imgUrl:  currentImg ? currentImg : user.imgUrl,
+            email:  userInputRef.email.current.value || user.email,
+            passWord: userInputRef.passWord.current.value || user.passWord,
+            gender: userInputRef.gender.current.value || userInputRef.gender,
+            address: userInputRef.address.current.value || user.address,
+            phoneNumber: userInputRef.phoneNumber.current.value || user.phoneNumber,
+            birthDate: userInputRef.birthDate.current.value || user.birthDate
+        };
+        dispatch(updateUser(user.userName, updatedUser))
+        .then(() => setIsEditing(false));
     }
 
     return(
         <div className="user_info_container shadow">
-            <h2 className="icon"> {"||"} </h2>
-            <h2 className="title"> User Information  </h2>
-            <div className="info_panel">
-                <div> 
-                    <button type="button" className="shadow refresh_button" onClick={refresh}></button>
+            <h2 className="icon shadow"> {"||"} </h2>
+            <h2 className="user_title"> User Information  </h2>
+            <form className="info_panel" onSubmit={(e) => onProfileUpdate(e)}>
+                <div className="user_img">
+                    <img className="img shadow" src={currentImg || user?.imgUrl}></img>
+                    <h2 className="neon"> {user?.userName}</h2> 
+                    { isEditing ? 
+                    <FileBase className="base64" type="file" multiple={false} onDone = {({base64}) => {setCurrentImg(base64)}}></FileBase>  
+                    : null
+                    }
+                    
                 </div>
-                
+                <div style={{display: "block", textAlign:"center", backgroundColor: "rgb(184, 201, 255)"}}> Account </div>
+                <div> <span>Password: &nbsp;</span>
+                    { isEditing === false ? "********"
+                    : (<input ref={userInputRef.passWord} type="password" autoFocus={true} required maxLength={12} placeholder={user?.passWord}></input>)
+                    }
+                </div>
+                <div> <span>Full Name: &nbsp;</span>
+                        { isEditing === false ? user?.fullName
+                        : (<input ref={userInputRef.fullName} type="text" required placeholder={user?.fullName}></input>)
+                        }
+                </div>
+                <div> <span>Mobile: &nbsp;</span>
+                        { isEditing === false ? user?.phoneNumber
+                        : (<input ref={userInputRef.phoneNumber} type="text" required placeholder={user?.phoneNumber}></input>)
+                        }
+                </div>
+                <div> <span>Birth Date: &nbsp;</span>
+                        { isEditing === false ? user?.birthDate
+                        : (<input ref={userInputRef.birthDate} type="date" required placeholder={user?.birthDate}></input>)
+                        }
+                </div>
+                <div> Address: &nbsp;
+                        { isEditing === false ? <span>{user?.address}</span>
+                        : (<input ref={userInputRef.address} type="text" required placeholder={user?.address}></input>)
+                        }
+                </div>
+                <div> <span>Email: &nbsp;</span>
+                        { isEditing === false ? user?.email
+                        : (<input ref={userInputRef.email} type="text"  required pattern="[A-Za-z0-9]+@gmail.com" placeholder={user?.email}></input>)
+                        }
+                </div>
+                <div> <span>Gender: &nbsp;</span>
+                        { isEditing === false ? user?.gender
+                        : 
+                        (<select ref={userInputRef.gender} type="select" required placeholder={user?.gender}>
+                            <option value={"Male"}>Male</option>
+                            <option value={"Female"}>Female</option>
+                        </select>)
+                        }
+                </div>
+                <div style={{display: "block", textAlign:"center", backgroundColor: "rgb(184, 201, 255)"}}> Bank </div>
+                <div> Balance: <span>{ user?.balance} VND &nbsp;</span></div>
+                <div> Bank ID: <span>{ user?.bankID } </span></div>
+                <div> Bank Provider: <span>{ user?.bankProvider } </span></div>
+                <div> Bank Balance: <span>{ user?.balance } VND </span></div>
                 {currentLoginUser && currentLoginUser.isCoacher === true ?
-                <>
-                <div> Username: { user ? user.userName : null}</div> 
-                <div style={{color: "yellow"}}> Balance: { user ? user.balance : null} VND</div>
-                <div> Coaching Rooms: &nbsp; 
-                </div> 
-                    {
-                        user ? user.roomCoachingList.map((e,k) => (<span key={k}>{e}</span>)) : null
-                    } 
-                </>
-                : null}
-                
-                {currentLoginUser && currentLoginUser.isCoacher === false ?
+                    <>
+                    <div> Coaching Rooms: &nbsp; 
+                    </div> 
+                        {
+                            user?.roomCoachingList.map((e,k) => (<a key={k}>{e}</a>))
+                        } 
+                    </>
+                    : 
                     <> 
-                        <div> Email: { user ? user.email : null}</div>
-                        <div style={{color: "yellow"}}> Series Number: { user ? user.bankID : null}</div>
-                        <div style={{color: "yellow"}}> Bank: { user ? user.bankProvider : null}</div>
-                        <div style={{color: "yellow"}}> Bank Balance: { user ? user.balance : null} VND</div>
                         <div> Register Rooms: &nbsp; 
                         </div>
                             {
-                                user ? user.roomRegisterList.map((e,k) => (<span key={k}>{e}</span>)) : null
-                            } 
-                    </>
-                    : null
+                                user?.roomRegisterList.map((e,k) => (<a key={k}>{e}</a>))
+                            }
+                    </> 
                 }
-            </div>
+                
+                        
+                <div>
+                    {isEditing ? 
+                    <>
+                    <button type="button" className="shadow cancel_button" onClick={onProfileCancel}></button>
+                    <button type="submit" className="shadow save_button"></button>
+                    </>
+                    : <button type="button" className="shadow edit_button" onClick={onProfileEdit}></button>
+                    }
+                </div>
+            </form>
         </div>
     );
 }

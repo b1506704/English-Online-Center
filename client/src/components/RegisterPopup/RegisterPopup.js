@@ -11,6 +11,9 @@ const RegisterPopup = ({close}) => {
         passWord: '',
         fullName: '',
         gender: '',
+        phoneNumber: '',
+        address: '',
+        birthDate: '',
         email: '',
         question_1: ''
     });
@@ -44,7 +47,19 @@ const RegisterPopup = ({close}) => {
                     if (userInfo.gender === '' || e.target.password.value != e.target.re_password.value ) {
                         dispatch(setNotification("Invalid information!"));
                     } else {
-                        setUserInfo({...userInfo, userName: e.target.username.value, passWord:e.target.password.value, fullName: e.target.full_name.value, email: e.target.email.value, question_1: e.target.question_1.value});
+                        setUserInfo(
+                            {
+                                ...userInfo,
+                                userName: e.target.username.value,
+                                passWord:e.target.password.value,
+                                fullName: e.target.full_name.value,
+                                phoneNumber: e.target.mobile.value,
+                                address: e.target.address.value,
+                                birthDate: e.target.address.value,
+                                email: e.target.email.value,
+                                question_1: e.target.question_1.value
+                            }
+                        );
                     }
                 }}>
                 <div>
@@ -53,7 +68,7 @@ const RegisterPopup = ({close}) => {
                 </div>
                 <div>
                     <label>Full Name:</label>
-                    <input type="text" autoFocus={true} required minLength={1} name="full_name"></input>
+                    <input type="text" required minLength={1} name="full_name"></input>
                 </div>
                 <div>
                     <label>Male: </label>
@@ -62,7 +77,6 @@ const RegisterPopup = ({close}) => {
                         checked={userInfo.gender === 'Male'} 
                         onChange={() => setUserInfo({...userInfo, gender: 'Male'})}
                         value="male" 
-                         
                         name="male">
                     </input>
                     <label>Female: </label>
@@ -71,9 +85,20 @@ const RegisterPopup = ({close}) => {
                         checked={userInfo.gender === 'Female'} 
                         onChange={() => setUserInfo({...userInfo, gender: 'Female'})}
                         value="female" 
-                         
                         name="female">
                     </input>
+                </div>
+                <div>
+                    <label>Birthdate:</label>
+                    <input type="date" require placeholder="DD-MM-YYYY" name="birth_date"></input>
+                </div>
+                <div>
+                    <label>Address:</label>
+                    <input type="text" required minLength={1} name="address"></input>
+                </div>
+                <div>
+                    <label>Mobile:</label>
+                    <input type="text" required minLength={1} name="mobile"></input>
                 </div>
                 <div>
                     <label>Password </label>
@@ -89,7 +114,7 @@ const RegisterPopup = ({close}) => {
                 </div>
                 <div>
                     <label>Father's Birthdate:</label>
-                    <input type="text" require placeholder="18XX" name="question_1"></input>
+                    <input type="date" require placeholder="DD-MM-YYYY" name="question_1"></input>
                 </div>
                 <div className="button_container">
                     <input type="submit" className="shadow" value="OK"></input>

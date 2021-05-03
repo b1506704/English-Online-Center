@@ -12,12 +12,11 @@ const RoomDetail = () => {
     const modalRef = useRef();
     const roomList = useSelector((state) => state.user_reducer.roomList);
     const currentUser = useSelector((state) => state.user_reducer.loggedInUser);
-    const currentRoom = useSelector((state) => state.user_reducer.currentRoom);
+    // const currentRoom = useSelector((state) => state.user_reducer.currentRoom);
     const userList = useSelector((state) => state.user_reducer.userList);
     const [room, setRoom] = useState(null);
 
     useEffect(() => {
-        scrollToModal();
         if (roomList === undefined || roomList === null) {
             history.push('/room');
         } else {
@@ -25,6 +24,9 @@ const RoomDetail = () => {
         }
     },[roomList]);
 
+    useEffect(() => {
+        scrollToModal();
+    },[]);
 
     const onSubmitSchedule = (e) => {
         e.preventDefault();
@@ -39,7 +41,7 @@ const RoomDetail = () => {
       };
     
     const renderParticipants = () => {
-        const participants = currentRoom?.roomParticipants
+        const participants = room?.roomParticipants
                             .map((user, key) => 
                             (<a 
                                 className="participant shadow" key={key} 

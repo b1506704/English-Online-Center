@@ -12,25 +12,41 @@
     border-radius: 5px;
     padding-left: 0px;
     padding-right: 25px;
-    background-color: rgba(24, 23, 22, 0.582);
+    background-color: rgb(252, 248, 245);
     transition: all 0.4s ease-out;
 }
 .user_info_container:hover {
     width: 410px;
     overflow-y: auto;
 }
-
-.user_info_container .title {
+.user_info_container .user_img {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 10px;
+    width: 100%;
+}
+.user_info_container h2 {
+    color: rgb(0, 0, 0);
+}
+.user_info_container .user_img img {
+    border-radius: 150px;
+    height: 150px;
+    width: 150px;
+    margin-bottom: 20px;
+    border: 2px double white;
+}
+.user_info_container .user_title {
+    display: block !important;
     position: sticky;
+    text-align: center;
     top: 0;
-    color: rgb(252, 252, 252);
+    padding-left: 25px;
+    color: rgb(0, 0, 0);
+    /* width: 120%; */
+    /* background-color: rgb(184, 201, 255); */
 }
-.user_info_container span {
-    color: rgb(235, 199, 199);
-    background-color: rgb(65, 65, 59);
-    border-radius: 5px;
-    padding: 5px;
-}
+
 .user_info_container .icon {
     position: absolute;
     display: flex;
@@ -53,24 +69,25 @@
     align-items:center ;
     left: 5vh;
     top: 0vh;
-    color: rgb(252, 252, 252);
+    font-weight: bold;
+    color: rgb(0, 0, 0);
 }
-.user_info_container div {
+.user_info_container .info_panel div {
     margin-top: 2vh;
     display: flex;
     padding-right: 10px;
     letter-spacing: 2px;
     justify-content: space-between;
     align-items: center;
-    word-wrap: break-word;
     width: 100%;
+    text-align: left;
+    color: #000;
     font-size: 20px;
 }
-.user_info_container div .image {
-   height: 100%;
-   border-radius: 5px;
-   width: 100%;
+.user_info_container .info_panel div span {
+    text-align: right;
 }
+
 .user_info_container button {
     height: 50px;
     width: 100%;
@@ -82,14 +99,17 @@
     color: transparent;
     transition: all 0.5s ease-in-out;
 }
-.user_info_container button .refresh_button {
-    background: url("../../../../assets/imgs/refresh.png");
+.user_info_container button .edit_button {
+    background: url("../../../../assets/imgs/pencil.png");
 }
-.user_info_container .upload_button {
+.user_info_container button .cancel_button {
+    background: url("../../../../assets/imgs/cancel.png");
+}
+.user_info_container .save_button {
     background-size: contain !important;
     background-position: center top !important;
     background-repeat: no-repeat !important;
-    background: url("../../../../assets/imgs/upload.png");
+    background: url("../../../../assets/imgs/save.png");
 }
 .user_info_container button:hover {
     background-color: rgba(177, 195, 255, 0.288);
@@ -99,7 +119,7 @@
     font-size: 18px;
     border-radius: 5px;
     padding-left: 1vh;
-    color: rgb(255, 253, 253);
-    background-color: rgba(19, 18, 18, 0.678);
+    color: #000;
+    background-color: rgba(210, 216, 233, 0.678);
     width: 200px;
 }

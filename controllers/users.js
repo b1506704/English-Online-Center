@@ -63,8 +63,8 @@ export const logout = async (req, res) => {
 }
 
 export const register = async (req, res) => {
-    const { userName, passWord, imgUrl, gender, fullName, email, question_1 } = req.body;
-    const newUser = new User({ userName, passWord, imgUrl, gender, fullName, email, question_1 });
+    const { userName, passWord, imgUrl, address, birthDate, phoneNumber, gender, fullName, email, question_1 } = req.body;
+    const newUser = new User({ userName, passWord, imgUrl, address, birthDate, phoneNumber, gender, fullName, email, question_1 });
 
     try {
         await newUser.save();
@@ -74,12 +74,12 @@ export const register = async (req, res) => {
     }
 }
 export const updateUser = async (req, res) => { 
-    const { userName, passWord, imgUrl, gender, fullName, email } = req.body;
+    const { userName, passWord, imgUrl, gender, fullName, birthDate, address, phoneNumber, email } = req.body;
     try {
         const user = await User.findOne({userName: req.params.userName});
         const updatedUser = await User.findOneAndUpdate(
             {userName: user.userName},
-            {userName, passWord, imgUrl, gender, fullName, email} , 
+            {userName, passWord, imgUrl, gender, fullName, birthDate, phoneNumber, address, email} , 
             {new: true}
         );
         res.status(200).json(updatedUser);

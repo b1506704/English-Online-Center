@@ -6,12 +6,9 @@ const courseSchema = mongoose.Schema({
         unique: true
     },
     imgUrl: String,
-    roomNum: {
-        type: Number,
-        default: 0,
-        min: 0
-    },
-    sellNum: {
+    // include tests' id
+    testCollection: Array,
+    registerNumer: {
         type: Number,
         default: 0,
         min: 0

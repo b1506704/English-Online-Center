@@ -1,4 +1,3 @@
-
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
@@ -9,6 +8,7 @@ import userRoutes from './routes/users.js';
 import roomRoutes from './routes/rooms.js';
 import bankRoutes from './routes/banks.js';
 import courseRoutes from './routes/courses.js';
+import testRoutes from './routes/tests.js';
 
 const app = express();
 const __dirname = path.resolve();
@@ -25,6 +25,7 @@ app.use('/users', userRoutes);
 app.use('/rooms', roomRoutes);
 app.use('/banks', bankRoutes);
 app.use('/courses', courseRoutes);
+app.use('/tests', testRoutes);
 
 const dbUri = process.env.MONGODB_URI;
 

@@ -13,10 +13,13 @@ import {
   updateRoom,
   updateCourse,
   updateUser,
+  deleteTest,
 } from '../../../actions/user_actions';
 import './Card.css';
+import Test from '../../../assets/imgs/test.jpg';
+import Practice from '../../../assets/imgs/practice.jpg';
 
-const Card = ({room, course, user, bank, type, mode}) => {
+const Card = ({room, course, user, bank, test, type, mode}) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -87,8 +90,13 @@ const Card = ({room, course, user, bank, type, mode}) => {
         } 
       }
     }
+    
     const onCardEdit = () => {
-      setIsEditing(true);
+      if (type === "test") {
+        history.push(`/coacher/test/${test.id}`);
+      } else {
+        setIsEditing(true);
+      }
     }
     const onCardUpdate = () => {
       if (type === "room") {
@@ -131,7 +139,9 @@ const Card = ({room, course, user, bank, type, mode}) => {
         dispatch(deleteCourse(course.name));
       } else if (type === "user") {
         dispatch(deleteUser(user.userName));
-      }
+      } else if (type === "test") {
+        dispatch(deleteTest(test.id));
+      } 
     }
 
 
@@ -249,6 +259,18 @@ const Card = ({room, course, user, bank, type, mode}) => {
                   <div style={{color: "yellow"}}> Total Linked Room:&nbsp; {countCtgByName(course.name) || null}</div>
                   <div style={{color: "yellow"}}> Crowded Room: &nbsp; {countCtgBySell(course.name) || null}</div>
                 </div>
+            : type === "test" 
+            ? <div className="room_info">
+                <div> Test Name:
+                  {test.name}
+                </div>
+                <div> Total Questions:
+                  {test.questions.length}
+                </div>
+                <div> Type:
+                  {test.isPractice ? "Practice" : "Test"}
+                </div>
+              </div>
             : null   
           }
           {
@@ -291,7 +313,11 @@ const Card = ({room, course, user, bank, type, mode}) => {
                 alt="Loading..." 
                 src={
                   currentImg || course.imgUrl
-              }/>)   
+              }/>)
+              : type === "test" ?
+              (<img className="image" 
+                alt="Loading..." 
+                src={ test.isPractice ? Practice : Test }/>)    
             : (<LoadingContainer style="spinner"/>)
             }
           </div>

@@ -5,6 +5,10 @@ import {
   LOGOUT_USER,
   UPDATE_USER,
   DELETE_USER,
+  FETCH_TEST,
+  DELETE_TEST,
+  UPDATE_TEST,
+  CREATE_TEST,
   FETCH_ROOM,
   DELETE_ROOM,
   REGISTER_ROOM,
@@ -118,7 +122,7 @@ export const register = (userInfo) => async (dispatch) => {
     dispatch(setNotification("Register failed!"));
   }
 };
-
+// bank
 export const addBank = (userName, bankInfo) => async (dispatch) => {
   try {
     await dispatch(setIsLoading(true));
@@ -131,7 +135,60 @@ export const addBank = (userName, bankInfo) => async (dispatch) => {
     dispatch(setNotification("Update failed!"));
   }
 };
+// test
+export const fetchTest = () => async (dispatch) => {
+  try {
+    // await dispatch(setIsLoading(true));
+    const { data } = await api.fetchTest();
+    // await dispatch(setIsLoading(false));
+    dispatch({ type: FETCH_TEST, payload: data});
+  } catch (error) {
+    dispatch(setIsLoading(false));
+    console.log(error.message);
+  }
+};
 
+export const deleteTest = (id) => async (dispatch) => {
+  try {
+    await dispatch(setIsLoading(true));
+    const { data } = await api.deleteTest(id);
+    await dispatch({ type: DELETE_TEST, payload: data});
+    await dispatch(fetchTest());
+    await dispatch(setIsLoading(false));
+    await dispatch(setNotification(`Deleted test #${id}`));
+  } catch (error) {
+    dispatch(setIsLoading(false));
+    dispatch(setNotification("Delete failed!"));
+  }
+};
+
+export const updateTest = (id, testInfo) => async (dispatch) => {
+  try {
+    await dispatch(setIsLoading(true));
+    const { data } = await api.updateTest(id, testInfo);
+    await dispatch({ type: UPDATE_TEST, payload: data});
+    await dispatch(fetchRoom());
+    await dispatch(setIsLoading(false));
+    await dispatch(setNotification(`Updated test ${id}`));
+  } catch (error) {
+    dispatch(setIsLoading(false));
+    dispatch(setNotification("Update failed!"));
+  }
+};
+
+export const createTest = (testInfo) => async (dispatch) => {
+  try {
+    await dispatch(setIsLoading(true));
+    const { data } = await api.createTest(testInfo);
+    await dispatch({ type: CREATE_TEST, payload: data});
+    await dispatch(setNotification(`Added test ${testInfo.id}`));
+    await dispatch(fetchRoom());
+    await dispatch(setIsLoading(false));
+  } catch (error) {
+    dispatch(setNotification("Added failed!"));
+  }
+};
+// room
 export const filterRoom = (courseName) => async (dispatch) => {
   try {
     await dispatch(setIsLoading(true));

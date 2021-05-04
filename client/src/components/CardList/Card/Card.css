@@ -49,7 +49,7 @@
 }
 .card_detail .card_button {
   position: absolute;
-  opacity: 0.3;
+  opacity: 0.5;
   bottom: 3vh;
   border-style: none;
   text-align: center ;

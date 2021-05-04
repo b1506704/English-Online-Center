@@ -1,0 +1,166 @@
+.test_detail_page {
+    position: relative;
+    display: flex;
+    height: 100%;
+    width: 80%;
+    background-color: rgba(87, 56, 56, 0.986);
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+	margin-bottom: 25px;
+    margin-left: 120px;
+}
+.test_detail_page .test_message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: transparent;
+  color: rgb(255, 255, 255);
+  background-color: rgb(0, 0, 0);
+  user-select: none;
+  font-size: 40px;
+  width: 100%;
+}
+.test_detail_page .test_detail {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 25px;
+    align-items: flex-start;
+    width: 100%;
+    background: transparent;
+}
+.test_detail_page .detail_info {
+    border-style: 2px dotted;
+    color: rgb(0, 0, 0);
+    background-color: rgba(255, 255, 255, 0.527);
+    /* width: 300px; */
+    max-height: 665px;
+}
+.test_detail_page .detail_info h2 {
+    text-align: center;
+    background-color: rgb(0, 0, 0);
+    margin-bottom: 10px;
+    width: 100%;
+}
+.test_detail_page .detail_info textarea {
+    text-align: justify;
+    background: white;
+    border-style: dashed 2px black;
+    padding-left: 25px;
+    padding-right: 25px;
+    resize: none;
+    font-size: 25px;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 10px;
+    height: 420px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 800px;
+    /* height: 100%; */
+    width: 100%;
+}
+.test_detail_page .detail_info textarea:disabled {
+    background: transparent;
+    border-style: none;
+    width: 100%;
+    color: rgb(0, 0, 0);
+    transition: all 0.5s ease-in-out;
+}
+.test_detail_page .detail_info div {
+    padding-left: 25px;
+}
+.test_detail_page .detail_info div:last-of-type {
+    margin-bottom: 10px;
+}
+.test_detail_page .detail_info span {
+    position: absolute;
+    right: 8vh;
+}
+.test_detail_page .detail_media {
+    background-color: transparent;
+    border-radius: 15px;
+    border-style: none;
+    height: 615px;
+    width: 600px; 
+}
+.test_detail_page .detail_media h2 {
+    text-align: center;
+    background-color: rgb(0, 0, 0);
+    width: 100%;
+}
+.test_detail_page .detail_media img {
+    height: 100%;
+    width: 100%; 
+    user-select: none;
+    -webkit-user-drag: none;
+}    
+.test_detail_page .content_container {
+    border-style: none;
+    background-color: transparent;
+    min-height: 600px;
+    width: 100%; 
+}
+.test_detail_page .content_container .question_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    color: rgb(255, 255, 255);
+    min-height: 250px; 
+    width: 300px;
+    padding-bottom: 10px;
+}
+.test_detail_page .content_container .question_container .questions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    color: rgb(255, 255, 255);
+    height: 400px; 
+    width: 300px;
+    padding: 0 !important;
+}
+.test_detail_page .content_container .question_container .questions .question {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    margin: 10px;
+    border-radius: 90px;
+    background-color: rgb(2, 2, 2);
+    color: rgb(255, 255, 255);
+    height: 90px; 
+    width: 90px;
+    cursor: grab;
+    padding: 0 !important;
+}
+.test_detail_page  input {
+    font-size: 20px;
+    padding: 5px;
+    font-weight: bold;
+    background-color: rgba(253, 253, 253, 0.5);
+    color: rgb(2, 2, 2);
+    border-radius: 5px;
+    height: 50px;
+    margin-bottom: 10px;
+    width: 200px;
+}
+.test_detail_page input:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: rgb(248, 248, 248);
+    cursor: grab;
+}
+.test_detail_page .scroll_position_holder {
+    position: relative;
+    top: -25vh;
+}

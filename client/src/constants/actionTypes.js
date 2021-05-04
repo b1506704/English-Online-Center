@@ -8,6 +8,11 @@ export const ADD_BANK = 'add_bank';
 export const DELETE_USER = 'delete_user';
 export const UPDATE_USER = 'update_user';
 export const RESET_USER = 'reset_user';
+// test actions
+export const FETCH_TEST = 'fetch_test';
+export const DELETE_TEST = 'delete_test';
+export const CREATE_TEST = 'create_test';
+export const UPDATE_TEST = 'update_test';
 // room actions
 export const INVITE_ROOM = 'invite_room';
 export const REGISTER_ROOM = 'register_room';

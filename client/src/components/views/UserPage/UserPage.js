@@ -5,6 +5,7 @@ import CourseList from '../../CourseList/CourseList';
 import RoomList from '../../RoomList/RoomList';
 import LoadingContainer from '../../../utils/LoadingContainer/LoadingContainer';
 import RoomDetail from '../../RoomDetail/RoomDetail';
+import Selection from '../../Selection/Selection';
 
 const UserPage = ({user}) => {
     const { path } = useRouteMatch();
@@ -13,6 +14,9 @@ const UserPage = ({user}) => {
             <main>
                 <HeadingTitle title="User Dashboard"/>
                 <Switch>
+                    <Route exact path={`${path}`}>
+                        <Selection user="user"/>
+                    </Route>
                     <Route exact path={`${path}/course`}>
                         <CourseList/>
                     </Route>

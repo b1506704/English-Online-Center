@@ -4,7 +4,7 @@ import {Carousel} from 'react-responsive-carousel'
 
 import Card from './Card/Card';
 import LoadingContainer from '../../utils/LoadingContainer/LoadingContainer';
-import {createRoom, createCourse, fetchCourse, fetchRoom, setNotification, filterRoomByPrice, register, fetchUser, setIsLoading  } from '../../actions/user_actions';
+import {createRoom, createCourse, fetchCourse, fetchRoom, setNotification, filterRoomByPrice, register, fetchUser, setIsLoading, createTest, fetchTest  } from '../../actions/user_actions';
 import random from '../../utils/RandomNumber';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import './CardList.css';
@@ -14,6 +14,7 @@ const CardList = ({context}) => {
     const roomList = useSelector((state) => state.user_reducer.roomList);
     const courseList = useSelector((state) => state.user_reducer.courseList);
     const userList = useSelector((state) => state.user_reducer.userList);
+    const testList = useSelector((state) => state.user_reducer.testList);
     const currentUser = useSelector((state) => state.user_reducer.currentUser);
     const searchInput = useRef(null);
 
@@ -41,8 +42,7 @@ const CardList = ({context}) => {
             {
                 name: random(1,2000),
                 imgUrl: null,
-                roomNum: 0,
-                sellNum: 0
+                registerNumer: 0
             }));
     }
 
@@ -55,6 +55,26 @@ const CardList = ({context}) => {
                 email: random(1,20000)
             }
         ));
+    }
+
+    const addTest = () => {
+        dispatch(createTest(
+            {
+                id: random(1,2000),
+                name: 'N3 Test',
+                description: 'The most standard exam for testing language proficiency',
+                questions: [{
+                    id: random(1,10000)
+                }]
+            }
+        ));
+    }
+
+    const loadTest = () => {
+        dispatch(setIsLoading(true));
+        dispatch(fetchTest())
+        .then(() => dispatch(setNotification("Làm mới thành công")))
+        .then(() => dispatch(setIsLoading(false)));
     }
 
     const loadUser = () => {
@@ -102,11 +122,14 @@ const CardList = ({context}) => {
             case "edit_user":
                 toLastArray(userList);
                 break;
+            case "edit_test":
+                toLastArray(userList);
+                break;
             default:
                 setCurrentItem(0);
                 break;
         }
-    },[roomList, userList, courseList]);
+    },[roomList, userList, courseList, testList]);
 
     useEffect (() => {
         setCurrentItem(0);
@@ -224,6 +247,24 @@ const CardList = ({context}) => {
                     }               
                 </div>
             );
+        case "edit_test":
+            return(
+                <div className="card_page">
+                    <div className="card_header"> <b>Test Management </b> 
+                        <button type="button" className="card_menu_button add_button shadow" onClick={addTest}></button>
+                        <button type="button" className="card_menu_button refresh_button shadow" onClick={loadTest}></button>
+                    </div>
+                    {
+                        customCarousel
+                        (
+                            testList != null && testList.length != 0 ? 
+                            testList.map ((item,key) => 
+                            (<Card key={key} test={item} type={"test"} mode={"edit"}/>))
+                            : (<LoadingContainer style={'spinner'}/>)
+                        )
+                    }               
+                </div>
+        );
         default:
             return (<LoadingContainer style={'dot'}/>);
     }

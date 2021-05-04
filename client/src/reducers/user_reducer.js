@@ -7,6 +7,10 @@ import {
   UPDATE_USER,
   RESET_USER,
   LOGOUT_USER,
+  FETCH_TEST,
+  CREATE_TEST,
+  DELETE_TEST,
+  UPDATE_TEST,
   FETCH_ROOM,
   DELETE_ROOM,
   CREATE_ROOM,
@@ -60,6 +64,19 @@ export default (state = { loggedInUser }, action) => {
             }
     case UPDATE_ROOM:
         return { ...state, updatedRoom: action.payload}            
+    case FETCH_TEST:
+        return { ...state, testList: action.payload }
+    case DELETE_TEST:
+        return {...state, 
+                testList: state.testList.filter((test) => test.id != action.payload )
+            }
+    case CREATE_TEST:
+        return {
+            ...state, 
+                testList:[...state.testList, action.payload]
+            }
+    case UPDATE_TEST:
+        return { ...state, updatedTest: action.payload}            
     case REGISTER_ROOM:
         return { ...state, credit: action.payload }
     case FILTER_ROOM:

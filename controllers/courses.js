@@ -36,9 +36,9 @@ export const getCourse = async (req, res) => {
 }
 //todo
 export const createCourse = async (req, res) => {
-    const { name, imgUrl, roomNum, sellNum } = req.body;
+    const { name, imgUrl, registerNumer } = req.body;
 
-    const newCourse = new Course({ name: name, imgUrl:imgUrl, roomNum: roomNum, sellNum: sellNum });
+    const newCourse = new Course({ name: name, imgUrl:imgUrl, registerNumer: registerNumer });
 
     try {
         await newCourse.save();

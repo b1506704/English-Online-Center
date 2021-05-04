@@ -4,8 +4,11 @@ import { Route, useRouteMatch, Switch } from 'react-router-dom';
 import HeadingTitle from '../../HeadingTitle/HeadingTitle';
 import EditUserList from '../../EditUserList/EditUserList';
 import EditRoomList from '../../EditRoomList/EditRoomList';
-import './CoacherPage.css';
 import LoadingContainer from '../../../utils/LoadingContainer/LoadingContainer';
+import EditTestList from '../../EditTestList/EditTestList';
+import EditTestDetail from '../../EditTestDetail/EditTestDetail';
+import Selection from '../../Selection/Selection';
+import './CoacherPage.css';
 
 const CoacherPage = () => {
 
@@ -16,14 +19,20 @@ const CoacherPage = () => {
             <main>
                 <HeadingTitle title="Coacher Dashboard"/>
                 <Switch>
+                    <Route exact path={`${path}`}>
+                        <Selection user="coacher"/>
+                    </Route>
                     <Route path={`${path}/room`}>
                         <EditRoomList/>
                     </Route>
                     <Route path={`${path}/student`}>
                         <EditUserList/>
                     </Route>
-                    <Route path={`${path}/test`}>
-                        <LoadingContainer/>
+                    <Route exact path={`${path}/test`}>
+                        <EditTestList/>
+                    </Route>
+                    <Route path={`${path}/test/:id`}>
+                        <EditTestDetail/>
                     </Route>
                     <Route path={`${path}/files`}>
                         <LoadingContainer/>

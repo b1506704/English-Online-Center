@@ -4,7 +4,7 @@ import {Carousel} from 'react-responsive-carousel'
 
 import Card from './Card/Card';
 import LoadingContainer from '../../utils/LoadingContainer/LoadingContainer';
-import {createRoom, createCourse, fetchCourse, fetchRoom, setNotification, filterRoomByPrice, register, fetchUser, setIsLoading, createTest, fetchTest  } from '../../actions/user_actions';
+import {createRoom, createCourse, fetchCourse, fetchRoom, setNotification, register, fetchUser, setIsLoading, createTest, fetchTest, filterRoomById  } from '../../actions/user_actions';
 import random from '../../utils/RandomNumber';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import './CardList.css';
@@ -100,7 +100,7 @@ const CardList = ({context}) => {
         if (id.trim() === '') {
             dispatch(setNotification("Please enter id"));
         } else {
-            dispatch(filterRoomByPrice(id));
+            dispatch(filterRoomById(id));
         }
     }
     const toLastArray = (array) => {
@@ -139,7 +139,7 @@ const CardList = ({context}) => {
         <Carousel 
             className="card_container"
             centerMode={true} 
-            centerSlidePercentage={65} 
+            centerSlidePercentage={55} 
             swipeable
             showIndicators={true} 
             useKeyboardArrows

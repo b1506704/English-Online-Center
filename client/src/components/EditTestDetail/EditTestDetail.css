@@ -3,7 +3,7 @@
     display: flex;
     height: 100%;
     width: 100%;
-    background-color: rgba(87, 56, 56, 0.986);
+    /* background-color: rgba(87, 56, 56, 0.986); */
     color: rgb(255, 255, 255);
     font-weight: bold;
     flex-direction: column;
@@ -13,18 +13,56 @@
 	margin-bottom: 25px;
     /* margin-left: 120px; */
 }
+
+
+
 .test_detail_page .test_message {
+  position: sticky;
+  top: 0;
+  z-index: 999;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   border: transparent;
+  padding-left: 100px;
+  padding-right: 100px;
   color: rgb(255, 255, 255);
-  background-color: rgba(5, 0, 0, 0.507);
-  /* background-color: rgb(0, 0, 0); */
+  backdrop-filter: blur(5px);
+  background-color: rgba(16, 83, 100, 0.486);
   user-select: none;
+  height: 70px;
   font-size: 40px;
   width: 100%;
 }
+.test_detail_page .test_message .button_group{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    /* flex-grow: 0.5; */
+    width: 300px;
+}
+
+.test_detail_page .test_message button {
+    position: relative !important;
+	height: 50px;
+    width: 50px;
+    font-size: 20px;
+    top: 0 !important;
+    left: 0 !important;
+	color: transparent;
+	background-size: contain;
+    border-radius: 5px;
+    border-style: none;
+    transition: all 0.35s ease-in-out;
+    margin: 0 !important;
+    /* margin-right: 20px; */
+}
+.test_detail_page .test_message button:hover {
+    cursor: pointer;
+    transform: scale(1.15);
+}
+
+
 .test_detail_page .test_detail {
     margin-top: 20px;
     margin-bottom: 20px;
@@ -36,22 +74,22 @@
     background: transparent;
 }
 .test_detail_page .detail_info {
-    border-style: 2px dotted;
     color: rgb(0, 0, 0);
     background-color: rgba(255, 255, 255, 0.527);
-    /* width: 300px; */
+    width: 400px;
     max-height: 665px;
 }
 .test_detail_page .detail_info h2 {
     text-align: center;
-    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    background-color: rgba(5, 0, 0, 0.507);
     margin-bottom: 10px;
     width: 100%;
 }
 .test_detail_page .detail_info textarea {
     text-align: justify;
     background: white;
-    border-style: dashed 2px black;
+    /* border-style: dashed 2px black; */
     padding-left: 25px;
     padding-right: 25px;
     resize: none;
@@ -92,7 +130,8 @@
 }
 .test_detail_page .detail_media h2 {
     text-align: center;
-    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    background-color: rgba(5, 0, 0, 0.507);
     width: 100%;
 }
 .test_detail_page .detail_media img {
@@ -100,7 +139,22 @@
     width: 100%; 
     user-select: none;
     -webkit-user-drag: none;
-}    
+}
+.test_detail_page .test_content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: transparent;
+    padding-left: 100px;
+    padding-right: 100px;
+    color: rgb(255, 255, 255);
+    backdrop-filter: blur(5px);
+    background-color: rgba(16, 83, 100, 0.486);
+    user-select: none;
+    height: 70px;
+    font-size: 40px;
+    width: 100%;
+  }    
 .test_detail_page .content_container {
     border-style: none;
     background-color: transparent;

@@ -42,8 +42,7 @@ const NavBar = () => {
     
     return(
         <header>
-            {isLoading && <LoadingContainer style="spinner"/>}
-            {isLoading === true ? null : <h1>English <br></br>Online<br></br>Center</h1>}
+            <h1 className={ isLoading ? "corner_box_animation" : null}>English <br></br>Online<br></br>Center</h1>
             <nav>
                 {
                     userMode === "admin" || userMode === "user" 

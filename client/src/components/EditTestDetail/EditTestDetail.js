@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import './EditTestDetail.css';
 import random from '../../utils/RandomNumber.js';
-import { updateTest } from '../../actions/user_actions';
+import { fetchTest, setNotification, updateTest } from '../../actions/user_actions';
 import Test from '../../assets/imgs/test.jpg';
 import Practice from '../../assets/imgs/practice.jpg';
 
@@ -68,8 +68,8 @@ const TestDetail = () => {
         setisEdit(false);
     }
 
-    const onUpdate = (e) => {
-        e.preventDefault();
+    const onUpdate = () => {
+        // e.preventDefault();
         // dispatch update test
         // then setIsEdit false
     }
@@ -92,6 +92,11 @@ const TestDetail = () => {
         // to do
     }
 
+    const loadTest = () => {
+        dispatch(fetchTest())
+        .then(() => dispatch(setNotification("Refresh successfully")));
+    }
+
     const renderQuestions = () => {
         const questions = test?.questions
                             .map((test, key) => 
@@ -106,10 +111,23 @@ const TestDetail = () => {
     
 
     return(
-        <div className="test_detail_page">
+        <div className="test_detail_page shadow">
             <div ref={modalRef} className="scroll_position_holder"></div>
-            <h2 className="test_message neon shadow">
-                {test?.name}            
+            <h2 className={isEdit ? "test_message corner_box_animation shadow" : "test_message shadow"}>
+                Test Editor
+                <div className="button_group">
+                    {
+                        isEdit ? 
+                        <>
+                            <button type="button" className="cancel_button shadow" onClick={onCancel}></button>        
+                            <button type="button" className="save_button shadow" onClick={onUpdate}></button>        
+                        </> :
+                        <>
+                            <button type="button" className="edit_button shadow" onClick={onEdit}></button>
+                        </> 
+                    }
+                    <button type="button" className="refresh_button shadow" onClick={loadTest}></button>            
+                </div>
             </h2>
             <div className="test_detail">
                 <div className="detail_media shadow">
@@ -125,18 +143,18 @@ const TestDetail = () => {
                     <textarea disabled={!isEdit} value={test?.description}></textarea>
                 </div>
             </div>
-            <h2 className="test_message shadow">
+            <h2 className="test_content shadow">
                 Test Content
             </h2>
             <div className="content_container">
                 <form className="question_container" onSubmit={(e) => onUpdate(e)}>
-                    <input type="button" className="shadow neon" value="Remove All" onClick={onRemoveAll}></input>
+                    {/* <input type="button" className="shadow neon" value="Remove All" onClick={onRemoveAll}></input>
                     <input type="button" className="shadow neon" value="Insert" onClick={onInsert}></input>
                     { isEdit ? <>
                         <input type="submit" className="shadow neon" value="Save"></input>
                         <input type="button" className="shadow neon" value="Cancel" onClick={onCancel}></input>
                         </> : (<input type="button" className="shadow neon" value="Edit" onClick={onEdit}></input>)
-                    }
+                    } */}
                     <h2>Questions</h2>
                     <div className="questions">
                         {renderQuestions()}

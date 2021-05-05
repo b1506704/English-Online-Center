@@ -38,9 +38,9 @@ const RegisterPopup = ({close}) => {
       };
 
     return(
-        <div className="register_container shadow">
+        <div id="register" className="register_container shadow">
             <div ref={modalRef} className="scroll_position_holder"></div>
-            <h1>Register</h1>
+            <h1 className="shadow">Register</h1>
             <form onSubmit={(e) => {
                     e.preventDefault();
 

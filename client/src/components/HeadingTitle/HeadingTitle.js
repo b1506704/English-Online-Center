@@ -122,13 +122,17 @@ const HeadingTitle = ({title, subtitle}) => {
             case "marketing":
                 return renderMarketingMenu;
             default:
-                return (<p> {subtitle} </p>);
+                return (
+                    <>
+                        <h2> {title} </h2>
+                        <p> {subtitle} </p>
+                    </>
+                );
         }
     }
     
     return(
         <div className="heading_container shadow corner_box corner_box_e">
-            <h2> {title} </h2>
             {renderMenu()}
         </div>
     );

@@ -71,7 +71,7 @@ const UserInfo = () => {
                 <div style={{display: "block", textAlign:"center", backgroundColor: "rgb(184, 201, 255)"}}> Account </div>
                 <div> <span>Password: &nbsp;</span>
                     { isEditing === false ? "********"
-                    : (<input ref={userInputRef.passWord} type="password" autoFocus={true} required maxLength={12} placeholder={user?.passWord}></input>)
+                    : (<input ref={userInputRef.passWord} type="password" autoFocus={true} required maxLength={12} placeholder={"********"}></input>)
                     }
                 </div>
                 <div> <span>Full Name: &nbsp;</span>
@@ -109,10 +109,9 @@ const UserInfo = () => {
                         }
                 </div>
                 <div style={{display: "block", textAlign:"center", backgroundColor: "rgb(184, 201, 255)"}}> Bank </div>
+                <div> ID: <span>{ user?.bankID } </span></div>
+                <div> Provider: <span>{ user?.bankProvider } </span></div>
                 <div> Balance: <span>{ user?.balance} VND &nbsp;</span></div>
-                <div> Bank ID: <span>{ user?.bankID } </span></div>
-                <div> Bank Provider: <span>{ user?.bankProvider } </span></div>
-                <div> Bank Balance: <span>{ user?.balance } VND </span></div>
                 {currentLoginUser && currentLoginUser.isCoacher === true ?
                     <>
                     <div> Coaching Rooms: &nbsp; 
@@ -130,8 +129,6 @@ const UserInfo = () => {
                             }
                     </> 
                 }
-                
-                        
                 <div>
                     {isEditing ? 
                     <>

@@ -19,6 +19,9 @@
     width: 410px;
     overflow-y: auto;
 }
+.user_info_container form {
+    width: 100%;
+}
 .user_info_container .user_img {
     flex-direction: column;
     justify-content: flex-start;

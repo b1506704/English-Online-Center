@@ -195,20 +195,20 @@ export const filterRoom = (courseName) => async (dispatch) => {
     await dispatch(fetchRoom());
     await dispatch({ type: FILTER_ROOM, payload: courseName});
     await dispatch(setIsLoading(false));
-    await dispatch(setNotification(`Filter with Course= ${courseName} `));
+    await dispatch(setNotification(`Course ${courseName} selected`));
   } catch (error) {
     dispatch(setIsLoading(false));
     console.log(error.message);
   }
 };
 
-export const filterRoomByPrice = (price) => async (dispatch) => {
+export const filterRoomById = (id) => async (dispatch) => {
   try {
     await dispatch(setIsLoading(true));
     await dispatch(fetchRoom());
-    await dispatch({ type: FILTER_ROOM_BY_ID, payload: price});
+    await dispatch({ type: FILTER_ROOM_BY_ID, payload: id});
     await dispatch(setIsLoading(false));
-    await dispatch(setNotification(`Filter with Price= ${price} `));
+    await dispatch(setNotification(`Room ${id} selected `));
   } catch (error) {
     dispatch(setIsLoading(false));
     console.log(error.message);

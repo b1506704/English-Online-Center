@@ -63,7 +63,7 @@ const LoginPopup = ({close}) => {
     
 
     return(
-        <div className="login_container shadow">
+        <div id="login" className="login_container shadow">
             <div ref={modalRef} className="scroll_position_holder"></div>
             <h1>{isForget ? "Forget Password" : "Login"}</h1>
             <form onSubmit={(e) => {

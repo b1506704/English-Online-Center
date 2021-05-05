@@ -7,7 +7,9 @@
     z-index: 999;
     /* width: 450px; */
     opacity: 0;
-    background-color: rgba(5, 1, 1, 0.507);
+    font-weight: bold;
+    color: #000;
+    background-color: rgba(255, 255, 255, 0.507);
     border-radius: 15px;
     animation-name: appear_h530;
     animation-duration: 0.85s;

@@ -1,19 +1,17 @@
 footer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	bottom: 0;
 	user-select: none;
-	background-color: rgba(0, 0, 0, 0.534);
-	color: rgb(238, 253, 255);
-	width: 80%;
-	margin-top: 25px;
-	margin-left: 120px;
-	border: 2px double pink;
+	height: 100px;
+	background-color: pink;
+	width: 100%;
 }
-footer h1{
-	font-size: 20px;
+footer h2 {
+	font-weight: bold;
+	font-size: 25px;
 	margin: 0;
 	text-align: center;
-	color: rgb(238, 253, 255);
-	padding: 24px 0;
-	letter-spacing: 2px;
-	background: transparent;
+	/* letter-spacing: 2px; */
 }

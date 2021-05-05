@@ -2,7 +2,9 @@
     height: 0px;
     opacity: 0;
     width: 450px;
-    background-color: rgba(0, 0, 0, 0.479);
+    background-color: rgba(255, 255, 255, 0.507);
+    font-weight: bold;
+    color: #000;
     border-radius: 15px;
     animation-name: appear_h350;
     animation-duration: 0.85s;

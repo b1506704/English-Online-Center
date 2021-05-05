@@ -235,7 +235,7 @@ const Card = ({room, course, user, bank, test, type, mode}) => {
                     : (<input ref={roomInputRef.priceRef} type="text" placeholder={room.price}></input>)
                   }
                 </div>
-                <div style={{color: "yellow"}}>Status: &nbsp;{room.isFull ? "Full" : "Ready"}</div>
+                <div style={{color: "blue"}}>Status: &nbsp;{room.isFull ? "Full" : "Ready"}</div>
                 <div>Coacher:&nbsp; {room.roomCoacher}</div>
                 <div>Participants:&nbsp; {room.roomParticipants.length}</div>
                 <div>Start:&nbsp;
@@ -256,8 +256,8 @@ const Card = ({room, course, user, bank, test, type, mode}) => {
                     : (<input ref={courseInputRef.nameRef} type="text" placeholder={course.name}></input>)
                     }
                   </div>
-                  <div style={{color: "yellow"}}> Total Linked Room:&nbsp; {countCtgByName(course.name) || null}</div>
-                  <div style={{color: "yellow"}}> Crowded Room: &nbsp; {countCtgBySell(course.name) || null}</div>
+                  <div style={{color: "blue"}}> Total Linked Room:&nbsp; {countCtgByName(course.name) || null}</div>
+                  <div style={{color: "blue"}}> Crowded Room: &nbsp; {countCtgBySell(course.name) || null}</div>
                 </div>
             : type === "test" 
             ? <div className="room_info">

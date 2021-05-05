@@ -156,12 +156,12 @@ const CardList = ({context}) => {
     switch (context) {
         case "list":
             return(
-                <div className="card_page">
+                <div className="card_page shadow">
                     <div className="card_header"> <b>Room</b> 
-                        <button type="button" className="card_menu_button refresh_button_user shadow" onClick={loadRoom}></button>
                         <form onSubmit={(e) => searchByID(e)}>
                             <input type="text" ref={searchInput} className="shadow" placeholder="Search by id"></input>
                             <input type="submit" className="shadow"></input>
+                            <button type="button" className="card_menu_button refresh_button_user shadow" onClick={loadRoom}></button>
                         </form>
                     </div>
                     {
@@ -177,7 +177,7 @@ const CardList = ({context}) => {
             );
         case "course":
             return(
-                <div className="card_page">
+                <div className="card_page shadow">
                     <div className="card_header"> <b> Course</b> 
                         <button type="button" className="card_menu_button refresh_button_user shadow" onClick={loadCourse}></button>
                     </div>
@@ -194,10 +194,12 @@ const CardList = ({context}) => {
             );
         case "edit_course":
             return(
-                <div className="card_page">
+                <div className="card_page shadow">
                     <div className="card_header"> <b>Course Management</b> 
+                        <>
                         <button type="button" className="card_menu_button add_button shadow" onClick={addCourse}></button>
                         <button type="button" className="card_menu_button refresh_button shadow" onClick={loadCourse}></button>
+                        </>
                     </div>
                     {
                         customCarousel
@@ -212,10 +214,12 @@ const CardList = ({context}) => {
             );   
         case "edit_list":
             return(
-                <div className="card_page">
+                <div className="card_page shadow">
                     <div className="card_header"> <b>Room Management</b> 
+                        <>
                         <button type="button" className="card_menu_button add_button shadow" onClick={addRoom}></button>
                         <button type="button" className="card_menu_button refresh_button shadow" onClick={loadRoom}></button>
+                        </>
                     </div>
                     {
                         customCarousel
@@ -230,7 +234,7 @@ const CardList = ({context}) => {
             );
         case "edit_user":
             return(
-                <div className="card_page">
+                <div className="card_page shadow">
                     <div className="card_header"> <b>Student Management </b> 
                         <button type="button" className="card_menu_button add_button shadow" onClick={addUser}></button>
                         <button type="button" className="card_menu_button refresh_button shadow" onClick={loadUser}></button>
@@ -249,7 +253,7 @@ const CardList = ({context}) => {
             );
         case "edit_test":
             return(
-                <div className="card_page">
+                <div className="card_page shadow">
                     <div className="card_header"> <b>Test Management </b> 
                         <button type="button" className="card_menu_button add_button shadow" onClick={addTest}></button>
                         <button type="button" className="card_menu_button refresh_button shadow" onClick={loadTest}></button>

@@ -34,11 +34,12 @@ const HeadingTitle = ({title, subtitle}) => {
 
     const renderUserMenu = (
                     <>
-                        <nav>  
-                            <Link to={`${url}/course`}>Course</Link>
-                            <Link to={`${url}/room`}>Room</Link>
-                            <Link to={`${url}/progress`}>Progress</Link>
-                            <Link to={`${url}/information`}>Information</Link>
+                        <nav>
+                            <Link className="shadow" to={`${url}`}>Home</Link>  
+                            <Link className="shadow" to={`${url}/course`}>Course</Link>
+                            <Link className="shadow" to={`${url}/room`}>Room</Link>
+                            <Link className="shadow" to={`${url}/progress`}>Progress</Link>
+                            <Link className="shadow" to={`${url}/information`}>Information</Link>
                         </nav>
                     </>
                     );
@@ -46,10 +47,11 @@ const HeadingTitle = ({title, subtitle}) => {
     const renderCoacherMenu = (
                     <>
                         <nav>
-                            <Link to={`${url}/student`}>Student</Link>
-                            <Link to={`${url}/room`}>Room</Link>
-                            <Link to={`${url}/test`}>Test</Link>
-                            <Link to={`${url}/files`}>Files</Link>
+                            <Link className="shadow" to={`${url}`}>Home</Link>
+                            <Link className="shadow" to={`${url}/student`}>Student</Link>
+                            <Link className="shadow" to={`${url}/room`}>Room</Link>
+                            <Link className="shadow" to={`${url}/test`}>Test</Link>
+                            <Link className="shadow" to={`${url}/files`}>Files</Link>
                         </nav>
                     </>
                     );
@@ -102,34 +104,13 @@ const HeadingTitle = ({title, subtitle}) => {
             </nav>
         </>
         );
-    const renderUserRoomMenu = (
-        <>
-            <nav>
-                <Link to={`${url}/oral`}>Oral Practice</Link>
-                <Link to={`${url}/test`}>Test</Link>
-                <Link to={`${url}/file`}>File</Link>
-            </nav>
-        </>
-        );
-    const renderCoacherRoomMenu = (
-        <>
-            <nav>
-                <Link to={`${url}/oral`}>Oral Practice</Link>
-                <Link to={`${url}/test`}>Test</Link>
-                <Link to={`${url}/file`}>File</Link>
-            </nav>
-        </>
-        );
+    
     const renderMenu = () => {
         switch (userMode) {
             case "user":
                 return renderUserMenu;
-            case "user_room":
-                return renderUserRoomMenu;
             case "coacher":
                 return renderCoacherMenu;
-            case "coacher_room":
-                return renderCoacherRoomMenu;
             case "hr":
                 return renderHRMenu;
             case "sales":
@@ -146,7 +127,7 @@ const HeadingTitle = ({title, subtitle}) => {
     }
     
     return(
-        <div className="heading_container">
+        <div className="heading_container shadow corner_box corner_box_e">
             <h2> {title} </h2>
             {renderMenu()}
         </div>

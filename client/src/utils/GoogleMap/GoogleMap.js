@@ -10,7 +10,7 @@ const GoogleMap = ({lat, lng}) => {
     const [zoomLevel, setZoomLevel] = useState(15);
 
     return(
-        <div className="map_container drop_shadow">
+        <div className="map_container shadow">
             <GoogleMapReact
                 bootstrapURLKeys= {{key: 'AIzaSyBi33ikA-UNokHaz0abercTBz2bOjjdh38'}}
                 defaultCenter={location}

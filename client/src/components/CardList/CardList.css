@@ -6,29 +6,30 @@
 	text-align: center;
 	margin-top: 25px;
 	margin-bottom: 25px;
+	width: 100%;
 }
 
 .card_page .card_header {
 	display: flex;
 	align-items: center;
-	justify-content: flex-start; 
+	justify-content: space-between; 
 	margin: 0;
-	width: 80%;
+	width: 100%;
 	text-align: left;
 	text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #9dd7e6;
 	font-size: 30px;
 	padding-left: 8vh;
 	letter-spacing: 2px;
-	border-top: 5px double rgba(59, 30, 30, 0.486);
-	border-bottom: 5px double rgba(59, 30, 30, 0.486);
+	/* border-top: 5px double rgba(59, 30, 30, 0.486); */
+	/* border-bottom: 5px double rgba(59, 30, 30, 0.486); */
 	/* background-color: rgba(36, 12, 12, 0.507); */
-	background-color: rgba(87, 56, 56, 0.986);
+	background-color: rgba(5, 0, 0, 0.507);
 	padding-bottom: 10px;
 	padding-top: 10px;
 	color: #fafffe;
 }
 .card_page .card_menu_button {
-	position: absolute;
+	position: relative;
 	height: 50px;
     width: 50px;
     font-size: 20px;
@@ -37,18 +38,20 @@
     border-radius: 5px;
     border-style: none;
     transition: all 0.35s ease-in-out;
-    margin: 0;
+    margin-right: 20px;
 }
 .refresh_button {
-	right: 44vh;
+	/* right: 44vh; */
 	background: url("../../assets/imgs/refresh.png") no-repeat top left;
 }
 .add_button {
-	right: 33vh;
+	position: absolute !important;
+	right: 18vh;
+	/* right: 33vh; */
 	background: url("../../assets/imgs/plus.png") no-repeat top left;
 }
 .refresh_button_user {
-	right: 31vh;
+	/* right: 31vh; */
 	background: url("../../assets/imgs/refresh.png") no-repeat top left;
 }
 
@@ -56,8 +59,8 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	position: absolute;
-	right: 42vh;
+	/* position: absolute; */
+	/* right: 42vh; */
 }
 .card_page form input[type=text] {
 	position: relative;
@@ -79,7 +82,8 @@
 	position: relative;
 	height: 50px;
     width: 50px;
-	margin-left: 2vh;
+	margin-left: 20px;
+	margin-right: 20px;
 	border-style:none;
 	color: transparent;
 	background: url("../../assets/imgs/magnifying-glass.png") no-repeat top left;
@@ -95,10 +99,10 @@
 }
 .card_container {
 	height: 100%;
-	width: 80%;
+	width: 100%;
 	overflow: hidden;
 	color: rgb(255, 254, 254);
-	background-color: rgba(87, 56, 56, 0.986);
+	/* background-color: rgba(87, 56, 56, 0.986); */
 	/* background-color: rgba(0, 0, 0, 0.041); */
-	border-bottom: 5px double rgba(59, 30, 30, 0.486);
+	/* border-bottom: 5px double rgba(59, 30, 30, 0.486); */
 }

@@ -61,16 +61,16 @@ const RoomDetail = () => {
             <h2 className="room_message neon shadow">
                 {"Room " + room?.id}            
             </h2>
-            <div className="room_detail">
+            <div className="room_detail shadow">
                 <div className="detail_media shadow">
                     <h2>Media Preview</h2>
                     <img className="image" alt="Loading..." src={room?.imgUrl}/>
                 </div>
                 <div className="detail_info shadow">
                     <h2>Information</h2>
-                    <div style={{color: "yellow"}}>Participants:&nbsp; <span>{room?.roomParticipants.length ? room.roomParticipants.length : "0"}</span></div>
-                    <div style={{color: "yellow"}}>Ownership:&nbsp; <span>{room?.roomParticipants.find((e) => e?.userName === currentUser?.userName) ? "Yes" : "No"}</span></div>
-                    <div style={{color: "yellow"}}>Status:&nbsp; <span>{room?.isFull ? "Full" : "Available"}</span></div>
+                    <div>Participants:&nbsp; <span>{room?.roomParticipants.length ? room.roomParticipants.length : "0"}</span></div>
+                    <div>Ownership:&nbsp; <span>{room?.roomParticipants.find((e) => e?.userName === currentUser?.userName) ? "Yes" : "No"}</span></div>
+                    <div>Status:&nbsp; <span style={{color: "blue"}}>{room?.isFull ? "Full" : "Available"}</span></div>
                     <div> Course: &nbsp; 
                         <span>{room?.course}</span>
                     </div>
@@ -100,7 +100,7 @@ const RoomDetail = () => {
             <h2 className="room_message shadow">
                 Course Content
             </h2>
-            <div className="content_container">
+            <div className="content_container shadow">
 
             </div>
         </div>

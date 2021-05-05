@@ -7,23 +7,25 @@ header {
 	top: 0;
 	left: 0;
 	height: 100%;
-	width: 220px;
-	/* padding-top: 100px; */
+	width: 210px;
 	user-select: none;
-	background-color: rgba(0, 0, 0, 0.137);
+	background-color: rgba(0, 0, 0, 0.5);
 	transition: all 0.5s ease-in-out;
 	overflow: visible;
 	z-index: 999;
 }
-header:hover {
-	width: 230px;
-	background-color: rgb(44, 44, 39);
-	
-}
+
 header h1 {
+	background-image: repeating-linear-gradient(60deg, #e29c9c, #e29c9c 18px, transparent 30px, transparent 40.8px, #e29c9c 48px), repeating-linear-gradient(150deg, #e29c9c, #e29c9c 18px, transparent 30px, transparent 40.8px, #e29c9c 48px), repeating-linear-gradient(240deg, #e29c9c, #e29c9c 18px, transparent 30px, transparent 40.8px, #e29c9c 48px), repeating-linear-gradient(330deg, #e29c9c, #e29c9c 18px, transparent 30px, transparent 40.8px, #e29c9c 48px);
+	background-size: 5px calc(100% + 96px), calc(100% + 96px) 5px, 5px calc(100% + 96px) , calc(100% + 96px) 5px;
+	background-position: 0 0, 0 0, 100% 0, 0 100%;
+	background-repeat: no-repeat;
+	animation: borderAnimation 1s infinite linear;
 	font-size: 30px;
 	text-align: center;
+	padding: 25px;
 	color: rgb(238, 253, 255);
+	/* background-color: cornflowerblue; */
 	letter-spacing: 2px;
 	text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #9dd7e6;
 }
@@ -84,4 +86,9 @@ header nav a:hover {
 	border-radius: 5px;
 	font-weight: bold;
 	background-color: rgb(255, 200, 255);
+}
+
+@keyframes borderAnimation {
+	from { background-position: 0 0, -96px 0, 100% -96px, 0 100%; }
+	to { background-position: 0 -96px, 0 0, 100% 0, -96px 100%; }
 }

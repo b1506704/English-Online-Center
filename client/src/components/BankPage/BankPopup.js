@@ -65,8 +65,8 @@ const BankPopup = ({close}) => {
                 </div>
                 
                 <div className="button_container">
-                    <input type="submit" className="drop_shadow" value="Save"></input>
-                    <input type="button" className="drop_shadow" value="Close" onClick={close}></input>
+                    <input type="submit" className="shadow" value="Save"></input>
+                    <input type="button" className="shadow" value="Close" onClick={close}></input>
                 </div>
             </form>
             

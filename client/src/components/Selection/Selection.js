@@ -4,10 +4,10 @@ import './Selection.css';
 
 const Selection = ({user}) => {
   return (
-    <div className="selection_container">
+    <div className="selection_container shadow corner_box corner_box_e">
       <div>
       <Link to={user === "coacher" ? '/coacher/student' : user === "user" ? '/user/course' : null }>
-        <button type="button" className="box">
+        <button type="button" className="box shadow">
           <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
             <line className="top" x1="0" y1="0" x2="900" y2="0"/>
             <line className="left" x1="0" y1="460" x2="0" y2="-920"/>

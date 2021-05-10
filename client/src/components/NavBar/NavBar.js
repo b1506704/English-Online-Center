@@ -42,7 +42,7 @@ const NavBar = () => {
     
     return(
         <header>
-            <h1 className={ isLoading ? "corner_box_animation" : null}>English <br></br>Online<br></br>Center</h1>
+            <h1 className={ isLoading ? "corner_box_animation" : null}>Active <br></br>Learning<br></br>Center</h1>
             <nav>
                 {
                     userMode === "admin" || userMode === "user" 

@@ -24,6 +24,7 @@ const UserPage = ({user}) => {
                         <LoadingContainer/>
                     </Route>
                     <Route exact path={`${path}/information`}>
+                        {/* test */}
                         <LoadingContainer/>
                     </Route>
                     <Route exact path={`${path}/room`}>

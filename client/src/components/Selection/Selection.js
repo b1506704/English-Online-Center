@@ -27,7 +27,7 @@ const Selection = ({user}) => {
             <line className="bottom" x1="300" y1="460" x2="-600" y2="460"/>
             <line className="right" x1="300" y1="0" x2="300" y2="1380"/>
           </svg>
-          <h3>Room</h3>
+          <h3>{user === "coacher" ? "Room" : user === "user" ? "Room" : null}</h3>
           <span>(0)</span>
           <span>{user === "coacher" ? "Room Management" : user === "user" ? "Room List" : null}</span>
         </button>
@@ -47,7 +47,7 @@ const Selection = ({user}) => {
           <span>{user === "coacher" ? "Test Management" : user === "user" ? "Study Progress" : null}</span>
         </button>
       </Link>
-      <Link to={user === "coacher" ? '/coacher/files' : user === "user" ? '/user/information' : null }>
+      <Link to={user === "coacher" ? '/coacher/course' : user === "user" ? '/user/information' : null }>
         <button type="button" className="box shadow">
           <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
             <line className="top" x1="0" y1="0" x2="900" y2="0"/>
@@ -55,9 +55,9 @@ const Selection = ({user}) => {
             <line className="bottom" x1="300" y1="460" x2="-600" y2="460"/>
             <line className="right" x1="300" y1="0" x2="300" y2="1380"/>
           </svg>
-          <h3>{user === "coacher" ? "File" : user === "user" ? "Information" : null}</h3>
+          <h3>{user === "coacher" ? "Course" : user === "user" ? "Information" : null}</h3>
           <span>(0)</span>
-          <span>{user === "coacher" ? "File Management" : user === "user" ? "Exam Information" : null}</span>
+          <span>{user === "coacher" ? "Course Management" : user === "user" ? "Test Information" : null}</span>
         </button>
       </Link>
       </div>

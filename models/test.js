@@ -6,6 +6,12 @@ const testSchema = mongoose.Schema({
         unique: true
     },
     name: String,
+    //for learner
+    score: Number,
+    //for coacher
+    maxScore: Number,
+    //minute
+    duration: Number,
     description: String,
     questions: [{
         id: {
@@ -20,6 +26,7 @@ const testSchema = mongoose.Schema({
         isVideo: Boolean,
         answerOptions: [{
             value: String,
+            point: Number,
             isCorrect: Boolean,
         }]
     }],

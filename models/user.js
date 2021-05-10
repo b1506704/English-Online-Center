@@ -38,10 +38,10 @@ const userSchema = mongoose.Schema({
     birthDate: String,
     //student
     roomRegisterList: Array,
+    testList: Array,
     //coacher
     roomCoachingList: Array,
     //academic manager
-    
     isLogin: {
         type: Boolean,
         default: false

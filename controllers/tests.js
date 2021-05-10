@@ -47,7 +47,7 @@ export const createTest = async (req, res) => {
 
 export const updateTest = async (req, res) => { 
     const { id } = req.params;
-    const { name, questions, description, isPractice } = req.body;
+    const { name, questions, description, maxScore, duration, isPractice } = req.body;
     try {
         const test = await Test.findOne({id: id});
         const updatedTest = await Test.findOneAndUpdate(
@@ -55,6 +55,8 @@ export const updateTest = async (req, res) => {
             {
                 name: name,
                 description: description,
+                maxScore: maxScore,
+                duration: duration,
                 questions: questions,
                 isPractice: isPractice, 
             },

@@ -25,7 +25,8 @@ const App = () => {
     const history = useHistory();
     const storeState = useSelector ((state) => state.user_reducer);
     const loginInfo = useSelector((state) => state.user_reducer.loggedInUser);
-    const [title, setTitle] = useState("English Online Center");
+    // const [title, setTitle] = useState("English Online Center");
+    const [title, setTitle] = useState("Active Learning Center");
     const [subTitle, setSubTitle] = useState("Real-time and highly interactive learning platform");
     
     console.log(storeState);

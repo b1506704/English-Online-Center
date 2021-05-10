@@ -6,6 +6,8 @@ const courseSchema = mongoose.Schema({
         unique: true
     },
     imgUrl: String,
+    description: String,
+    lessonCollection: Array,
     // include tests' id
     testCollection: Array,
     registerNumer: {

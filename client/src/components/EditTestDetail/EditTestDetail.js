@@ -19,7 +19,6 @@ const TestDetail = () => {
     const [test, setTest] = useState(null);
     const [isEdit, setisEdit] = useState(false);
     const questionRef = {
-        id: useRef(null),
         text: useRef(null),
         isAudio: useRef(null),
         isVideo: useRef(null),
@@ -28,9 +27,23 @@ const TestDetail = () => {
     const testRef = {
         name: useRef(null),
         description: useRef(null),
-        questions: useRef(null),
+        maxScore: useRef(null),
+        duration: useRef(null),
         isPractice: useRef(null),
     };
+    // const sampleAnswer = [
+    //     {value: 'Ha Noi', isCorrect: true},
+    //     {value: 'Ho Chi Minh', isCorrect: false},
+    //     {value: 'Can Tho', isCorrect: false},
+    //     {value: 'Hue', isCorrect: false},
+    // ];
+    // const question = {
+    //     id: random(1,20000),
+    //     text: 'What is the capital of Vietnam?',
+    //     isAudio: false,
+    //     isVideo: false,
+    //     answerOptions: sampleAnswer,
+    // }
 
     useEffect(() => {
         if (testList === undefined || testList === null) {
@@ -69,25 +82,22 @@ const TestDetail = () => {
     }
 
     const onUpdate = () => {
+        const updatedTest = {
+            name: testRef.name.current.value || test.name,
+            description: testRef.description.current.value || test.description,
+            maxScore: testRef.maxScore.current.value || test.maxScore,
+            duration: testRef.duration.current.value || test.duration,
+            isPractice:  testRef.isPractice.current.value || testRef.isPractice,
+            questions: testRef.questions.current.value || test.question,
+          };
+            dispatch(updateTest(test.id, updatedTest))
+            .then(() => setIsEditing(false));
         // e.preventDefault();
         // dispatch update test
         // then setIsEdit false
     }
 
     const onInsert = () => {
-        const sampleAnswer = [
-            {value: 'Ha Noi', isCorrect: true},
-            {value: 'Ho Chi Minh', isCorrect: false},
-            {value: 'Can Tho', isCorrect: false},
-            {value: 'Hue', isCorrect: false},
-        ];
-        const question = {
-            id: random(1,20000),
-            text: 'What is the capital of Vietnam?',
-            isAudio: false,
-            isVideo: false,
-            answerOptions: sampleAnswer,
-        }
 
         // to do
     }
@@ -97,14 +107,57 @@ const TestDetail = () => {
         .then(() => dispatch(setNotification("Refresh successfully")));
     }
 
+    const convertNumToLetter = (key) => {
+        switch (key) {
+            case 1:
+                return "A";
+            case 2:
+                return "B";
+            case 3:
+                return "C";
+            case 4:
+                return "D";
+            default:
+                break;
+        }
+    }
+
     const renderQuestions = () => {
-        const questions = test?.questions
-                            .map((test, key) => 
-                            (<a 
-                                className="test shadow" key={key} 
-                                onClick={editQuestion()}>
-                                {key + 1}
-                            </a>));
+        const sampleAnswer = [
+            {value: 'Ha NoiHa NoiHa NoiHa NoiHa NoiHa NoiHa NoiHa Noi', isCorrect: true},
+            {value: 'Ho Chi Minh', isCorrect: false},
+            {value: 'Can Tho', isCorrect: false},
+            {value: 'Hue', isCorrect: false},
+        ];
+        const question = [
+        {
+            id: random(1,20000),
+            text: 'What is the capital of Vietnam?',
+            isAudio: false,
+            isVideo: false,
+            answerOptions: sampleAnswer,
+        },
+        {
+            id: random(1,20000),
+            text: 'What is the capital of Italy?',
+            isAudio: false,
+            isVideo: false,
+            answerOptions: sampleAnswer,
+        }
+        ];
+        const questions = question
+        // const questions = test?.questions
+                            .map((question, key) => 
+                            (<div className="question shadow" key={key}> 
+                                <div className="question_title">{key + 1}. {question.text}</div>
+                                <div className="question_answer">
+                                    {question?.answerOptions.map((answer,key) => 
+                                    (<div> 
+                                        {convertNumToLetter(key+1)}. {answer.value}
+                                    </div>))
+                                    }
+                                </div>
+                            </div>));
         return questions;
     }
     
@@ -136,18 +189,43 @@ const TestDetail = () => {
                 </div>
                 <div className="detail_info shadow">
                     <h2>Preview</h2>
+                    <div>Title:&nbsp; 
+                        { isEdit === false ? <span>{test?.name}</span>
+                            : (<input ref={testRef.name} type="text" required placeholder={test?.name}></input>)
+                        }
+                        
+                    </div>
+                    <div>Type:&nbsp; 
+                        { isEdit === false ? <span>{test?.isPractice ? "Practice" : "Test"}</span>
+                            : (<input ref={testRef.isPractice} type="checkbox" required defaultValue={test?.isPractice}>
+
+                            </input>)
+                        }
+                        
+                    </div>
                     <div>Total Questions:&nbsp; <span>{test?.questions.length ? test.questions.length : "0"}</span></div>
-                    <div>Type:&nbsp; <span>{test?.isPractice ? "Practice" : "Test"}</span></div>
-                    <div>Name:&nbsp; <span>{test?.name}</span></div>
+                    <div>Total Score:&nbsp; 
+                        { isEdit === false ? <span>{test?.maxScore}</span>
+                            : (<input ref={testRef.maxScore} type="number" required placeholder={test?.maxScore}></input>)
+                        }
+                        
+                    </div>
+                    <div>Duration:&nbsp; 
+                        { isEdit === false ? <span>{test?.duration} minutes</span>
+                            : (<input ref={testRef.duration} type="number" required placeholder={test?.duration + "minutes"}></input>)
+                        }
+                        
+                    </div>
+                    
                     <h2>Description</h2>
-                    <textarea disabled={!isEdit} value={test?.description}></textarea>
+                    <textarea ref={testRef.description} disabled={!isEdit} required defaultValue={test?.description}></textarea>
                 </div>
             </div>
-            <h2 className="test_content shadow">
+            {/* <h2 className="test_content shadow">
                 Test Content
-            </h2>
+            </h2> */}
             <div className="content_container">
-                <form className="question_container" onSubmit={(e) => onUpdate(e)}>
+                <div className="question_container">
                     {/* <input type="button" className="shadow neon" value="Remove All" onClick={onRemoveAll}></input>
                     <input type="button" className="shadow neon" value="Insert" onClick={onInsert}></input>
                     { isEdit ? <>
@@ -159,7 +237,7 @@ const TestDetail = () => {
                     <div className="questions">
                         {renderQuestions()}
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     );

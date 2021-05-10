@@ -23,7 +23,16 @@
 	padding-bottom: 15px;
 	padding-top: 25px;
 }
-.heading_container div, .heading_container p {
+.heading_container p {
+	background-color: rgba(252, 252, 252, 0.062);
+	backdrop-filter: blur(5px);
+	color: #000;
+	font-size: 25px;
+	font-weight: bold;
+	padding: 5px;
+	border-radius: 5px;
+}
+.heading_container div {
 	z-index: 5;
     display: inline-block;
 	margin: 0;

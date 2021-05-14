@@ -40,7 +40,10 @@ const CardList = ({context}) => {
     const addCourse = () => {
         dispatch(createCourse(
             {
-                name: random(1,2000),
+                id: random(1,20000),
+                name: 'Blank Course',
+                testList: [],
+                lessonList: [],
                 imgUrl: null,
                 registerNumer: 0
             }));
@@ -49,10 +52,10 @@ const CardList = ({context}) => {
     const addUser = () => {
         dispatch(register(
             {
-                userName: random(1,2000),
+                userName: random(1,20000),
                 passWord: '',
                 gender: 'Male',
-                email: random(1,20000)
+                email: random(1,20000) + '@gmail.com'
             }
         ));
     }
@@ -60,11 +63,11 @@ const CardList = ({context}) => {
     const addTest = () => {
         dispatch(createTest(
             {
-                id: random(1,2000),
+                id: random(1,20000),
                 name: 'N3 Test',
                 description: 'The most standard exam for testing language proficiency',
                 questions: [{
-                    id: random(1,10000)
+                    id: random(1,20000)
                 }]
             }
         ));

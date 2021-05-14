@@ -15,30 +15,30 @@ export const getCategories = async (req, res) => {
 }
 
 export const deleteCourse = async (req, res) => { 
-    const { name } = req.params;
+    const { id } = req.params;
     try {
-        const course = await Course.findOneAndDelete({name: name});
+        const course = await Course.findOneAndDelete({id: id});
         res.status(200).json(course);
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
 }
 
-export const getCourse = async (req, res) => { 
-    const { name } = req.params;
+// export const getCourse = async (req, res) => { 
+//     const { id } = req.params;
 
-    try {
-        const course = await Course.findOne({name: name});
-        res.status(200).json(course);
-    } catch (error) {
-        res.status(404).json({ message: error.message });
-    }
-}
+//     try {
+//         const course = await Course.findOne({id: id});
+//         res.status(200).json(course);
+//     } catch (error) {
+//         res.status(404).json({ message: error.message });
+//     }
+// }
 //todo
 export const createCourse = async (req, res) => {
-    const { name, imgUrl, registerNumer } = req.body;
+    const { id, name, imgUrl, testList, lessonList, registerNumer } = req.body;
 
-    const newCourse = new Course({ name: name, imgUrl:imgUrl, registerNumer: registerNumer });
+    const newCourse = new Course({ id: id, name: name, imgUrl:imgUrl, registerNumer: registerNumer, testList: testList, lessonList: lessonList });
 
     try {
         await newCourse.save();
@@ -49,12 +49,12 @@ export const createCourse = async (req, res) => {
 }
 
 export const updateCourse = async (req, res) => { 
-    const { name, imgUrl } = req.body;
+    const { name, imgUrl, description, duration, testList, lessonList } = req.body;
     try {
-        const course = await Course.findOne({name: req.params.name});
+        const course = await Course.findOne({id: req.params.id});
         const updatedCourse = await Course.findOneAndUpdate(
-            {name: course.name},
-            {name: name, imgUrl: imgUrl} , 
+            {id: course.id},
+            {name, imgUrl, description, duration, testList, lessonList }, 
             {new: true}
         );
         res.status(200).json(updatedCourse);

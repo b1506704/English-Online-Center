@@ -7,6 +7,7 @@ import EditRoomList from '../../EditRoomList/EditRoomList';
 import LoadingContainer from '../../../utils/LoadingContainer/LoadingContainer';
 import EditTestList from '../../EditTestList/EditTestList';
 import EditTestDetail from '../../EditTestDetail/EditTestDetail';
+import EditCourseDetail from '../../EditCourseDetail/EditCourseDetail';
 import Selection from '../../Selection/Selection';
 import './CoacherPage.css';
 import EditCourseList from '../../EditCourseList/EditCourseList';
@@ -37,6 +38,9 @@ const CoacherPage = () => {
                     </Route>
                     <Route exact path={`${path}/course`}>
                         <EditCourseList/>
+                    </Route>
+                    <Route path={`${path}/course/:id`}>
+                        <EditCourseDetail/>
                     </Route>
                     {/* if coacher is also admin */}
                     <Route path={`${path}/admin`}>

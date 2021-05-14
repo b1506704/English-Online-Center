@@ -309,14 +309,14 @@ export const fetchCourse = () => async (dispatch) => {
   }
 };
 
-export const deleteCourse = (name) => async (dispatch) => {
+export const deleteCourse = (id) => async (dispatch) => {
   try {
     await dispatch(setIsLoading(true));
-    const { data } = await api.deleteCourse(name);
+    const { data } = await api.deleteCourse(id);
     await dispatch({ type: DELETE_CATEGORY, payload: data});
     await dispatch(fetchCourse());
     await dispatch(setIsLoading(false));
-    await dispatch(setNotification(`Deleted course ${name}`));
+    await dispatch(setNotification(`Deleted course`));
   } catch (error) {
     console.log(error.message);
     dispatch(setIsLoading(false));
@@ -331,21 +331,21 @@ export const createCourse = (courseInfo) => async (dispatch) => {
     await dispatch({ type: CREATE_CATEGORY, payload: data});
     await dispatch(fetchCourse());
     await dispatch(setIsLoading(false));
-    await dispatch(setNotification(`Added course ${courseInfo.name}`));
+    await dispatch(setNotification(`Added course`));
   } catch (error) {
     dispatch(setIsLoading(false));
     dispatch(setNotification("Thêm thất bại"));
   }
 };
 
-export const updateCourse = (name, courseInfo) => async (dispatch) => {
+export const updateCourse = (id, courseInfo) => async (dispatch) => {
   try {
     await dispatch(setIsLoading(true));
-    const { data } = await api.updateCourse(name, courseInfo);
+    const { data } = await api.updateCourse(id, courseInfo);
     await dispatch({ type: UPDATE_CATEGORY, payload: data});
     await dispatch(fetchCourse());
     await dispatch(setIsLoading(false));
-    await dispatch(setNotification(`Updated course ${name}`));
+    await dispatch(setNotification(`Updated course`));
   } catch (error) {
     dispatch(setIsLoading(false));
     dispatch(setNotification("Update failed!"));

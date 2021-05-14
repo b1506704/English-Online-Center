@@ -1,10 +1,11 @@
 import mongoose from 'mongoose';
 
 const courseSchema = mongoose.Schema({
-    name: {
+    id: {
         type: String,
         unique: true
     },
+    name: String,
     imgUrl: String,
     author: String,
     description: String,

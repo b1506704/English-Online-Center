@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.get('/', getCategories);
 router.post('/', createCourse);
-router.delete('/:name', deleteCourse);
-router.post('/updateCourse/:name', updateCourse);
+router.delete('/:id', deleteCourse);
+router.post('/updateCourse/:id', updateCourse);
 export default router;

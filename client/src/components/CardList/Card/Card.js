@@ -11,7 +11,6 @@ import {
   deleteCourse, 
   setNotification,
   updateRoom,
-  updateCourse,
   updateUser,
   deleteTest,
 } from '../../../actions/user_actions';
@@ -30,10 +29,6 @@ const Card = ({room, course, user, bank, test, type, mode}) => {
         start: useRef(null),
         end: useRef(null),
       };
-    const courseInputRef = 
-    {
-      nameRef: useRef(null),
-    };
     
     const userInputRef = 
       {
@@ -50,30 +45,6 @@ const Card = ({room, course, user, bank, test, type, mode}) => {
     const currentCourse = useSelector((state) => state.user_reducer.courseList);
     const currentRoom = useSelector((state) => state.user_reducer.roomList);
     
-    const countCtgByName = (name) => {
-      if (currentRoom) {
-        let count = 0;
-        for (let i = 0; i < currentRoom.length; i++) {
-          if (currentRoom[i].course === name) {
-            count++;
-          }
-        }
-        return count;
-      }
-    }
-
-    const countCtgBySell = (name) => {
-      let count = 0;
-      if (currentRoom) {
-        for (let i = 0; i < currentRoom.length; i++) {
-          if (currentRoom[i].course === name && currentRoom[i].isFull === true) {
-            count++;
-          }
-        }
-        return count;
-      }
-    }
-
     const onCardSelect = () => {
       if (type === "course") {
         dispatch(filterRoom(course.name))
@@ -94,6 +65,8 @@ const Card = ({room, course, user, bank, test, type, mode}) => {
     const onCardEdit = () => {
       if (type === "test") {
         history.push(`/coacher/test/${test.id}`);
+      } else if (type === "course") {
+        history.push(`/coacher/course/${course.id}`);
       } else {
         setIsEditing(true);
       }
@@ -108,13 +81,6 @@ const Card = ({room, course, user, bank, test, type, mode}) => {
           end: roomInputRef.end.current.value || room.end,
         };
           dispatch(updateRoom(room.id, updatedRoom))
-          .then(() => setIsEditing(false));
-      } else if (type === "course") {
-          const updatedCourse = {
-            name: courseInputRef.nameRef.current.value || course.name,
-            imgUrl: currentImg ? currentImg : course.imgUrl,
-          };
-          dispatch(updateCourse(course.name, updatedCourse))
           .then(() => setIsEditing(false));
       } else if (type === "user") {
         const updatedUser = {
@@ -136,7 +102,7 @@ const Card = ({room, course, user, bank, test, type, mode}) => {
       if (type === "room") {
         dispatch(deleteRoom(room.id));
       } else if (type === "course") {
-        dispatch(deleteCourse(course.name));
+        dispatch(deleteCourse(course.id));
       } else if (type === "user") {
         dispatch(deleteUser(user.userName));
       } else if (type === "test") {
@@ -215,7 +181,7 @@ const Card = ({room, course, user, bank, test, type, mode}) => {
       return (
         <div className="card_detail shadow">
           <div className="title_bar shadow">
-            { type === "room" ? '#' + room.id : type === "course" ? '#' + course.name : type ==="bank" ? '#' + bank.id : null }            
+            { type === "room" ? room.id : type === "course" ? course.name : null }            
           </div>
           { 
             type === "room" 
@@ -252,12 +218,11 @@ const Card = ({room, course, user, bank, test, type, mode}) => {
             : type === "course" 
               ? <div className="room_info">
                   <div> Course Name:
-                    { isEditing === false ? course.name
-                    : (<input ref={courseInputRef.nameRef} type="text" defaultValue={course.name}></input>)
-                    }
+                    {course.name}
                   </div>
-                  <div style={{color: "blue"}}> Total Linked Room:&nbsp; {countCtgByName(course.name) || null}</div>
-                  <div style={{color: "blue"}}> Crowded Room: &nbsp; {countCtgBySell(course.name) || null}</div>
+                  <div> Duration:
+                    {course.duration ? course.duration + ' weeks': 'Not set'}
+                  </div>
                 </div>
             : type === "test" 
             ? <div className="room_info">
@@ -312,7 +277,7 @@ const Card = ({room, course, user, bank, test, type, mode}) => {
               (<img className="image" 
                 alt="Loading..." 
                 src={
-                  currentImg || course.imgUrl
+                  course.imgUrl
               }/>)
               : type === "test" ?
               (<img className="image" 

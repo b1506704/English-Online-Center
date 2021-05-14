@@ -17,12 +17,7 @@ const TestDetail = () => {
     const [questionList, setQuestionList] = useState([]);
     const [test, setTest] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
-    const questionRef = {
-        text: useRef(null),
-        isAudio: useRef(null),
-        isVideo: useRef(null),
-        answerOptions: useRef(null),
-    };
+    
     const testRef = {
         name: useRef(null),
         description: useRef(null),
@@ -56,6 +51,18 @@ const TestDetail = () => {
         const currentIndex = questionList.findIndex((q) => q.id === id);
         const tempList = [...questionList];
         tempList[currentIndex].text = e.target.value;
+        setQuestionList(tempList);
+    }
+
+    const markCorrect = (e, id) => {
+        const currentIndex = questionList.findIndex((q) => q.id === id);
+        const tempList = [...questionList];
+        const currentAnswerIndex = parseInt(e.target.value);
+        tempList[currentIndex].answerOptions.forEach(e => {
+            e.isCorrect = false;
+        });
+        tempList[currentIndex].answerOptions[currentAnswerIndex].isCorrect = true;
+        console.log(tempList[currentIndex].answerOptions[currentAnswerIndex]);
         setQuestionList(tempList);
     }
 
@@ -94,9 +101,6 @@ const TestDetail = () => {
             dispatch(updateTest(test.id, updatedTest))
             .then(() => dispatch(fetchTest()))
             .then(() => setIsEditing(false));
-        // e.preventDefault();
-        // dispatch update test
-        // then setIsEdit false
     }
     
     const onInsert = () => {
@@ -146,6 +150,13 @@ const TestDetail = () => {
                             (<div className="question shadow" key={key}>
                                 <div className="question_title">
                                     <input defaultValue={question.text} onChange={(e) => editQuestion(e, question.id)}></input>
+                                    <span> Correct Answer: </span>
+                                    <select onChange={(e) => markCorrect(e, question.id)}>
+                                        <option value="0">A</option>
+                                        <option value="1">B</option>
+                                        <option value="2">C</option>
+                                        <option value="3">D</option>
+                                    </select>
                                     <button type="button" className="delete_button shadow" onClick={() => onRemove(question.id)}/>   
                                 </div>
                                 <div className="question_answer">
@@ -160,7 +171,10 @@ const TestDetail = () => {
             questions = test?.questions
                             .map((question, key) => 
                             (<div className="question shadow" key={key}> 
-                                <div className="question_title">{key + 1}. {question.text}</div>
+                                <div className="question_title">
+                                    {key + 1}. {question.text}
+                                    <span>Correct Answer: {question.answerOptions.find((q) => q.isCorrect === true).value}</span>
+                                </div>
                                 <div className="question_answer">
                                     {question?.answerOptions.map((answer,key) => 
                                     (<div key={key}> 

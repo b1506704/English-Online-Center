@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import './RoomDetail.css';
 import { joinRoom } from '../../actions/user_actions';
+import FlashCard from '../FlashCard/FlashCard';
 
 const RoomDetail = () => {
     const {id} = useParams();
@@ -15,6 +16,58 @@ const RoomDetail = () => {
     // const currentRoom = useSelector((state) => state.user_reducer.currentRoom);
     const userList = useSelector((state) => state.user_reducer.userList);
     const [room, setRoom] = useState(null);
+    const cardData = [
+        {
+          front: {
+            text: "文明",
+            image: "https://o.quizlet.com/RWRdgDus.uuqNDUrJ0ernA.jpg",
+          },
+          back: {
+            text: "ぶんめい",
+          }
+        },
+        {
+          front: {
+            text: "植物",
+          },
+          back: {
+            text: "しょくぶつ",
+          }
+        },
+        {
+            front: {
+              text: "植物",
+            },
+            back: {
+              text: "しょくぶつ",
+            }
+          },
+          {
+            front: {
+              text: "植物",
+            },
+            back: {
+              text: "しょくぶつ",
+            }
+          },
+          {
+            front: {
+              text: "植物",
+            },
+            back: {
+              text: "しょくぶつ",
+            }
+          },
+        {
+          front: {
+            text: "輝夜",
+            image: "https://o.quizlet.com/DNSK53oa86VTpPMo18ov4A.jpg",
+          },
+          back: {
+            text: "かぐや",
+          }
+        },
+    ];
 
     useEffect(() => {
         if (roomList === undefined || roomList === null) {
@@ -101,7 +154,17 @@ const RoomDetail = () => {
                 Course Content
             </h2>
             <div className="content_container shadow">
-
+                <FlashCard
+                    dataSource={cardData}
+                    flipDirection="vertical" 
+                    onChange={(step, side) => console.log(step, side)} 
+                    onSound={(text) => console.log(text)} 
+                    onFinish={() => console.log("Finish!")}
+                    backgroundColor={""}
+                    dropShadow={true}
+                    height={450}
+                    width={"100%"}
+                />
             </div>
         </div>
     );

@@ -79,7 +79,7 @@ export const updateUser = async (req, res) => {
         const user = await User.findOne({userName: req.params.userName});
         const updatedUser = await User.findOneAndUpdate(
             {userName: user.userName},
-            {userName, passWord, imgUrl, gender, fullName, birthDate, phoneNumber, address, email} , 
+            {userName, passWord, imgUrl, gender, fullName, birthDate, address, phoneNumber, email} , 
             {new: true}
         );
         res.status(200).json(updatedUser);

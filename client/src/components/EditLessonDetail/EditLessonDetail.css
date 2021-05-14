@@ -42,8 +42,7 @@
     width: 300px;
 }
 
-.test_detail_page .test_message button,
-.test_detail_page .content_container .question_container .questions .question button {
+.test_detail_page .test_message button {
     position: relative !important;
 	height: 50px;
     width: 50px;
@@ -90,6 +89,7 @@
 .test_detail_page .detail_info textarea {
     text-align: justify;
     background: white;
+    /* border-style: dashed 2px black; */
     padding-left: 25px;
     padding-right: 25px;
     resize: none;
@@ -97,37 +97,30 @@
     font-weight: bold;
     color: #000;
     margin-bottom: 10px;
-    height: 355px;
+    height: 420px;
     overflow-x: hidden;
     overflow-y: auto;
+    width: 800px;
+    /* height: 100%; */
     width: 100%;
-    border-style: none;
-    transition: all 0.5s ease-in-out;
 }
 .test_detail_page .detail_info textarea:disabled {
     background: transparent;
+    border-style: none;
+    width: 100%;
+    color: rgb(0, 0, 0);
+    transition: all 0.5s ease-in-out;
 }
 .test_detail_page .detail_info div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     padding-left: 25px;
-    padding-right: 25px;
 }
 .test_detail_page .detail_info div:last-of-type {
     margin-bottom: 10px;
 }
 .test_detail_page .detail_info span,
-.test_detail_page .detail_info input
-{
-    font-size: 25px;
-    width: 40%;
-    font-weight: bold;
-}
-.test_detail_page .detail_info select {
-    font-size: 25px;
-    width: 100%;
-    font-weight: bold;
+.test_detail_page .detail_info input {
+    position: absolute;
+    right: 8vh;
 }
 .test_detail_page .detail_media {
     background-color: transparent;
@@ -193,17 +186,7 @@
     cursor: grab;
     /* padding: 10px; */
 }
-.test_detail_page .content_container .question_container .questions .question input {
-    width: 350px;
-    /* height: 50px; */
-    padding: 10px;
-    font-size: 20px;
-    font-weight: bold;
-}
 .test_detail_page .content_container .question_container .questions .question .question_title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     font-size: 25px;
     padding: 10px;
     color: rgb(255, 255, 255);
@@ -212,12 +195,7 @@
 }
 .test_detail_page .content_container .question_container .questions .question .question_answer {
     font-size: 20px;
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* justify-content: center; */
-    /* align-items: flex-start; */
     padding: 10px;
-    margin-right: 100px;
     /* background-color: rgba(255, 255, 255, 0.596); */
     width: 100%;
 }

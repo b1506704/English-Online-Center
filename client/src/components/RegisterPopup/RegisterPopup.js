@@ -55,7 +55,7 @@ const RegisterPopup = ({close}) => {
                                 fullName: e.target.full_name.value,
                                 phoneNumber: e.target.mobile.value,
                                 address: e.target.address.value,
-                                birthDate: e.target.address.value,
+                                birthDate: e.target.birth_date.value,
                                 email: e.target.email.value,
                                 question_1: e.target.question_1.value
                             }
@@ -90,7 +90,7 @@ const RegisterPopup = ({close}) => {
                 </div>
                 <div>
                     <label>Birthdate:</label>
-                    <input type="date" require placeholder="DD-MM-YYYY" name="birth_date"></input>
+                    <input type="date" required placeholder="DD-MM-YYYY" name="birth_date"></input>
                 </div>
                 <div>
                     <label>Address:</label>
@@ -114,7 +114,7 @@ const RegisterPopup = ({close}) => {
                 </div>
                 <div>
                     <label>Father's Birthdate:</label>
-                    <input type="date" require placeholder="DD-MM-YYYY" name="question_1"></input>
+                    <input type="date" required placeholder="DD-MM-YYYY" name="question_1"></input>
                 </div>
                 <div className="button_container">
                     <input type="submit" className="shadow" value="OK"></input>

@@ -80,7 +80,8 @@
 .detail_page .content_container {
     background-color: transparent;
     min-height: 600px;
-    width: 100%; 
+    width: 100%;
+    color: #000; 
 }
 .detail_page .members {
     display: flex;

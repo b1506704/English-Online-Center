@@ -7,10 +7,8 @@ import './UserInfo.css';
 
 const UserInfo = () => {
     const dispatch = useDispatch();
-
     const [currentImg, setCurrentImg] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
-    // const currentCourse = useSelector((state) => state.user_reducer.courseList);
     const userInputRef = 
     {
         fullName: useRef(null),
@@ -41,14 +39,14 @@ const UserInfo = () => {
         const updatedUser = 
         {
             userName: user.userName,
-            fullName: userInputRef.fullName.current.value || user.fullName,
+            fullName: userInputRef.fullName.current.value ,
             imgUrl:  currentImg ? currentImg : user.imgUrl,
-            email:  userInputRef.email.current.value || user.email,
-            passWord: userInputRef.passWord.current.value || user.passWord,
-            gender: userInputRef.gender.current.value || userInputRef.gender,
-            address: userInputRef.address.current.value || user.address,
-            phoneNumber: userInputRef.phoneNumber.current.value || user.phoneNumber,
-            birthDate: userInputRef.birthDate.current.value || user.birthDate
+            email:  userInputRef.email.current.value ,
+            passWord: userInputRef.passWord.current.value ,
+            gender: userInputRef.gender.current.value ,
+            address: userInputRef.address.current.value ,
+            phoneNumber: userInputRef.phoneNumber.current.value ,
+            birthDate: userInputRef.birthDate.current.value
         };
         dispatch(updateUser(user.userName, updatedUser))
         .then(() => setIsEditing(false));
@@ -71,38 +69,38 @@ const UserInfo = () => {
                 <div style={{display: "block", textAlign:"center", backgroundColor: "rgb(184, 201, 255)"}}> Account </div>
                 <div> <span>Password: &nbsp;</span>
                     { isEditing === false ? "********"
-                    : (<input ref={userInputRef.passWord} type="password" autoFocus={true} required maxLength={12} placeholder={"********"}></input>)
+                    : (<input ref={userInputRef.passWord} type="password" autoFocus={true} required maxLength={12} defaultValue={user?.passWord}></input>)
                     }
                 </div>
                 <div> <span>Full Name: &nbsp;</span>
                         { isEditing === false ? user?.fullName
-                        : (<input ref={userInputRef.fullName} type="text" required placeholder={user?.fullName}></input>)
+                        : (<input ref={userInputRef.fullName} type="text" required defaultValue={user?.fullName}></input>)
                         }
                 </div>
                 <div> <span>Mobile: &nbsp;</span>
                         { isEditing === false ? user?.phoneNumber
-                        : (<input ref={userInputRef.phoneNumber} type="text" required placeholder={user?.phoneNumber}></input>)
+                        : (<input ref={userInputRef.phoneNumber} type="text" required defaultValue={user?.phoneNumber}></input>)
                         }
                 </div>
-                <div> <span>Birth Date: &nbsp;</span>
-                        { isEditing === false ? user?.birthDate
-                        : (<input ref={userInputRef.birthDate} type="date" required placeholder={user?.birthDate}></input>)
+                <div> Birth Date: &nbsp;
+                        { isEditing === false ? <span>{user?.birthDate}</span>
+                        : (<input ref={userInputRef.birthDate} type="date" required defaultValue={user?.birthDate}></input>)
                         }
                 </div>
                 <div> Address: &nbsp;
                         { isEditing === false ? <span>{user?.address}</span>
-                        : (<input ref={userInputRef.address} type="text" required placeholder={user?.address}></input>)
+                        : (<input ref={userInputRef.address} type="text" required defaultValue={user?.address}></input>)
                         }
                 </div>
                 <div> <span>Email: &nbsp;</span>
                         { isEditing === false ? user?.email
-                        : (<input ref={userInputRef.email} type="text"  required pattern="[A-Za-z0-9]+@gmail.com" placeholder={user?.email}></input>)
+                        : (<input ref={userInputRef.email} type="text"  required pattern="[A-Za-z0-9]+@gmail.com" defaultValue={user?.email}></input>)
                         }
                 </div>
                 <div> <span>Gender: &nbsp;</span>
                         { isEditing === false ? user?.gender
                         : 
-                        (<select ref={userInputRef.gender} type="select" required placeholder={user?.gender}>
+                        (<select ref={userInputRef.gender} type="select" required defaultValue={user?.gender}>
                             <option value={"Male"}>Male</option>
                             <option value={"Female"}>Female</option>
                         </select>)

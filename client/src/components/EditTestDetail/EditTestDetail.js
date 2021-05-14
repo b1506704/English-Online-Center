@@ -13,11 +13,10 @@ const TestDetail = () => {
     const history = useHistory();
     const dispatch = useDispatch();
     const modalRef = useRef();
-    // const currentUser = useSelector((state) => state.user_reducer.loggedInUser);
     const testList = useSelector((state) => state.user_reducer.testList);
     const [questionList, setQuestionList] = useState([]);
     const [test, setTest] = useState(null);
-    const [isEdit, setisEdit] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
     const questionRef = {
         text: useRef(null),
         isAudio: useRef(null),
@@ -31,54 +30,56 @@ const TestDetail = () => {
         duration: useRef(null),
         isPractice: useRef(null),
     };
-    // const sampleAnswer = [
-    //     {value: 'Ha Noi', isCorrect: true},
-    //     {value: 'Ho Chi Minh', isCorrect: false},
-    //     {value: 'Can Tho', isCorrect: false},
-    //     {value: 'Hue', isCorrect: false},
-    // ];
-    // const question = {
-    //     id: random(1,20000),
-    //     text: 'What is the capital of Vietnam?',
-    //     isAudio: false,
-    //     isVideo: false,
-    //     answerOptions: sampleAnswer,
-    // }
 
     useEffect(() => {
         if (testList === undefined || testList === null) {
             history.push('/test');
         } else {
             setTest(testList.find((test) => test.id === id));
+            setQuestionList(testList.find((test) => test.id === id).questions);
         }
     },[testList]);
-
+        
     useEffect(() => {
         scrollToModal();
     },[]);
-
+        
     const scrollToModal = () => {
         modalRef.current.scrollIntoView({
           behavior: "smooth",
           block: "start", 
           inline: "nearest"
         });
-      };
+    };
     
-    const editQuestion = () => {
-        // to do
+    const editQuestion = (e, id) => {
+        const currentIndex = questionList.findIndex((q) => q.id === id);
+        const tempList = [...questionList];
+        tempList[currentIndex].text = e.target.value;
+        setQuestionList(tempList);
     }
 
-    const onRemoveAll = () => {
-        // to do
+    const editAnswer = (e, id, key) => {
+        const currentIndex = questionList.findIndex((q) => q.id === id);
+        const tempList = [...questionList];
+        tempList[currentIndex].answerOptions[key].value = e.target.value;
+        setQuestionList(tempList);
+    }
+
+    const onRemove = (id) => {
+        setQuestionList(questionList.filter((q) => q.id != id));
+        dispatch(setNotification("Question removed"));
     }
 
     const onEdit = () => {
-        setisEdit(true);
+        setIsEditing(true);
+        dispatch(setNotification("Edit Mode: On"));
     }
 
     const onCancel = () => {
-        setisEdit(false);
+        setQuestionList(testList.find((test) => test.id === id).questions);
+        setIsEditing(false);
+        dispatch(setNotification("Cancel operation"));
     }
 
     const onUpdate = () => {
@@ -88,18 +89,33 @@ const TestDetail = () => {
             maxScore: testRef.maxScore.current.value || test.maxScore,
             duration: testRef.duration.current.value || test.duration,
             isPractice:  testRef.isPractice.current.value || testRef.isPractice,
-            questions: testRef.questions.current.value || test.question,
+            questions: questionList || test.questions,
           };
             dispatch(updateTest(test.id, updatedTest))
+            .then(() => dispatch(fetchTest()))
             .then(() => setIsEditing(false));
         // e.preventDefault();
         // dispatch update test
         // then setIsEdit false
     }
-
+    
     const onInsert = () => {
-
-        // to do
+        const sampleAnswer = [
+            {value: 'Choice 1th', isCorrect: true},
+            {value: 'Choice 2th', isCorrect: false},
+            {value: 'Choice 3th', isCorrect: false},
+            {value: 'Choice 4th', isCorrect: false},
+        ];
+        const question = 
+        {
+            id: random(1,20000),
+            text: 'Insert your question here?',
+            isAudio: false,
+            isVideo: false,
+            answerOptions: sampleAnswer,
+        };
+        setQuestionList([...questionList, question]);
+        dispatch(setNotification("Question added"));
     }
 
     const loadTest = () => {
@@ -123,41 +139,38 @@ const TestDetail = () => {
     }
 
     const renderQuestions = () => {
-        const sampleAnswer = [
-            {value: 'Ha NoiHa NoiHa NoiHa NoiHa NoiHa NoiHa NoiHa Noi', isCorrect: true},
-            {value: 'Ho Chi Minh', isCorrect: false},
-            {value: 'Can Tho', isCorrect: false},
-            {value: 'Hue', isCorrect: false},
-        ];
-        const question = [
-        {
-            id: random(1,20000),
-            text: 'What is the capital of Vietnam?',
-            isAudio: false,
-            isVideo: false,
-            answerOptions: sampleAnswer,
-        },
-        {
-            id: random(1,20000),
-            text: 'What is the capital of Italy?',
-            isAudio: false,
-            isVideo: false,
-            answerOptions: sampleAnswer,
-        }
-        ];
-        const questions = question
-        // const questions = test?.questions
+        let questions;
+        if (isEditing) {
+            questions = questionList
+                            ?.map((question, key) => 
+                            (<div className="question shadow" key={key}>
+                                <div className="question_title">
+                                    <input defaultValue={question.text} onChange={(e) => editQuestion(e, question.id)}></input>
+                                    <button type="button" className="delete_button shadow" onClick={() => onRemove(question.id)}/>   
+                                </div>
+                                <div className="question_answer">
+                                    {question?.answerOptions.map((answer,key) => 
+                                    (<div key={key}> 
+                                        <input defaultValue={answer.value} onChange={(e) => editAnswer(e, question.id, key)}></input>
+                                    </div>))
+                                    }
+                                </div>
+                            </div>));
+        } else {
+            questions = test?.questions
                             .map((question, key) => 
                             (<div className="question shadow" key={key}> 
                                 <div className="question_title">{key + 1}. {question.text}</div>
                                 <div className="question_answer">
                                     {question?.answerOptions.map((answer,key) => 
-                                    (<div> 
+                                    (<div key={key}> 
                                         {convertNumToLetter(key+1)}. {answer.value}
                                     </div>))
                                     }
                                 </div>
                             </div>));
+            
+        }
         return questions;
     }
     
@@ -166,14 +179,15 @@ const TestDetail = () => {
     return(
         <div className="test_detail_page shadow">
             <div ref={modalRef} className="scroll_position_holder"></div>
-            <h2 className={isEdit ? "test_message corner_box_animation shadow" : "test_message shadow"}>
+            <h2 className={isEditing ? "test_message corner_box_animation shadow" : "test_message shadow"}>
                 Test Editor
                 <div className="button_group">
                     {
-                        isEdit ? 
+                        isEditing ? 
                         <>
                             <button type="button" className="cancel_button shadow" onClick={onCancel}></button>        
                             <button type="button" className="save_button shadow" onClick={onUpdate}></button>        
+                            <button type="button" className="add_button shadow" onClick={onInsert}></button>        
                         </> :
                         <>
                             <button type="button" className="edit_button shadow" onClick={onEdit}></button>
@@ -190,49 +204,42 @@ const TestDetail = () => {
                 <div className="detail_info shadow">
                     <h2>Preview</h2>
                     <div>Title:&nbsp; 
-                        { isEdit === false ? <span>{test?.name}</span>
-                            : (<input ref={testRef.name} type="text" required placeholder={test?.name}></input>)
+                        { isEditing === false ? <span>{test?.name}</span>
+                            : (<input ref={testRef.name} type="text" required defaultValue={test?.name}></input>)
                         }
                         
                     </div>
-                    <div>Type:&nbsp; 
-                        { isEdit === false ? <span>{test?.isPractice ? "Practice" : "Test"}</span>
-                            : (<input ref={testRef.isPractice} type="checkbox" required defaultValue={test?.isPractice}>
-
-                            </input>)
+                    <div>Practice:&nbsp; 
+                        { isEditing === false ? <span>{test?.isPractice ? "Yes" : "No"}</span>
+                            : (<span>
+                                <select ref={testRef.isPractice}>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                </select>
+                            </span>)
                         }
                         
                     </div>
                     <div>Total Questions:&nbsp; <span>{test?.questions.length ? test.questions.length : "0"}</span></div>
                     <div>Total Score:&nbsp; 
-                        { isEdit === false ? <span>{test?.maxScore}</span>
-                            : (<input ref={testRef.maxScore} type="number" required placeholder={test?.maxScore}></input>)
+                        { isEditing === false ? <span>{test?.maxScore}</span>
+                            : (<input ref={testRef.maxScore} type="number" required defaultValue={test?.maxScore}></input>)
                         }
                         
                     </div>
                     <div>Duration:&nbsp; 
-                        { isEdit === false ? <span>{test?.duration} minutes</span>
-                            : (<input ref={testRef.duration} type="number" required placeholder={test?.duration + "minutes"}></input>)
+                        { isEditing === false ? <span>{test?.duration} minutes</span>
+                            : (<input ref={testRef.duration} type="number" required defaultValue={test?.duration}></input>)
                         }
                         
                     </div>
                     
                     <h2>Description</h2>
-                    <textarea ref={testRef.description} disabled={!isEdit} required defaultValue={test?.description}></textarea>
+                    <textarea ref={testRef.description} disabled={!isEditing} required defaultValue={test?.description}></textarea>
                 </div>
             </div>
-            {/* <h2 className="test_content shadow">
-                Test Content
-            </h2> */}
             <div className="content_container">
                 <div className="question_container">
-                    {/* <input type="button" className="shadow neon" value="Remove All" onClick={onRemoveAll}></input>
-                    <input type="button" className="shadow neon" value="Insert" onClick={onInsert}></input>
-                    { isEdit ? <>
-                        <input type="submit" className="shadow neon" value="Save"></input>
-                        <input type="button" className="shadow neon" value="Cancel" onClick={onCancel}></input>
-                        </> : (<input type="button" className="shadow neon" value="Edit" onClick={onEdit}></input>)
-                    } */}
                     <h2>Questions</h2>
                     <div className="questions">
                         {renderQuestions()}

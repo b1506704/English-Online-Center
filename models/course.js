@@ -6,10 +6,14 @@ const courseSchema = mongoose.Schema({
         unique: true
     },
     imgUrl: String,
+    author: String,
     description: String,
-    lessonCollection: Array,
+    // weeks
+    duration: String,
+    // include lesson id
+    lessonList: Array,
     // include tests' id
-    testCollection: Array,
+    testList: Array,
     registerNumer: {
         type: Number,
         default: 0,

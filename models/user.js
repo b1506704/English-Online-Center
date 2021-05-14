@@ -39,6 +39,7 @@ const userSchema = mongoose.Schema({
     //student
     roomRegisterList: Array,
     testList: Array,
+    friendList: Array,
     //coacher
     roomCoachingList: Array,
     //academic manager

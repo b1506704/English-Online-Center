@@ -154,27 +154,27 @@ const Card = ({room, course, user, bank, test, type, mode}) => {
           <div className="room_info">
             <div> Username: &nbsp;
                       { isEditing === false ? user.userName
-                        : (<input ref={userInputRef.userName} type="text" placeholder={user.userName}></input>)
+                        : (<input ref={userInputRef.userName} type="text" defaultValue={user.userName}></input>)
                       }
               </div>
             <div> Password: &nbsp;
                     { isEditing === false ? user.passWord
-                      : (<input ref={userInputRef.passWord} type="text" placeholder={user.passWord}></input>)
+                      : (<input ref={userInputRef.passWord} type="text" defaultValue={user.passWord}></input>)
                     }
             </div>
             <div> Full Name: &nbsp;
                     { isEditing === false ? user.fullName
-                      : (<input ref={userInputRef.fullName} type="text" placeholder={user.fullName}></input>)
+                      : (<input ref={userInputRef.fullName} type="text" defaultValue={user.fullName}></input>)
                     }
             </div>
             <div> Gender: &nbsp;
                     { isEditing === false ? user.gender
-                      : (<input ref={userInputRef.gender} type="text" placeholder={user.gender}></input>)
+                      : (<input ref={userInputRef.gender} type="text" defaultValue={user.gender}></input>)
                     }
             </div>
             <div> Email: &nbsp;
                     { isEditing === false ? user.email
-                      : (<input ref={userInputRef.email} type="text" placeholder={user.email}></input>)
+                      : (<input ref={userInputRef.email} type="text" defaultValue={user.email}></input>)
                     }
             </div>
           </div>
@@ -232,7 +232,7 @@ const Card = ({room, course, user, bank, test, type, mode}) => {
                 </div>
                 <div> Price: &nbsp;
                   { isEditing === false ? room.price + " VND"
-                    : (<input ref={roomInputRef.priceRef} type="text" placeholder={room.price}></input>)
+                    : (<input ref={roomInputRef.priceRef} type="text" defaultValue={room.price}></input>)
                   }
                 </div>
                 <div style={{color: "blue"}}>Status: &nbsp;{room.isFull ? "Full" : "Ready"}</div>
@@ -240,12 +240,12 @@ const Card = ({room, course, user, bank, test, type, mode}) => {
                 <div>Participants:&nbsp; {room.roomParticipants.length}</div>
                 <div>Start:&nbsp;
                 { isEditing === false ? room.start
-                  : (<input ref={roomInputRef.start} type="text" placeholder={room.start}></input>)
+                  : (<input ref={roomInputRef.start} type="text" defaultValue={room.start}></input>)
                 }
                 </div>
                 <div>End:&nbsp;
                 { isEditing === false ? room.end
-                  : (<input ref={roomInputRef.end} type="text" placeholder={room.end}></input>)
+                  : (<input ref={roomInputRef.end} type="text" defaultValue={room.end}></input>)
                 }
                 </div>
               </div>
@@ -253,7 +253,7 @@ const Card = ({room, course, user, bank, test, type, mode}) => {
               ? <div className="room_info">
                   <div> Course Name:
                     { isEditing === false ? course.name
-                    : (<input ref={courseInputRef.nameRef} type="text" placeholder={course.name}></input>)
+                    : (<input ref={courseInputRef.nameRef} type="text" defaultValue={course.name}></input>)
                     }
                   </div>
                   <div style={{color: "blue"}}> Total Linked Room:&nbsp; {countCtgByName(course.name) || null}</div>

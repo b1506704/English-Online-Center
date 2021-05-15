@@ -9,6 +9,7 @@ import roomRoutes from './routes/rooms.js';
 import bankRoutes from './routes/banks.js';
 import courseRoutes from './routes/courses.js';
 import testRoutes from './routes/tests.js';
+import lessonRoutes from './routes/lessons.js';
 
 const app = express();
 const __dirname = path.resolve();
@@ -26,6 +27,7 @@ app.use('/rooms', roomRoutes);
 app.use('/banks', bankRoutes);
 app.use('/courses', courseRoutes);
 app.use('/tests', testRoutes);
+app.use('/lessons', lessonRoutes);
 
 const dbUri = process.env.MONGODB_URI;
 

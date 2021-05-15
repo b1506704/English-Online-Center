@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactCardFlip from 'react-card-flip';
 
-const FlashCard = ({ dataSource = [], flipDirection, onSound, onChange, onFinish, voice, height, width, backgroundColor, dropShadow}) => {
+const FlashCard = ({ dataSource = [], flipDirection, onSound, onChange, onFinish, voice, height, width, backgroundColor, dropShadow, textColor, barColor, cardColor}) => {
   const [step, setStep] = useState(1);
   const [side, setSide] = useState("front");
   const [isFinish, setIsFinish] = useState(false);
@@ -32,7 +32,7 @@ const FlashCard = ({ dataSource = [], flipDirection, onSound, onChange, onFinish
   const handleSpeaker = () => {
     const text = dataSource[step - 1][side].text;
     let utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = "ja-JP";
+    utterance.lang = voice;
     window.speechSynthesis.speak(utterance);
     onSound(text);
   }
@@ -50,7 +50,7 @@ const FlashCard = ({ dataSource = [], flipDirection, onSound, onChange, onFinish
       boxShadow: dropShadow ? "rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px" : "transparent",
     },
     progress: {
-      backgroundColor: "#ffffff",
+      backgroundColor: barColor,
       height: 45,
       display: "flex",
       justifyContent: "space-between",
@@ -61,7 +61,7 @@ const FlashCard = ({ dataSource = [], flipDirection, onSound, onChange, onFinish
     bar: {
       display: "flex",
       flex: 20,
-      backgroundColor: "#c5cfe8",
+      backgroundColor: barColor,
       height: "0.75rem",
       position: "relative",
     },
@@ -82,6 +82,7 @@ const FlashCard = ({ dataSource = [], flipDirection, onSound, onChange, onFinish
       justifyContent: "flex-end",
       fontSize: "0.625rem",
       paddingLeft: "5px",
+      color: textColor,
       letterSpacing: "0.0625rem",
       fontWeight: 600,
     },
@@ -91,7 +92,7 @@ const FlashCard = ({ dataSource = [], flipDirection, onSound, onChange, onFinish
       position: "relative",
     },
     cardContent: {
-      backgroundColor: "#ffffff",
+      backgroundColor: cardColor,
       width: "100%",
       height: "100%",
       display: "flex",
@@ -99,6 +100,7 @@ const FlashCard = ({ dataSource = [], flipDirection, onSound, onChange, onFinish
       justifyContent: "center",
       alignItems: "center",
       textAlign: "center",
+      color: textColor,
       fontSize: "1.5rem",
     },
     soundButton: {

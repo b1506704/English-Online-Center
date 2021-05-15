@@ -4,7 +4,23 @@ import {Carousel} from 'react-responsive-carousel'
 
 import Card from './Card/Card';
 import LoadingContainer from '../../utils/LoadingContainer/LoadingContainer';
-import {createRoom, createCourse, fetchCourse, fetchRoom, setNotification, register, fetchUser, setIsLoading, createTest, fetchTest, filterRoomById  } from '../../actions/user_actions';
+import 
+{
+    createRoom, 
+    createCourse, 
+    createTest,
+    createLesson, 
+    fetchCourse, 
+    fetchRoom, 
+    fetchUser, 
+    fetchTest,
+    fetchLesson, 
+    setNotification, 
+    register, 
+    setIsLoading, 
+    filterRoomById  
+} 
+    from '../../actions/user_actions';
 import random from '../../utils/RandomNumber';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import './CardList.css';
@@ -15,6 +31,7 @@ const CardList = ({context}) => {
     const courseList = useSelector((state) => state.user_reducer.courseList);
     const userList = useSelector((state) => state.user_reducer.userList);
     const testList = useSelector((state) => state.user_reducer.testList);
+    const lessonList = useSelector((state) => state.user_reducer.lessonList);
     const currentUser = useSelector((state) => state.user_reducer.currentUser);
     const searchInput = useRef(null);
 
@@ -73,17 +90,48 @@ const CardList = ({context}) => {
         ));
     }
 
+    const addLesson = () => {
+        dispatch(createLesson(
+            {
+                id: random(1,20000),
+                name: 'Blank Lesson',
+                description: 'Lesson about ...',
+                content: [{
+                    front: {
+                        text: 'Unrevealed word',
+                        image: ''
+                    },
+                    back: {
+                        text: 'Revealed word'
+                    },
+                }],
+                isVocabulary: true,
+                isGrammar: false,
+                isReading: false,
+                isListening: false,
+                duration: 5
+            }
+        ));
+    }
+
     const loadTest = () => {
         dispatch(setIsLoading(true));
         dispatch(fetchTest())
-        .then(() => dispatch(setNotification("Làm mới thành công")))
+        .then(() => dispatch(setNotification("Sucessfully Updated")))
+        .then(() => dispatch(setIsLoading(false)));
+    }
+
+    const loadLesson = () => {
+        dispatch(setIsLoading(true));
+        dispatch(fetchLesson())
+        .then(() => dispatch(setNotification("Sucessfully Updated")))
         .then(() => dispatch(setIsLoading(false)));
     }
 
     const loadUser = () => {
         dispatch(setIsLoading(true));
         dispatch(fetchUser())
-        .then(() => dispatch(setNotification("Làm mới thành công")))
+        .then(() => dispatch(setNotification("Sucessfully Updated")))
         .then(() => dispatch(setIsLoading(false)));
     }
 
@@ -127,6 +175,9 @@ const CardList = ({context}) => {
                 break;
             case "edit_test":
                 toLastArray(userList);
+                break;
+            case "edit_lesson":
+                toLastArray(lessonList);
                 break;
             default:
                 setCurrentItem(0);
@@ -267,6 +318,24 @@ const CardList = ({context}) => {
                             testList != null && testList.length != 0 ? 
                             testList.map ((item,key) => 
                             (<Card key={key} test={item} type={"test"} mode={"edit"}/>))
+                            : (<LoadingContainer style={'spinner'}/>)
+                        )
+                    }               
+                </div>
+        );
+        case "edit_lesson":
+            return(
+                <div className="card_page shadow">
+                    <div className="card_header"> <b>Lesson Management </b> 
+                        <button type="button" className="card_menu_button add_button shadow" onClick={addLesson}></button>
+                        <button type="button" className="card_menu_button refresh_button shadow" onClick={loadLesson}></button>
+                    </div>
+                    {
+                        customCarousel
+                        (
+                            lessonList != null && lessonList.length != 0 ? 
+                            lessonList.map ((item,key) => 
+                            (<Card key={key} lesson={item} type={"lesson"} mode={"edit"}/>))
                             : (<LoadingContainer style={'spinner'}/>)
                         )
                     }               

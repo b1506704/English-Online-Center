@@ -6,6 +6,7 @@ const classRoomUrl = 'https://account-trading-shop.herokuapp.com/class_rooms';
 const courseUrl = 'https://account-trading-shop.herokuapp.com/courses';
 const bankUrl = 'https://account-trading-shop.herokuapp.com/banks';
 const testUrl = 'https://account-trading-shop.herokuapp.com/tests';
+const lessonUrl = 'https://account-trading-shop.herokuapp.com/lessons';
 // for local server
 // const userUrl = 'http://localhost:80/users';
 // const roomUrl = 'http://localhost:80/rooms';
@@ -13,6 +14,7 @@ const testUrl = 'https://account-trading-shop.herokuapp.com/tests';
 // const bankUrl = 'http://localhost:80/banks';
 // const classRoomUrl = 'http://localhost:80/class_rooms';
 // const testUrl = 'http://localhost:80/tests';
+// const lessonUrl = 'http://localhost:80/lessons';
 
 
 // user routes
@@ -35,6 +37,11 @@ export const fetchTest = () => axios.get(testUrl);
 export const createTest = (newTest) => axios.post(testUrl, newTest);
 export const deleteTest = (id) => axios.delete(`${testUrl}/${id}`);
 export const updateTest = (id, toUpdateTest) => axios.post(`${testUrl}/updateTest/${id}`, toUpdateTest);
+// lesson
+export const fetchLesson = () => axios.get(lessonUrl);
+export const createLesson = (newLesson) => axios.post(lessonUrl, newLesson);
+export const deleteLesson = (id) => axios.delete(`${lessonUrl}/${id}`);
+export const updateLesson = (id, toUpdateLesson) => axios.post(`${lessonUrl}/updateLesson/${id}`, toUpdateLesson);
 // bank
 export const addBank = (userName, bankInfo) => axios.post(`${userUrl}/addBank/${userName}`, bankInfo);
 export const createBank = (newBank) => axios.post(bankUrl, newBank);

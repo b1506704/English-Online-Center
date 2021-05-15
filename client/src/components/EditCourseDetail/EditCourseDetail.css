@@ -39,7 +39,7 @@
 }
 
 .course_detail_page .course_message button,
-.course_detail_page .content_container .question_container .tests .test button {
+.course_detail_page .content_container .test_container .tests .test button {
     position: relative !important;
 	height: 50px;
     width: 50px;

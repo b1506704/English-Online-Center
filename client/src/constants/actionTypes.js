@@ -13,6 +13,11 @@ export const FETCH_TEST = 'fetch_test';
 export const DELETE_TEST = 'delete_test';
 export const CREATE_TEST = 'create_test';
 export const UPDATE_TEST = 'update_test';
+// lesson actions
+export const FETCH_LESSON = 'fetch_lesson';
+export const DELETE_LESSON = 'delete_lesson';
+export const CREATE_LESSON = 'create_lesson';
+export const UPDATE_LESSON = 'update_lesson';
 // room actions
 export const INVITE_ROOM = 'invite_room';
 export const REGISTER_ROOM = 'register_room';

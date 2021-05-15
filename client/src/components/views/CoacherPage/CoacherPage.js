@@ -8,9 +8,11 @@ import LoadingContainer from '../../../utils/LoadingContainer/LoadingContainer';
 import EditTestList from '../../EditTestList/EditTestList';
 import EditTestDetail from '../../EditTestDetail/EditTestDetail';
 import EditCourseDetail from '../../EditCourseDetail/EditCourseDetail';
+import EditCourseList from '../../EditCourseList/EditCourseList';
+import EditLessonList from '../../EditLessonList/EditLessonList';
+import EditLessonDetail from '../../EditLessonDetail/EditLessonDetail';
 import Selection from '../../Selection/Selection';
 import './CoacherPage.css';
-import EditCourseList from '../../EditCourseList/EditCourseList';
 
 const CoacherPage = () => {
 
@@ -30,8 +32,9 @@ const CoacherPage = () => {
                     <Route path={`${path}/student`}>
                         <EditUserList/>
                     </Route>
-                    <Route exact path={`${path}/test`}>
+                    <Route exact path={`${path}/curriculum`}>
                         <EditTestList/>
+                        <EditLessonList/>
                     </Route>
                     <Route path={`${path}/test/:id`}>
                         <EditTestDetail/>
@@ -41,6 +44,9 @@ const CoacherPage = () => {
                     </Route>
                     <Route path={`${path}/course/:id`}>
                         <EditCourseDetail/>
+                    </Route>
+                    <Route path={`${path}/lesson/:id`}>
+                        <EditLessonDetail/>
                     </Route>
                     {/* if coacher is also admin */}
                     <Route path={`${path}/admin`}>

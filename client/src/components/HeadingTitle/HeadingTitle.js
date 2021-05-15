@@ -50,7 +50,7 @@ const HeadingTitle = ({title, subtitle}) => {
                             <Link className="shadow" to={`${url}`}>Home</Link>
                             <Link className="shadow" to={`${url}/student`}>Student</Link>
                             <Link className="shadow" to={`${url}/room`}>Room</Link>
-                            <Link className="shadow" to={`${url}/test`}>Test</Link>
+                            <Link className="shadow" to={`${url}/curriculum`}>Teaching</Link>
                             <Link className="shadow" to={`${url}/course`}>Courses</Link>
                         </nav>
                     </>

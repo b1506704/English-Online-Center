@@ -34,7 +34,7 @@ const Selection = ({user}) => {
       </Link>
       </div>
       <div>
-      <Link to={user === "coacher" ? '/coacher/test' : user === "user" ? '/user/progress' : null }>
+      <Link to={user === "coacher" ? '/coacher/curriculum' : user === "user" ? '/user/progress' : null }>
         <button type="button" className="box shadow">
           <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
             <line className="top" x1="0" y1="0" x2="900" y2="0"/>
@@ -42,9 +42,9 @@ const Selection = ({user}) => {
             <line className="bottom" x1="300" y1="460" x2="-600" y2="460"/>
             <line className="right" x1="300" y1="0" x2="300" y2="1380"/>
           </svg>
-          <h3>{user === "coacher" ? "Test" : user === "user" ? "Progress" : null}</h3>
+          <h3>{user === "coacher" ? "Curriculum" : user === "user" ? "Progress" : null}</h3>
           <span>(0)</span>
-          <span>{user === "coacher" ? "Test Management" : user === "user" ? "Study Progress" : null}</span>
+          <span>{user === "coacher" ? "Teaching Management" : user === "user" ? "Study Progress" : null}</span>
         </button>
       </Link>
       <Link to={user === "coacher" ? '/coacher/course' : user === "user" ? '/user/information' : null }>

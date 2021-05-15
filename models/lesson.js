@@ -7,17 +7,23 @@ const lessonSchema = mongoose.Schema({
         unique: true
     },
     name: String,
+    description: String,
     author: String,
-    imgUrl: String,
-    // front text
-    front: {
-        text: String,
-        image: String
-    },
-    // back text
-    back: {
-        text: String
-    },
+    // array of obj with front and back
+    // may vary according to type
+    content: [{
+        id: {
+            type: String,
+            unique: true
+        },
+        front: {
+            text: String,
+            image: String
+        },
+        back: {
+            text: String
+        }
+    }],
     isGrammar: Boolean,
     isVocabulary: Boolean,
     isReading: Boolean,

@@ -129,13 +129,13 @@ const CourseDetail = () => {
                             ?.map((test, key) => 
                             (<div className="test shadow" key={key}>
                                 <div className="test_title">
-                                    <span> Test: </span>
+                                    <span> {key+1}. </span>
                                     <select defaultValue={currentTestList.find((t)=>t.id === test.id).id} onChange={(e) => editTest(e, test.id)}>
                                         {testList?.map((t, key) => 
-                                            (<option key={key} value={t.id}>{key+1}. {t.name}</option>)
+                                            (<option key={key} value={t.id}>{t.name}</option>)
                                         )}
                                     </select>
-                                    <input type="button" className="delete_button shadow" onClick={() => onRemoveTest(test.id)}/>   
+                                    <button type="button" className="delete_button shadow" onClick={() => onRemoveTest(test.id)}/>   
                                 </div>
                             </div>));
         } else {
@@ -144,12 +144,42 @@ const CourseDetail = () => {
                             (<div className="test shadow" key={key}> 
                                 <div className="test_title">
                                     <a style={{width: "100%"}} onClick={() => history.push(`/coacher/test/${test.id}`)}>
-                                    {test.id}. {test.name}
+                                    {key+1}. {test.name}
                                     </a>
                                 </div>
                             </div>));
         }
         return tests;
+    }
+
+    const renderLessons = () => {
+        let lessons;
+        if (isEditing) {
+            lessons = currentTestList
+                            ?.map((test, key) => 
+                            (<div className="test shadow" key={key}>
+                                <div className="test_title">
+                                    <span> {key+1}. </span>
+                                    <select defaultValue={currentTestList.find((t)=>t.id === test.id).id} onChange={(e) => editTest(e, test.id)}>
+                                        {testList?.map((t, key) => 
+                                            (<option key={key} value={t.id}>{t.name}</option>)
+                                        )}
+                                    </select>
+                                    <button type="button" className="delete_button shadow" onClick={() => onRemoveTest(test.id)}/>   
+                                </div>
+                            </div>));
+        } else {
+            lessons = course?.testList
+                            .map((test, key) => 
+                            (<div className="test shadow" key={key}> 
+                                <div className="test_title">
+                                    <a style={{width: "100%"}} onClick={() => history.push(`/coacher/test/${test.id}`)}>
+                                    {key+1}. {test.name}
+                                    </a>
+                                </div>
+                            </div>));
+        }
+        return lessons;
     }
 
     return(
@@ -201,13 +231,22 @@ const CourseDetail = () => {
                 <div className="test_container">
                     <h2>Available Test</h2>
                     <div className="tests">
-                        {testList.map((t, key) => (<a onClick={() => history.push(`/coacher/test/${t.id}`)} key={key}>{key+1}. ({t.id}) - {t.name}</a>))}
+                        {testList.map((t, key) => 
+                        (<a className="test" onClick={() => history.push(`/coacher/test/${t.id}`)} key={key}>
+                            <div className="test_title">{key+1}. {t.name}</div>
+                        </a>))}
                     </div>
                 </div>
                 <div className="test_container">
                     <h2>Test List</h2>
                     <div className="tests">
                         {renderTests()}
+                    </div>
+                </div>
+                <div className="test_container">
+                    <h2>Lesson List</h2>
+                    <div className="tests">
+                        {renderLessons()}
                     </div>
                 </div>
             </div>

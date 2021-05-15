@@ -1,4 +1,4 @@
-.test_detail_page {
+.lesson_detail_page {
     position: relative;
     display: flex;
     height: 100%;
@@ -16,7 +16,7 @@
 
 
 
-.test_detail_page .test_message {
+.lesson_detail_page .lesson_message {
   position: sticky;
   top: 0;
   z-index: 999;
@@ -34,7 +34,7 @@
   font-size: 40px;
   width: 100%;
 }
-.test_detail_page .test_message .button_group{
+.lesson_detail_page .lesson_message .button_group{
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -42,7 +42,8 @@
     width: 300px;
 }
 
-.test_detail_page .test_message button {
+.lesson_detail_page .lesson_message button,
+.lesson_detail_page .content_container .lesson_container .lessons .lesson button {
     position: relative !important;
 	height: 50px;
     width: 50px;
@@ -57,13 +58,13 @@
     margin: 0 !important;
     /* margin-right: 20px; */
 }
-.test_detail_page .test_message button:hover {
+.lesson_detail_page .lesson_message button:hover {
     cursor: pointer;
     transform: scale(1.15);
 }
 
 
-.test_detail_page .test_detail {
+.lesson_detail_page .lesson_detail {
     margin-top: 20px;
     margin-bottom: 20px;
     display: flex;
@@ -73,23 +74,22 @@
     width: 100%;
     background: transparent;
 }
-.test_detail_page .detail_info {
+.lesson_detail_page .detail_info {
     color: rgb(0, 0, 0);
     background-color: rgba(255, 255, 255, 0.527);
     width: 400px;
     max-height: 665px;
 }
-.test_detail_page .detail_info h2, .test_detail_page .content_container h2  {
+.lesson_detail_page .detail_info h2, .lesson_detail_page .content_container h2  {
     text-align: center;
     color: rgb(255, 255, 255);
     background-color: rgba(5, 0, 0, 0.507);
     margin-bottom: 10px;
     width: 100%;
 }
-.test_detail_page .detail_info textarea {
+.lesson_detail_page .detail_info textarea {
     text-align: justify;
     background: white;
-    /* border-style: dashed 2px black; */
     padding-left: 25px;
     padding-right: 25px;
     resize: none;
@@ -97,59 +97,76 @@
     font-weight: bold;
     color: #000;
     margin-bottom: 10px;
-    height: 420px;
+    height: 355px;
     overflow-x: hidden;
     overflow-y: auto;
-    width: 800px;
-    /* height: 100%; */
     width: 100%;
-}
-.test_detail_page .detail_info textarea:disabled {
-    background: transparent;
     border-style: none;
-    width: 100%;
-    color: rgb(0, 0, 0);
     transition: all 0.5s ease-in-out;
 }
-.test_detail_page .detail_info div {
-    padding-left: 25px;
+.lesson_detail_page .detail_info textarea:disabled {
+    background: transparent;
 }
-.test_detail_page .detail_info div:last-of-type {
+.lesson_detail_page .detail_info div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+.lesson_detail_page .detail_info div:last-of-type {
     margin-bottom: 10px;
 }
-.test_detail_page .detail_info span,
-.test_detail_page .detail_info input {
-    position: absolute;
-    right: 8vh;
+.lesson_detail_page .detail_info span,
+.lesson_detail_page .detail_info input
+{
+    font-size: 25px;
+    width: 40%;
+    font-weight: bold;
+    background-color: transparent;
+    border-radius: 5px;
+    border-top-style: none;
+    border-left-style: none;
+    border-right-style: none;
 }
-.test_detail_page .detail_media {
+.lesson_detail_page .detail_info select {
+    font-size: 25px;
+    width: 100%;
+    background-color: transparent;
+    border-radius: 5px;
+    border-top-style: none;
+    border-left-style: none;
+    border-right-style: none;
+    font-weight: bold;
+}
+.lesson_detail_page .detail_media {
     background-color: transparent;
     border-radius: 15px;
     border-style: none;
-    height: 615px;
+    height: 580px;
     width: 600px; 
 }
-.test_detail_page .detail_media h2 {
+.lesson_detail_page .detail_media h2 {
     text-align: center;
     color: rgb(255, 255, 255);
     background-color: rgba(5, 0, 0, 0.507);
     width: 100%;
 }
-.test_detail_page .detail_media img {
+.lesson_detail_page .detail_media img {
     height: 100%;
     width: 100%; 
     user-select: none;
     -webkit-user-drag: none;
 }
 
-.test_detail_page .content_container {
+.lesson_detail_page .content_container {
     border-style: none;
     background-color: transparent;
     font-size: 25px;
     min-height: 600px;
     width: 100%; 
 }
-.test_detail_page .content_container .question_container {
+.lesson_detail_page .content_container .lesson_container {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -159,21 +176,19 @@
     color: rgb(255, 255, 255);
     min-height: 250px;
     width: 100%; 
-    /* width: 300px; */
     padding-bottom: 10px;
 }
-.test_detail_page .content_container .question_container .questions {
+.lesson_detail_page .content_container .lesson_container .lessons {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     color: rgb(255, 255, 255);
-    /* height: 400px;  */
     width: 100%;
     padding: 0 !important;
 }
-.test_detail_page .content_container .question_container .questions .question {
+.lesson_detail_page .content_container .lesson_container .lessons .lesson {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -184,23 +199,41 @@
     color: rgb(0, 0, 0);
     width: 90%;
     cursor: grab;
-    /* padding: 10px; */
 }
-.test_detail_page .content_container .question_container .questions .question .question_title {
+.lesson_detail_page .content_container .lesson_container .lessons .lesson input,
+.lesson_detail_page .content_container .lesson_container .lessons .lesson select,
+.lesson_detail_page .content_container .lesson_container .lessons .lesson option {
+    width: 350px;
+    padding: 10px;
+    margin-left: 10px;
+    background-color: transparent;
+    border-radius: 5px;
+    border-top-style: none;
+    border-left-style: none;
+    border-right-style: none;
+    font-size: 20px;
+    font-weight: bold;
+}
+.lesson_detail_page .content_container .lesson_container .lessons .lesson .lesson_title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     font-size: 25px;
     padding: 10px;
+    /* margin-right: 10px; */
     color: rgb(255, 255, 255);
     background-color: rgba(228, 107, 107, 0.5);
     width: 100%;
 }
-.test_detail_page .content_container .question_container .questions .question .question_answer {
-    font-size: 20px;
+.lesson_detail_page .content_container .lesson_container .lessons .lesson .lesson_answer {
+    font-size: 25px;
     padding: 10px;
-    /* background-color: rgba(255, 255, 255, 0.596); */
+    /* margin-right: 10px; */
+    /* margin-right: 100px; */
     width: 100%;
 }
 
-.test_detail_page .scroll_position_holder {
+.lesson_detail_page .scroll_position_holder {
     position: relative;
     top: -25vh;
 }

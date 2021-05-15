@@ -28,7 +28,7 @@ const TestDetail = () => {
 
     useEffect(() => {
         if (testList === undefined || testList === null) {
-            history.push('/test');
+            history.push('/curriculum');
         } else {
             setTest(testList.find((test) => test.id === id));
             setQuestionList(testList.find((test) => test.id === id).questions);

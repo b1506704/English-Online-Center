@@ -11,6 +11,10 @@ import {
   CREATE_TEST,
   DELETE_TEST,
   UPDATE_TEST,
+  FETCH_LESSON,
+  CREATE_LESSON,
+  DELETE_LESSON,
+  UPDATE_LESSON,
   FETCH_ROOM,
   DELETE_ROOM,
   CREATE_ROOM,
@@ -77,6 +81,19 @@ export default (state = { loggedInUser }, action) => {
             }
     case UPDATE_TEST:
         return { ...state, updatedTest: action.payload}            
+    case FETCH_LESSON:
+        return { ...state, lessonList: action.payload }
+    case DELETE_LESSON:
+        return {...state, 
+                lessonList: state.lessonList.filter((lesson) => lesson.id != action.payload )
+            }
+    case CREATE_LESSON:
+        return {
+            ...state, 
+                lessonList:[...state.lessonList, action.payload]
+            }
+    case UPDATE_LESSON:
+        return { ...state, updatedLesson: action.payload}                    
     case REGISTER_ROOM:
         return { ...state, credit: action.payload }
     case FILTER_ROOM:

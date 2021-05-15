@@ -13,12 +13,17 @@ import {
   updateRoom,
   updateUser,
   deleteTest,
+  deleteLesson
 } from '../../../actions/user_actions';
 import './Card.css';
 import Test from '../../../assets/imgs/test.jpg';
 import Practice from '../../../assets/imgs/practice.jpg';
+import Vocabulary from '../../../assets/imgs/vocabulary.jpg';
+import Grammar from '../../../assets/imgs/grammar.jpg';
+import Listening from '../../../assets/imgs/listening.jpg';
+import Reading from '../../../assets/imgs/reading.jpg';
 
-const Card = ({room, course, user, bank, test, type, mode}) => {
+const Card = ({room, course, user, bank, lesson, test, type, mode}) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -67,6 +72,8 @@ const Card = ({room, course, user, bank, test, type, mode}) => {
         history.push(`/coacher/test/${test.id}`);
       } else if (type === "course") {
         history.push(`/coacher/course/${course.id}`);
+      } else if (type === "lesson") {
+        history.push(`/coacher/lesson/${lesson.id}`);
       } else {
         setIsEditing(true);
       }
@@ -107,6 +114,8 @@ const Card = ({room, course, user, bank, test, type, mode}) => {
         dispatch(deleteUser(user.userName));
       } else if (type === "test") {
         dispatch(deleteTest(test.id));
+      } else if (type === "lesson") {
+        dispatch(deleteLesson(lesson.id));
       } 
     }
 
@@ -236,6 +245,18 @@ const Card = ({room, course, user, bank, test, type, mode}) => {
                   {test.isPractice ? "Practice" : "Test"}
                 </div>
               </div>
+            : type === "lesson" 
+            ? <div className="room_info">
+                <div> Lesson Name:
+                  {lesson.name}
+                </div>
+                <div> Minutes To Read: 
+                  {lesson.duration}
+                </div>
+                <div> Type:
+                  {lesson.isGrammar ? "Grammar" : lesson.isVocabulary ? "Vocabulary" : lesson.isReading ? "Reading" : lesson.isListening ? "Listening" : null}
+                </div>
+              </div>
             : null   
           }
           {
@@ -279,6 +300,11 @@ const Card = ({room, course, user, bank, test, type, mode}) => {
                 src={
                   course.imgUrl
               }/>)
+              : type === "lesson" ?
+              (<img className="image"
+                alt="Loading..."
+                src={lesson.isGrammar ? Grammar : lesson.isVocabulary ? Vocabulary : lesson.isReading ? Reading : lesson.isListening ? Listening : null}
+              />)
               : type === "test" ?
               (<img className="image" 
                 alt="Loading..." 

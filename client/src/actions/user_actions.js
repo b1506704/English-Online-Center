@@ -9,6 +9,10 @@ import {
   DELETE_TEST,
   UPDATE_TEST,
   CREATE_TEST,
+  FETCH_LESSON,
+  DELETE_LESSON,
+  UPDATE_LESSON,
+  CREATE_LESSON,
   FETCH_ROOM,
   DELETE_ROOM,
   REGISTER_ROOM,
@@ -182,6 +186,59 @@ export const createTest = (testInfo) => async (dispatch) => {
     const { data } = await api.createTest(testInfo);
     await dispatch({ type: CREATE_TEST, payload: data});
     await dispatch(setNotification(`Added test ${testInfo.id}`));
+    await dispatch(fetchRoom());
+    await dispatch(setIsLoading(false));
+  } catch (error) {
+    dispatch(setNotification("Added failed!"));
+  }
+};
+// leson
+export const fetchLesson = () => async (dispatch) => {
+  try {
+    // await dispatch(setIsLoading(true));
+    const { data } = await api.fetchLesson();
+    // await dispatch(setIsLoading(false));
+    dispatch({ type: FETCH_LESSON, payload: data});
+  } catch (error) {
+    dispatch(setIsLoading(false));
+    console.log(error.message);
+  }
+};
+
+export const deleteLesson = (id) => async (dispatch) => {
+  try {
+    await dispatch(setIsLoading(true));
+    const { data } = await api.deleteLesson(id);
+    await dispatch({ type: DELETE_LESSON, payload: data});
+    await dispatch(fetchLesson());
+    await dispatch(setIsLoading(false));
+    await dispatch(setNotification(`Deleted lesson `));
+  } catch (error) {
+    dispatch(setIsLoading(false));
+    dispatch(setNotification("Delete failed!"));
+  }
+};
+
+export const updateLesson = (id, lessonInfo) => async (dispatch) => {
+  try {
+    await dispatch(setIsLoading(true));
+    const { data } = await api.updateLesson(id, lessonInfo);
+    await dispatch({ type: UPDATE_LESSON, payload: data});
+    await dispatch(fetchRoom());
+    await dispatch(setIsLoading(false));
+    await dispatch(setNotification(`Updated lesson`));
+  } catch (error) {
+    dispatch(setIsLoading(false));
+    dispatch(setNotification("Update failed!"));
+  }
+};
+
+export const createLesson = (lessonInfo) => async (dispatch) => {
+  try {
+    await dispatch(setIsLoading(true));
+    const { data } = await api.createLesson(lessonInfo);
+    await dispatch({ type: CREATE_LESSON, payload: data});
+    await dispatch(setNotification(`Added test`));
     await dispatch(fetchRoom());
     await dispatch(setIsLoading(false));
   } catch (error) {

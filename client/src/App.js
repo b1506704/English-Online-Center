@@ -4,7 +4,7 @@ import { Route, Switch} from 'react-router-dom'
 import { useHistory } from 'react-router-dom';
 import LoadingContainer from './utils/LoadingContainer/LoadingContainer';
 import LazyLoad from './utils/LazyLoad/LazyLoad';
-import {fetchRoom, fetchCourse, fetchUser, fetchTest } from './actions/user_actions';
+import {fetchRoom, fetchCourse, fetchUser, fetchTest, fetchLesson } from './actions/user_actions';
 import * as auth from './utils/FakeAuth.js';
 import './App.css';
 import NavBar from './components/NavBar/NavBar';
@@ -36,6 +36,7 @@ const App = () => {
         dispatch(fetchCourse());
         dispatch(fetchUser());
         dispatch(fetchTest());
+        dispatch(fetchLesson());
         if (loginInfo) {
             if (auth.isHRManager(loginInfo)) history.push('/hr');
             if (auth.isSalesManager(loginInfo)) history.push('/sales');

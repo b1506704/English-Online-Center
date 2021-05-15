@@ -126,7 +126,7 @@ const LessonDetail = () => {
                                     <input defaultValue={content.front.text} onChange={(e) => editFront(e, content.id)}></input>
                                     </span>
                                     
-                                    <button type="button" className="delete_button shadow" onClick={() => onRemove(content.id)}/>   
+                                    <button type="button" className="delete_button shadow" onClick={() => onRemove(content.id)}>Delete</button>   
                                 </div>
                                 <div className="lesson_answer">
                                     <span> Back Text: 
@@ -169,15 +169,15 @@ const LessonDetail = () => {
                     {
                         isEditing ? 
                         <>
-                            <button type="button" className="cancel_button shadow" onClick={onCancel}></button>        
-                            <button type="button" className="save_button shadow" onClick={onUpdate}></button>        
-                            <button type="button" className="add_button shadow" onClick={onInsert}></button>        
+                            <button type="button" className="cancel_button shadow" onClick={onCancel}>Cancel</button>        
+                            <button type="button" className="save_button shadow" onClick={onUpdate}>Update</button>        
+                            <button type="button" className="add_button shadow" onClick={onInsert}>Content</button>        
                         </> :
                         <>
-                            <button type="button" className="edit_button shadow" onClick={onEdit}></button>
+                            <button type="button" className="edit_button shadow" onClick={onEdit}>Edit</button>
+                            <button type="button" className="refresh_button shadow" onClick={loadLesson}>Refresh</button>            
                         </> 
                     }
-                    <button type="button" className="refresh_button shadow" onClick={loadLesson}></button>            
                 </div>
             </h2>
             <div className="lesson_detail">

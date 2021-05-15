@@ -18,20 +18,26 @@ const MarketingManagerPage = lazy(() => import ('./components/views//MarketingMa
 const CenterManagerPage = lazy(() => import ('./components/views/CenterManagerPage/CenterManagerPage'));
 const AcademicManagerPage = lazy(() => import ('./components/views/AcademicManagerPage/AcademicManagerPage'));
 const HRPage = lazy(() => import ('./components/views/HRPage/HRPage'));
-const RoomPage = lazy(() => import ('./components/views/RoomPage/RoomPage'));
+const OnlineSession = lazy(() => import ('./components/OnlineSession/OnlineSession'));
 
 const App = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const storeState = useSelector ((state) => state.user_reducer);
     const loginInfo = useSelector((state) => state.user_reducer.loggedInUser);
-    // const [title, setTitle] = useState("English Online Center");
     const [title, setTitle] = useState("Active Learning Center");
     const [subTitle, setSubTitle] = useState("Real-time and highly interactive learning platform");
     
     console.log(storeState);
 
     useEffect(()=> {
+        // setInterval(() => {
+        //     dispatch(fetchRoom());
+        //     dispatch(fetchCourse());
+        //     dispatch(fetchUser());
+        //     dispatch(fetchTest());
+        //     dispatch(fetchLesson()); 
+        // }, 10000);
         dispatch(fetchRoom());
         dispatch(fetchCourse());
         dispatch(fetchUser());
@@ -78,8 +84,8 @@ const App = () => {
                     <Route path="/marketing">
                         <MarketingManagerPage user={loginInfo}/>
                     </Route>
-                    <Route path="/room">
-                        <RoomPage user={loginInfo}/>
+                    <Route path={`/room/session/:id`}>
+                        <OnlineSession/>   
                     </Route>
                 </Switch>
             </Suspense>

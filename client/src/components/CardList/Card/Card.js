@@ -124,31 +124,31 @@ const Card = ({room, course, user, bank, lesson, test, type, mode}) => {
       return (
         <div className="card_detail shadow">
           <div className="title_bar shadow">
-            {user.userName}
+            <span>{user.userName}</span>
           </div>
           <div className="room_info">
             <div> Username: &nbsp;
-                      { isEditing === false ? user.userName
+                      { isEditing === false ? <span>{user.userName}</span>
                         : (<input ref={userInputRef.userName} type="text" defaultValue={user.userName}></input>)
                       }
               </div>
             <div> Password: &nbsp;
-                    { isEditing === false ? user.passWord
+                    { isEditing === false ? <span>{user.passWord}</span>
                       : (<input ref={userInputRef.passWord} type="text" defaultValue={user.passWord}></input>)
                     }
             </div>
             <div> Full Name: &nbsp;
-                    { isEditing === false ? user.fullName
+                    { isEditing === false ? <span>{user.fullName}</span>
                       : (<input ref={userInputRef.fullName} type="text" defaultValue={user.fullName}></input>)
                     }
             </div>
             <div> Gender: &nbsp;
-                    { isEditing === false ? user.gender
+                    { isEditing === false ? <span>{user.gender}</span>
                       : (<input ref={userInputRef.gender} type="text" defaultValue={user.gender}></input>)
                     }
             </div>
             <div> Email: &nbsp;
-                    { isEditing === false ? user.email
+                    { isEditing === false ? <span>{user.email}</span>
                       : (<input ref={userInputRef.email} type="text" defaultValue={user.email}></input>)
                     }
             </div>
@@ -196,30 +196,30 @@ const Card = ({room, course, user, bank, lesson, test, type, mode}) => {
             type === "room" 
             ? <div className="room_info">
                 <div> Course: &nbsp; 
-                  { isEditing === false ? room.course
+                  { isEditing === false ? <span>{currentCourse.find((e) => e.id === room.course)?.name}</span>
                     : (<select ref={roomInputRef.courseRef}>
                         { currentCourse != null 
-                          ? currentCourse.map((ele, key) => (<option value={ele.name} key={key}>{ele.name}</option>))
+                          ? currentCourse.map((ele, key) => (<option value={ele.id} key={key}>{ele.name}</option>))
                           : null
                         }
                       </select>)
                   }
                 </div>
                 <div> Price: &nbsp;
-                  { isEditing === false ? room.price + " VND"
+                  { isEditing === false ? <span>{room.price + " VND"}</span>
                     : (<input ref={roomInputRef.priceRef} type="text" defaultValue={room.price}></input>)
                   }
                 </div>
-                <div style={{color: "blue"}}>Status: &nbsp;{room.isFull ? "Full" : "Ready"}</div>
-                <div>Coacher:&nbsp; {room.roomCoacher}</div>
-                <div>Participants:&nbsp; {room.roomParticipants.length}</div>
+                <div style={{color: "blue"}}>Status: &nbsp; <span>{room.isFull ? "Full" : "Ready"}</span></div>
+                <div>Coacher:&nbsp; <span>{room.roomCoacher}</span></div>
+                <div>Participants:&nbsp; <span>{room.roomParticipants.length}</span></div>
                 <div>Start:&nbsp;
-                { isEditing === false ? room.start
+                { isEditing === false ? <span>{room.start}</span>
                   : (<input ref={roomInputRef.start} type="text" defaultValue={room.start}></input>)
                 }
                 </div>
                 <div>End:&nbsp;
-                { isEditing === false ? room.end
+                { isEditing === false ? <span>{room.end}</span>
                   : (<input ref={roomInputRef.end} type="text" defaultValue={room.end}></input>)
                 }
                 </div>
@@ -227,34 +227,34 @@ const Card = ({room, course, user, bank, lesson, test, type, mode}) => {
             : type === "course" 
               ? <div className="room_info">
                   <div> Course Name:
-                    {course.name}
+                    <span>{course.name}</span>
                   </div>
                   <div> Duration:
-                    {course.duration ? course.duration + ' weeks': 'Not set'}
+                    <span>{course.duration ? course.duration + ' weeks': 'Not set'}</span>
                   </div>
                 </div>
             : type === "test" 
             ? <div className="room_info">
                 <div> Test Name:
-                  {test.name}
+                  <span>{test.name}</span>
                 </div>
                 <div> Total Questions:
-                  {test.questions.length}
+                  <span>{test.questions.length}</span>
                 </div>
                 <div> Type:
-                  {test.isPractice ? "Practice" : "Test"}
+                  <span>{test.isPractice ? "Practice" : "Test"}</span>
                 </div>
               </div>
             : type === "lesson" 
             ? <div className="room_info">
                 <div> Lesson Name:
-                  {lesson.name}
+                <span>{lesson.name}</span>
                 </div>
                 <div> Minutes To Read: 
-                  {lesson.duration}
+                <span>{lesson.duration}</span>
                 </div>
                 <div> Type:
-                  {lesson.isGrammar ? "Grammar" : lesson.isVocabulary ? "Vocabulary" : lesson.isReading ? "Reading" : lesson.isListening ? "Listening" : null}
+                <span>{lesson.isGrammar ? "Grammar" : lesson.isVocabulary ? "Vocabulary" : lesson.isReading ? "Reading" : lesson.isListening ? "Listening" : null}</span>
                 </div>
               </div>
             : null   

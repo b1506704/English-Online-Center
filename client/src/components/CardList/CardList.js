@@ -70,8 +70,12 @@ const CardList = ({context}) => {
         dispatch(register(
             {
                 userName: random(1,20000),
-                passWord: '',
+                passWord: '123456',
                 gender: 'Male',
+                fullName: 'Test', 
+                birthDate: '01-01-2020',
+                phoneNumber: '038XXXXXX',
+                address: 'test',
                 email: random(1,20000) + '@gmail.com'
             }
         ));

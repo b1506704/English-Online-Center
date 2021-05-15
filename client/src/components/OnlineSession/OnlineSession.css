@@ -1,0 +1,101 @@
+.session_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: stretch;
+    background-color: rgba(255, 255, 255, 0.342);
+    font-weight: bold;
+    height: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 20px;
+}
+.session_container .session_title {
+    display: flex;
+    padding-left: 25px;
+    padding-right: 25px;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+    font-size: 20px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.425);
+}
+.session_container .session_title button {
+    color: rgb(255, 255, 255);
+    border-style: none;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 5px;
+    background-color: transparent;
+    transition: all 0.3s ease-out;
+    width: 100px;
+    height: 30px;
+}
+.session_container .session_title button:hover {
+    cursor: pointer;
+    color: rgb(0, 0, 0);
+    background-color: rgb(143, 201, 255);
+}
+
+.session_container .session_coacher {
+    position: absolute;
+    top: 70px;
+    right: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    background-color: rgba(200, 234, 253, 0.281);
+    font-size: 15px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    height: 100px;
+    width: 100px;
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
+.session_container .session_board {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../../assets/imgs/blackboard.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: repeat;
+    color: rgb(255, 255, 255);
+    height: 590px;
+    width: 100%;
+}
+.session_container .session_user {
+    position: absolute;
+    bottom: 20px;
+    z-index: 10;
+    display: flex;
+    flex-direction: row;
+    color: #000;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 78.5%;
+    height: 120px;
+}
+.session_container .session_user .participant {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.493);
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    font-size: 15px;
+    height: 100px;
+    width: 100px;
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+.session_container .session_user .participant .message {
+    height: 80px;
+    width: 80px;
+
+    clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 75% 75%, 33% 100%, 50% 75%, 0% 75%);
+}
+

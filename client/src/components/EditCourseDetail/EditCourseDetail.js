@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useParams, useLocation } from 'react-router';
+import { useParams } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import FileBase from 'react-file-base64';
 import './EditCourseDetail.css';
 import random from '../../utils/RandomNumber.js';
-import { fetchCourse, fetchTest, setNotification, updateCourse } from '../../actions/user_actions';
+import { fetchCourse, setNotification, updateCourse } from '../../actions/user_actions';
 
 const CourseDetail = () => {
     const {id} = useParams();
@@ -13,6 +14,7 @@ const CourseDetail = () => {
     const modalRef = useRef();
     const courseList = useSelector((state) => state.user_reducer.courseList);
     const testList = useSelector((state) => state.user_reducer.testList);
+    const lessonList = useSelector((state) => state.user_reducer.lessonList);
     const [currentImg, setCurrentImg] = useState(null);
     const [currentTestList, setCurrentTestList] = useState([]);
     const [currentLessonList, setCurrentLessonList] = useState([]);
@@ -49,17 +51,24 @@ const CourseDetail = () => {
     
     const editTest = (e, id) => {
         const currentIndex = currentTestList.findIndex((t) => t.id === id);
-        console.log(currentIndex);
-        console.log(e.target.value);
+        // console.log(currentIndex);
+        // console.log(e.target.value);
         const tempList = [...currentTestList];
-        console.log(tempList);
+        // console.log(tempList);
         const toEditTest = testList.find((t) => t.id === e.target.value);
         tempList[currentIndex] = toEditTest;
         setCurrentTestList(tempList);
     }
 
     const editLesson = (e, id) => {
-        //todo
+        const currentIndex = currentLessonList.findIndex((l) => l.id === id);
+        console.log(currentIndex);
+        console.log(e.target.value);
+        const tempList = [...currentLessonList];
+        console.log(tempList);
+        const toEditLesson = lessonList.find((l) => l.id === e.target.value);
+        tempList[currentIndex] = toEditLesson;
+        setCurrentLessonList(tempList);
     }
 
     const onRemoveTest = (id) => {
@@ -68,7 +77,7 @@ const CourseDetail = () => {
     }
 
     const onRemoveLesson = (id) => {
-        setCurrentTestList(currentLessonList.filter((l) => l.id != id));
+        setCurrentLessonList(currentLessonList.filter((l) => l.id != id));
         dispatch(setNotification("Lesson removed"));
     }
 
@@ -99,12 +108,9 @@ const CourseDetail = () => {
     }
     
     const onInsertTest = () => {
-        console.log(currentTestList.length);
-        console.log(testList.length);
         if (currentTestList.length < testList.length) {
             const test = testList[random(0, testList.length-1)];
             setCurrentTestList([...currentTestList, test]);
-            console.log(currentTestList);
             dispatch(setNotification("Test added"));
         } else {
             dispatch(setNotification(`Maximum of ${testList.length}`));
@@ -112,8 +118,15 @@ const CourseDetail = () => {
     }
 
     const onInsertLesson = () => {
-        //todo        
-        dispatch(setNotification("Lesson added"));
+        if (currentLessonList.length < lessonList.length) {
+            const lesson = lessonList[random(0, lessonList.length-1)];
+            setCurrentLessonList([...currentLessonList, lesson]);
+            console.log(lessonList);
+            console.log(currentLessonList);
+            dispatch(setNotification("Lesson added"));
+        } else {
+            dispatch(setNotification(`Maximum of ${lessonList.length}`));
+        }
     }
 
     const loadCourse = () => {
@@ -135,7 +148,7 @@ const CourseDetail = () => {
                                             (<option key={key} value={t.id}>{t.name}</option>)
                                         )}
                                     </select>
-                                    <button type="button" className="delete_button shadow" onClick={() => onRemoveTest(test.id)}/>   
+                                    <button type="button" className="delete_button shadow" onClick={() => onRemoveTest(test.id)}>Delete</button>   
                                 </div>
                             </div>));
         } else {
@@ -155,26 +168,26 @@ const CourseDetail = () => {
     const renderLessons = () => {
         let lessons;
         if (isEditing) {
-            lessons = currentTestList
-                            ?.map((test, key) => 
+            lessons = currentLessonList
+                            ?.map((lesson, key) => 
                             (<div className="test shadow" key={key}>
                                 <div className="test_title">
                                     <span> {key+1}. </span>
-                                    <select defaultValue={currentTestList.find((t)=>t.id === test.id).id} onChange={(e) => editTest(e, test.id)}>
-                                        {testList?.map((t, key) => 
-                                            (<option key={key} value={t.id}>{t.name}</option>)
+                                    <select defaultValue={currentLessonList.find((l)=>l.id === lesson.id).id} onChange={(e) => editLesson(e, lesson.id)}>
+                                        {lessonList?.map((l, key) => 
+                                            (<option key={key} value={l.id}>{l.name}</option>)
                                         )}
                                     </select>
-                                    <button type="button" className="delete_button shadow" onClick={() => onRemoveTest(test.id)}/>   
+                                    <button type="button" className="delete_button shadow" onClick={() => onRemoveLesson(lesson.id)}>Delete</button>   
                                 </div>
                             </div>));
         } else {
-            lessons = course?.testList
-                            .map((test, key) => 
+            lessons = course?.lessonList
+                            .map((lesson, key) => 
                             (<div className="test shadow" key={key}> 
                                 <div className="test_title">
-                                    <a style={{width: "100%"}} onClick={() => history.push(`/coacher/test/${test.id}`)}>
-                                    {key+1}. {test.name}
+                                    <a style={{width: "100%"}} onClick={() => history.push(`/coacher/lesson/${lesson.id}`)}>
+                                    {key+1}. {lesson.name}
                                     </a>
                                 </div>
                             </div>));
@@ -191,20 +204,27 @@ const CourseDetail = () => {
                     {
                         isEditing ? 
                         <>
-                            <button type="button" className="cancel_button shadow" onClick={onCancel}></button>        
-                            <button type="button" className="save_button shadow" onClick={onUpdate}></button>        
-                            <button type="button" className="add_button shadow" onClick={onInsertTest}></button>        
+                            <button type="button" className="cancel_button shadow" onClick={onCancel}>Cancel</button>        
+                            <button type="button" className="save_button shadow" onClick={onUpdate}>Save</button>        
+                            <button type="button" className="add_button shadow" onClick={onInsertLesson}>Lesson</button>        
+                            <button type="button" className="add_button shadow" onClick={onInsertTest}>Test</button>        
                         </> :
                         <>
-                            <button type="button" className="edit_button shadow" onClick={onEdit}></button>
+                            <button type="button" className="edit_button shadow" onClick={onEdit}>Edit</button>
+                            <button type="button" className="refresh_button shadow" onClick={loadCourse}>Refresh</button>            
                         </> 
                     }
-                    <button type="button" className="refresh_button shadow" onClick={loadCourse}></button>            
                 </div>
             </h2>
             <div className="course_detail">
                 <div className="detail_media shadow">
                     <h2>Course Cover</h2>
+                    { isEditing ?
+                        <button type="button" style={{with: "100%"}} className="card_button base64_button">
+                            <FileBase className="base64" type="file" multiple={false} onDone = {({base64}) => {setCurrentImg(base64)}}></FileBase>  
+                        </button>
+                    : null
+                    }
                     <img className="image" alt="Loading..." src={currentImg || course?.imgUrl}/>
                 </div>
                 <div className="detail_info shadow">
@@ -234,6 +254,15 @@ const CourseDetail = () => {
                         {testList.map((t, key) => 
                         (<a className="test" onClick={() => history.push(`/coacher/test/${t.id}`)} key={key}>
                             <div className="test_title">{key+1}. {t.name}</div>
+                        </a>))}
+                    </div>
+                </div>
+                <div className="test_container">
+                    <h2>Available Lesson</h2>
+                    <div className="tests">
+                        {lessonList.map((l, key) => 
+                        (<a className="test" onClick={() => history.push(`/coacher/lesson/${l.id}`)} key={key}>
+                            <div className="test_title">{key+1}. {l.name}</div>
                         </a>))}
                     </div>
                 </div>

@@ -150,14 +150,14 @@ const TestDetail = () => {
                             (<div className="question shadow" key={key}>
                                 <div className="question_title">
                                     <input defaultValue={question.text} onChange={(e) => editQuestion(e, question.id)}></input>
-                                    <span> Correct Answer: </span>
+                                    <span style={{marginLeft: "15px"}, {fontSize: "20px"}}> Answer: </span>
                                     <select onChange={(e) => markCorrect(e, question.id)}>
                                         <option value="0">A</option>
                                         <option value="1">B</option>
                                         <option value="2">C</option>
                                         <option value="3">D</option>
                                     </select>
-                                    <button type="button" className="delete_button shadow" onClick={() => onRemove(question.id)}/>   
+                                    <button type="button" className="delete_button shadow" onClick={() => onRemove(question.id)}>Delete</button>   
                                 </div>
                                 <div className="question_answer">
                                     {question?.answerOptions.map((answer,key) => 
@@ -173,7 +173,7 @@ const TestDetail = () => {
                             (<div className="question shadow" key={key}> 
                                 <div className="question_title">
                                     {key + 1}. {question.text}
-                                    <span>Correct Answer: {question.answerOptions.find((q) => q.isCorrect === true).value}</span>
+                                    <span>Answer: {question.answerOptions.find((q) => q.isCorrect === true).value}</span>
                                 </div>
                                 <div className="question_answer">
                                     {question?.answerOptions.map((answer,key) => 
@@ -199,15 +199,15 @@ const TestDetail = () => {
                     {
                         isEditing ? 
                         <>
-                            <button type="button" className="cancel_button shadow" onClick={onCancel}></button>        
-                            <button type="button" className="save_button shadow" onClick={onUpdate}></button>        
-                            <button type="button" className="add_button shadow" onClick={onInsert}></button>        
+                            <button type="button" className="cancel_button shadow" onClick={onCancel}>Cancel</button>        
+                            <button type="button" className="save_button shadow" onClick={onUpdate}>Save</button>        
+                            <button type="button" className="add_button shadow" onClick={onInsert}>Question</button>        
                         </> :
                         <>
-                            <button type="button" className="edit_button shadow" onClick={onEdit}></button>
+                            <button type="button" className="edit_button shadow" onClick={onEdit}>Edit</button>
+                            <button type="button" className="refresh_button shadow" onClick={loadTest}>Refresh</button>            
                         </> 
                     }
-                    <button type="button" className="refresh_button shadow" onClick={loadTest}></button>            
                 </div>
             </h2>
             <div className="test_detail">

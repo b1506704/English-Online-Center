@@ -39,27 +39,33 @@
     justify-content: space-evenly;
     align-items: center;
     /* flex-grow: 0.5; */
-    width: 300px;
+    /* width: 300px; */
 }
 
 .test_detail_page .test_message button,
 .test_detail_page .content_container .question_container .questions .question button {
     position: relative !important;
 	height: 50px;
-    width: 50px;
+    width: 150px;
     font-size: 20px;
     top: 0 !important;
     left: 0 !important;
-	color: transparent;
-	background-size: contain;
+	color: rgb(255, 255, 255);
+    font-weight: bold;
+    background-position: left 15% center;
+    background-size: contain;
+    background-repeat: no-repeat;
     border-radius: 5px;
+    margin-left: 10px;
+    padding-right: 10px;
+    text-align: right;
     border-style: none;
     transition: all 0.35s ease-in-out;
     margin: 0 !important;
-    /* margin-right: 20px; */
 }
 .test_detail_page .test_message button:hover {
     cursor: pointer;
+    background-color: black;
     transform: scale(1.15);
 }
 
@@ -111,6 +117,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    
     padding-left: 25px;
     padding-right: 25px;
 }
@@ -123,6 +130,9 @@
     font-size: 25px;
     width: 40%;
     font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    justify-content: space-between;
     background-color: transparent;
     border-radius: 5px;
     border-top-style: none;
@@ -222,6 +232,15 @@
     color: rgb(255, 255, 255);
     background-color: rgba(228, 107, 107, 0.5);
     width: 100%;
+}
+.test_detail_page .content_container .question_container .questions .question .question_title:hover {
+    color: rgb(0, 0, 0);
+    background-color: rgb(186, 212, 247);
+}
+.test_detail_page .content_container .question_container .questions .question .question_title button:hover {
+    cursor: pointer;
+    background-color: black;
+    transform: scale(1.15);
 }
 .test_detail_page .content_container .question_container .questions .question .question_answer {
     font-size: 20px;

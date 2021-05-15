@@ -34,28 +34,32 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    /* flex-grow: 0.5; */
-    width: 300px;
 }
 
 .course_detail_page .course_message button,
 .course_detail_page .content_container .test_container .tests .test button {
     position: relative !important;
 	height: 50px;
-    width: 50px;
+    width: 150px;
     font-size: 20px;
     top: 0 !important;
     left: 0 !important;
-	color: transparent;
-	background-size: contain;
+	color: rgb(255, 255, 255);
+    font-weight: bold;
+    background-position: left 15% center;
+    background-size: contain;
+    background-repeat: no-repeat;
     border-radius: 5px;
+    margin-left: 10px;
+    padding-right: 10px;
+    text-align: right;
     border-style: none;
     transition: all 0.35s ease-in-out;
     margin: 0 !important;
-    /* margin-right: 20px; */
 }
 .course_detail_page .course_message button:hover {
     cursor: pointer;
+    background-color: black;
     transform: scale(1.15);
 }
 
@@ -124,6 +128,9 @@
     border-top-style: none;
     border-left-style: none;
     border-right-style: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    justify-content: space-between;
 }
 .course_detail_page .detail_info select {
     font-size: 25px;
@@ -139,8 +146,7 @@
     background-color: transparent;
     border-radius: 15px;
     border-style: none;
-    height: 100%;
-    /* height: 615px; */
+    height: 580px;
     width: 600px; 
 }
 .course_detail_page .detail_media h2 {
@@ -210,6 +216,7 @@
     font-size: 20px;
     font-weight: bold;
 }
+
 .course_detail_page .content_container .test_container .tests .test .test_title {
     display: flex;
     justify-content: space-between;
@@ -218,13 +225,13 @@
     padding: 10px;
     color: rgb(255, 255, 255);
     background-color: rgba(228, 107, 107, 0.5);
+    transition: all 0.3s ease-out;
     width: 100%;
 }
-.course_detail_page .content_container .test_container .tests .test .test_answer {
-    font-size: 20px;
-    padding: 10px;
-    margin-right: 100px;
-    width: 100%;
+
+.course_detail_page .content_container .test_container .tests .test .test_title:hover {
+    color: rgb(0, 0, 0);
+    background-color: rgb(186, 212, 247);
 }
 
 .course_detail_page .scroll_position_holder {

@@ -120,6 +120,7 @@
 
 .user_info_container input, .user_info_container select {
     font-size: 18px;
+    font-weight: bold;
     border-radius: 5px;
     padding-left: 1vh;
     color: #000;

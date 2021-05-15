@@ -3,7 +3,7 @@ import { useParams } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import './RoomDetail.css';
-import { joinRoom } from '../../actions/user_actions';
+import { fetchRoom, joinRoom, setNotification } from '../../actions/user_actions';
 import FlashCard from '../FlashCard/FlashCard';
 
 const RoomDetail = () => {
@@ -12,62 +12,12 @@ const RoomDetail = () => {
     const dispatch = useDispatch();
     const modalRef = useRef();
     const roomList = useSelector((state) => state.user_reducer.roomList);
+    const courseList = useSelector((state) => state.user_reducer.courseList);
     const currentUser = useSelector((state) => state.user_reducer.loggedInUser);
-    // const currentRoom = useSelector((state) => state.user_reducer.currentRoom);
     const userList = useSelector((state) => state.user_reducer.userList);
     const [room, setRoom] = useState(null);
-    const cardData = [
-        {
-          front: {
-            text: "文明",
-            image: "https://o.quizlet.com/RWRdgDus.uuqNDUrJ0ernA.jpg",
-          },
-          back: {
-            text: "ぶんめい",
-          }
-        },
-        {
-          front: {
-            text: "植物",
-          },
-          back: {
-            text: "しょくぶつ",
-          }
-        },
-        {
-            front: {
-              text: "植物",
-            },
-            back: {
-              text: "しょくぶつ",
-            }
-          },
-          {
-            front: {
-              text: "植物",
-            },
-            back: {
-              text: "しょくぶつ",
-            }
-          },
-          {
-            front: {
-              text: "植物",
-            },
-            back: {
-              text: "しょくぶつ",
-            }
-          },
-        {
-          front: {
-            text: "輝夜",
-            image: "https://o.quizlet.com/DNSK53oa86VTpPMo18ov4A.jpg",
-          },
-          back: {
-            text: "かぐや",
-          }
-        },
-    ];
+    const [course, setCourse] = useState(null);
+    
 
     useEffect(() => {
         if (roomList === undefined || roomList === null) {
@@ -75,10 +25,27 @@ const RoomDetail = () => {
         } else {
             setRoom(roomList.find((room) => room.id === id));
         }
+        
     },[roomList]);
 
     useEffect(() => {
+      if (courseList === undefined || courseList === null) {
+          history.push('/room');
+      } else {
+          setCourse(courseList.find((course) => course.id === room?.course));
+      }
+    },[courseList, room]);
+    
+    
+    
+    useEffect(() => {
+      const interval = setInterval(() => {
+        dispatch(fetchRoom());
+      }, 5000);
         scrollToModal();
+        return () => {
+          clearInterval(interval);
+        }
     },[]);
 
     const onSubmitSchedule = (e) => {
@@ -105,7 +72,45 @@ const RoomDetail = () => {
     }
     
     const onJoin = () => {
-        dispatch(joinRoom(id, currentUser));
+        const isJoin = room?.roomParticipants.some((user) => user === currentUser.userName);
+        console.log(isJoin);
+        //todo: check purchase first
+        if (isJoin) {
+          dispatch(setNotification(`Connected to room ${id}`));
+          history.push(`/room/session/${room?.id}`);
+        } else if (room?.roomParticipants.length>=6) {
+          dispatch(setNotification("Room full!"));
+        } else {
+          dispatch(joinRoom(id, currentUser));
+        }
+    }
+
+    const renderTests = () => {
+      const tests = course?.testList
+                      .map((test, key) => 
+                      (<div className="test shadow" key={key}> 
+                          <div className="test_title">
+                              <a style={{width: "100%"}}>
+                              {key+1}. {test.name}
+                              </a>
+                              <span> Duration: {test.duration} minutes </span>
+                          </div>
+                      </div>));
+      return tests;
+    } 
+
+    const renderLessons = () => {
+      const lessons = course?.lessonList
+                      .map((lesson, key) => 
+                        (<div className="test shadow" key={key}> 
+                            <div className="test_title">
+                                <a style={{width: "100%"}}>
+                                {key+1}. {lesson.name}
+                                </a>
+                                <span>Estimated Reading: {lesson.duration} minutes </span>
+                            </div>
+                        </div>));
+      return lessons;
     }
 
     return(
@@ -125,7 +130,7 @@ const RoomDetail = () => {
                     <div>Ownership:&nbsp; <span>{room?.roomParticipants.find((e) => e?.userName === currentUser?.userName) ? "Yes" : "No"}</span></div>
                     <div>Status:&nbsp; <span style={{color: "blue"}}>{room?.isFull ? "Full" : "Available"}</span></div>
                     <div> Course: &nbsp; 
-                        <span>{room?.course}</span>
+                        <span>{course?.name}</span>
                     </div>
                     <div> Coacher: &nbsp; 
                         <span>{room?.roomCoacher}</span>
@@ -154,19 +159,20 @@ const RoomDetail = () => {
                 Course Content
             </h2>
             <div className="content_container shadow">
-                <FlashCard
-                    dataSource={cardData}
-                    flipDirection="vertical" 
-                    onChange={(step, side) => console.log(step, side)} 
-                    onSound={(text) => console.log(text)} 
-                    onFinish={() => console.log("Finish!")}
-                    backgroundColor={""}
-                    dropShadow={true}
-                    height={450}
-                    width={"100%"}
-                />
+              <div className="test_container">
+                <h2 className="shadow">Lesson List</h2>
+                <div className="tests">
+                  {renderLessons()}
+                </div>
+              </div>
+              <div className="test_container">
+                <h2 className="shadow">Test List</h2>
+                <div className="tests">
+                  {renderTests()}
+                </div>
+              </div>
             </div>
-        </div>
+      </div>
     );
 }
 export default RoomDetail;

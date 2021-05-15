@@ -33,6 +33,7 @@ const UserPage = ({user}) => {
                     <Route path={`${path}/room/:id`}>
                         <RoomDetail/>    
                     </Route>
+                    
                 </Switch>
             </main>
         </Suspense>

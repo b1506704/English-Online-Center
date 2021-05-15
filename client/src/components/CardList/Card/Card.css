@@ -131,9 +131,22 @@
   font-family: Detail;
   letter-spacing: 0.5px;
   padding-left: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .room_info div div {
   padding-left: 0px;
+}
+.room_info div span {
+  font-family: Detail;
+  font-weight: bold;
+  width: 120px;
+  padding-right: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: justify;
 }
 .image_container {
   position: absolute;

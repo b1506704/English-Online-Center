@@ -1,20 +1,20 @@
 import axios from 'axios';
 // for heroku server
-const userUrl = 'https://account-trading-shop.herokuapp.com/users';
-const roomUrl = 'https://account-trading-shop.herokuapp.com/rooms';
-const classRoomUrl = 'https://account-trading-shop.herokuapp.com/class_rooms';
-const courseUrl = 'https://account-trading-shop.herokuapp.com/courses';
-const bankUrl = 'https://account-trading-shop.herokuapp.com/banks';
-const testUrl = 'https://account-trading-shop.herokuapp.com/tests';
-const lessonUrl = 'https://account-trading-shop.herokuapp.com/lessons';
+// const userUrl = 'https://account-trading-shop.herokuapp.com/users';
+// const roomUrl = 'https://account-trading-shop.herokuapp.com/rooms';
+// const classRoomUrl = 'https://account-trading-shop.herokuapp.com/class_rooms';
+// const courseUrl = 'https://account-trading-shop.herokuapp.com/courses';
+// const bankUrl = 'https://account-trading-shop.herokuapp.com/banks';
+// const testUrl = 'https://account-trading-shop.herokuapp.com/tests';
+// const lessonUrl = 'https://account-trading-shop.herokuapp.com/lessons';
 // for local server
-// const userUrl = 'http://localhost:80/users';
-// const roomUrl = 'http://localhost:80/rooms';
-// const courseUrl = 'http://localhost:80/courses';
-// const bankUrl = 'http://localhost:80/banks';
-// const classRoomUrl = 'http://localhost:80/class_rooms';
-// const testUrl = 'http://localhost:80/tests';
-// const lessonUrl = 'http://localhost:80/lessons';
+const userUrl = 'http://localhost:80/users';
+const roomUrl = 'http://localhost:80/rooms';
+const courseUrl = 'http://localhost:80/courses';
+const bankUrl = 'http://localhost:80/banks';
+const classRoomUrl = 'http://localhost:80/class_rooms';
+const testUrl = 'http://localhost:80/tests';
+const lessonUrl = 'http://localhost:80/lessons';
 
 
 // user routes

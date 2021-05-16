@@ -7,7 +7,12 @@ const testSchema = mongoose.Schema({
     },
     name: String,
     //for learner
-    score: Number,
+    result: [
+        {
+            userName: String,
+            score: Number
+        }
+    ],
     //for coacher
     maxScore: Number,
     //minute

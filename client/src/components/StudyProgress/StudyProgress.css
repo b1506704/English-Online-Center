@@ -1,0 +1,106 @@
+.progress_page {
+    position: relative;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+	margin-bottom: 25px;
+}
+.progress_page .progress_message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(255, 255, 255);
+  background-color: rgb(16, 83, 100);
+  user-select: none;
+  height: 100px; 
+  font-size: 40px;
+  width: 100%;
+}
+.progress_page .progress_detail {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 25px;
+    align-items: flex-start;
+    width: 100%;
+    background: transparent;
+}
+.progress_page .detail_info {
+    overflow-y: auto;
+    overflow-x: hidden;
+    color: rgb(0, 0, 0);
+    width: 400px;
+    height: 360px;
+}
+.progress_page .detail_info h2 {
+    text-align: center;
+    color: rgb(255, 255, 255);
+    background-color: rgb(16, 83, 100);
+    margin-bottom: 10px;
+    width: 100%;
+}
+.progress_page .detail_info div {
+    padding-left: 25px;
+}
+.progress_page .detail_info span {
+    position: absolute;
+    right: 8vh;
+}
+.progress_page .detail_media {
+    background-color: transparent;
+    width: 600px; 
+}
+.progress_page .detail_media h2 {
+    text-align: center;
+    color: rgb(255, 255, 255);
+    background-color: rgb(16, 83, 100);
+    margin-bottom: 10px;
+    width: 100%;
+}
+.progress_page .detail_media .chart {
+    height: 100%;
+    width: 100%; 
+    user-select: none;
+    -webkit-user-drag: none;
+}    
+
+.progress_page .content_container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: transparent;
+    min-height: 600px;
+    width: 100%;
+    color: #000; 
+}
+
+.progress_page .content_container .chart_container{
+    width: 500px;
+    color: rgb(255, 255, 255);
+    font-size: 30px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    height: 330px;
+}
+
+.progress_page .content_container .chart_container h2 {
+   display: flex;
+   color: rgb(255, 255, 255);
+   justify-content: center;
+   align-items: center;
+   font-size: 30px;
+   background-color: rgb(16, 83, 100);
+}
+
+.progress_page .scroll_position_holder {
+    position: relative;
+    top: -25vh;
+}

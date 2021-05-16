@@ -13,7 +13,9 @@ const TestDetail = () => {
     const history = useHistory();
     const dispatch = useDispatch();
     const modalRef = useRef();
+    const currentUser = useSelector((state) => state.user_reducer.loggedInUser);
     const testList = useSelector((state) => state.user_reducer.testList);
+    const [doneTest, setDoneTest] = useState(false); 
     const [questionList, setQuestionList] = useState([]);
     const [test, setTest] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
@@ -173,7 +175,7 @@ const TestDetail = () => {
                             (<div className="question shadow" key={key}> 
                                 <div className="question_title">
                                     {key + 1}. {question.text}
-                                    <span>Answer: {question.answerOptions.find((q) => q.isCorrect === true).value}</span>
+                                    { !currentUser.isCoacher && !doneTest ? null  : <span>Answer: {question.answerOptions.find((q) => q.isCorrect === true).value}</span>}
                                 </div>
                                 <div className="question_answer">
                                     {question?.answerOptions.map((answer,key) => 
@@ -194,22 +196,38 @@ const TestDetail = () => {
         <div className="test_detail_page shadow">
             <div ref={modalRef} className="scroll_position_holder"></div>
             <h2 className={isEditing ? "test_message corner_box_animation shadow" : "test_message shadow"}>
-                Test Editor
+                { currentUser.isCoacher ? "Test Editor" : doneTest ? "Correct: 100/120" : "Remaining Time: 120 mins"}
                 <div className="button_group">
-                    {
-                        isEditing ? 
+                    { currentUser.isCoacher ?
                         <>
-                            <button type="button" className="cancel_button shadow" onClick={onCancel}>Cancel</button>        
-                            <button type="button" className="save_button shadow" onClick={onUpdate}>Save</button>        
-                            <button type="button" className="add_button shadow" onClick={onInsert}>Question</button>        
-                        </> :
-                        <>
-                            <button type="button" className="edit_button shadow" onClick={onEdit}>Edit</button>
-                            <button type="button" className="refresh_button shadow" onClick={loadTest}>Refresh</button>            
-                        </> 
+                        {
+                            isEditing ? 
+                            <>
+                                <button type="button" className="cancel_button shadow" onClick={onCancel}>Cancel</button>        
+                                <button type="button" className="save_button shadow" onClick={onUpdate}>Save</button>        
+                                <button type="button" className="add_button shadow" onClick={onInsert}>Question</button>        
+                            </> :
+                            <>
+                                <button type="button" className="edit_button shadow" onClick={onEdit}>Edit</button>
+                                <button type="button" className="refresh_button shadow" onClick={loadTest}>Refresh</button>            
+                            </> 
+                        }
+                        </>
+                        : <>
+                            {doneTest ? <button type="button" className="cancel_button shadow" onClick={() => {setDoneTest(false)}}>Quit</button>        
+                                :
+                                <>
+                                    <button type="button" className="refresh_button shadow" onClick={() => {}}>Restart</button>        
+                                    <button type="button" className="save_button shadow" onClick={()=> {setDoneTest(true)}}>Submit</button>        
+
+                                </> 
+                            }
+                        </>
                     }
                 </div>
             </h2>
+            {doneTest ? null 
+            :
             <div className="test_detail">
                 <div className="detail_media shadow">
                     <h2>Test Cover</h2>
@@ -252,9 +270,11 @@ const TestDetail = () => {
                     <textarea ref={testRef.description} disabled={!isEditing} required defaultValue={test?.description}></textarea>
                 </div>
             </div>
+            
+            }
             <div className="content_container">
                 <div className="question_container">
-                    <h2>Questions</h2>
+                    <h2>{ !doneTest ? "Questions" : "Results"}</h2>
                     <div className="questions">
                         {renderQuestions()}
                     </div>

@@ -1,6 +1,6 @@
 import { React, useEffect, useRef, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {Carousel} from 'react-responsive-carousel'
+import {Carousel} from 'react-responsive-carousel';
 
 import Card from './Card/Card';
 import LoadingContainer from '../../utils/LoadingContainer/LoadingContainer';
@@ -245,6 +245,23 @@ const CardList = ({context}) => {
                             courseList != null && courseList.length != 0 ? 
                             courseList.map ((item,key) => 
                             (<Card key={key} course={item} type={"course"} mode={"view"}/>))
+                            : (<LoadingContainer style={'spinner'}/>)
+                        )
+                    }
+                </div>
+            );
+        case "test":
+            return(
+                <div className="card_page shadow">
+                    <div className="card_header"> <b>Test</b> 
+                        <button type="button" className="card_menu_button refresh_button_user shadow" onClick={loadTest}></button>
+                    </div>
+                    {
+                        customCarousel
+                        (
+                            testList != null && testList.length != 0? 
+                            testList.map ((item,key) => 
+                            (<Card key={key} test={item} type={"test"} mode={"view"}/>))
                             : (<LoadingContainer style={'spinner'}/>)
                         )
                     }

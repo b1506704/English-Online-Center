@@ -65,6 +65,9 @@ const Card = ({room, course, user, bank, lesson, test, type, mode}) => {
           // .then(() => dispatch(getUser(currentLoginUser.userName)));
         } 
       }
+      if (type === "test") {
+        history.push(`/coacher/test/${test.id}`);
+      }
     }
     
     const onCardEdit = () => {
@@ -265,6 +268,7 @@ const Card = ({room, course, user, bank, lesson, test, type, mode}) => {
                 {
                   type === "room" ? <button type="button" className="card_button buy_button shadow" onClick={onCardSelect}>Join</button>   
                   : type === "course" ? <button type="button" className="card_button browse_button shadow" onClick={onCardSelect}>Filter</button>
+                  : type === "test" ? <button type="button" className="card_button browse_button shadow" onClick={onCardSelect}>Take</button>
                   : null   
                 } 
               </>

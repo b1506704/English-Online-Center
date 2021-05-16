@@ -1,2 +1,9 @@
-// information route
-// user do online test here
+import React from 'react';
+import CardList from '../CardList/CardList';
+
+const TestList = () => {
+    return(
+        <CardList context="test"/>
+    );
+}
+export default TestList;

@@ -6,6 +6,9 @@ import RoomList from '../../RoomList/RoomList';
 import LoadingContainer from '../../../utils/LoadingContainer/LoadingContainer';
 import RoomDetail from '../../RoomDetail/RoomDetail';
 import Selection from '../../Selection/Selection';
+import StudyProgress from '../../StudyProgress/StudyProgress';
+import TestList from '../../TestList/TestList';
+// import EditTestList from '../../EditTestList/EditTestList';
 
 const UserPage = ({user}) => {
     const { path } = useRouteMatch();
@@ -21,11 +24,11 @@ const UserPage = ({user}) => {
                         <CourseList/>
                     </Route>
                     <Route exact path={`${path}/progress`}>
-                        <LoadingContainer/>
+                        <StudyProgress/>
                     </Route>
                     <Route exact path={`${path}/information`}>
-                        {/* test */}
-                        <LoadingContainer/>
+                        <TestList/>    
+                        {/* <EditTestList/>                     */}
                     </Route>
                     <Route exact path={`${path}/room`}>
                         <RoomList/>

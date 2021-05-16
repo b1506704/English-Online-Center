@@ -87,7 +87,7 @@
 .lesson_detail_page .detail_info h2, .lesson_detail_page .content_container h2  {
     text-align: center;
     color: rgb(255, 255, 255);
-    background-color: rgba(5, 0, 0, 0.507);
+    background-color: rgb(16, 83, 100);
     margin-bottom: 10px;
     width: 100%;
 }
@@ -156,7 +156,7 @@
 .lesson_detail_page .detail_media h2 {
     text-align: center;
     color: rgb(255, 255, 255);
-    background-color: rgba(5, 0, 0, 0.507);
+    background-color: rgb(16, 83, 100);
     width: 100%;
 }
 .lesson_detail_page .detail_media img {

@@ -66,7 +66,7 @@ const Card = ({room, course, user, bank, lesson, test, type, mode}) => {
         } 
       }
       if (type === "test") {
-        history.push(`/coacher/test/${test.id}`);
+        history.push(`/user/test/${test.id}`);
       }
     }
     

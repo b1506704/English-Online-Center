@@ -11,6 +11,7 @@ import {
   CREATE_TEST,
   DELETE_TEST,
   UPDATE_TEST,
+  TAKE_TEST,
   FETCH_LESSON,
   CREATE_LESSON,
   DELETE_LESSON,
@@ -80,7 +81,9 @@ export default (state = { loggedInUser }, action) => {
                 testList:[...state.testList, action.payload]
             }
     case UPDATE_TEST:
-        return { ...state, updatedTest: action.payload}            
+        return { ...state, updatedTest: action.payload} 
+    case TAKE_TEST:
+        return { ...state, takeTest: action.payload}           
     case FETCH_LESSON:
         return { ...state, lessonList: action.payload }
     case DELETE_LESSON:

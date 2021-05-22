@@ -13,6 +13,7 @@ export const FETCH_TEST = 'fetch_test';
 export const DELETE_TEST = 'delete_test';
 export const CREATE_TEST = 'create_test';
 export const UPDATE_TEST = 'update_test';
+export const TAKE_TEST = 'take_test';
 // lesson actions
 export const FETCH_LESSON = 'fetch_lesson';
 export const DELETE_LESSON = 'delete_lesson';

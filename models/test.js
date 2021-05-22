@@ -7,10 +7,29 @@ const testSchema = mongoose.Schema({
     },
     name: String,
     //for learner
-    result: [
+    record: [
         {
             userName: String,
-            score: Number
+            duration: Number,
+            score: Number,
+            answerSheet: [{
+                id: {
+                    type: String,
+                    unique: true
+                },
+                audioUrl: String,
+                imgUrl: String,
+                videoUrl: String,
+                text: String,
+                point: Number,
+                isAudio: Boolean,
+                isVideo: Boolean,
+                answerOptions: [{
+                    value: String,
+                    isCorrect: Boolean,
+                    isSelected: Boolean
+                }]
+            }],
         }
     ],
     //for coacher
@@ -29,9 +48,9 @@ const testSchema = mongoose.Schema({
         text: String,
         isAudio: Boolean,
         isVideo: Boolean,
+        point: Number,
         answerOptions: [{
             value: String,
-            point: Number,
             isCorrect: Boolean,
         }]
     }],

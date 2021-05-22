@@ -37,6 +37,7 @@ export const fetchTest = () => axios.get(testUrl);
 export const createTest = (newTest) => axios.post(testUrl, newTest);
 export const deleteTest = (id) => axios.delete(`${testUrl}/${id}`);
 export const updateTest = (id, toUpdateTest) => axios.post(`${testUrl}/updateTest/${id}`, toUpdateTest);
+export const takeTest = (id, toUpdateTest) => axios.post(`${testUrl}/takeTest/${id}`, toUpdateTest);
 // lesson
 export const fetchLesson = () => axios.get(lessonUrl);
 export const createLesson = (newLesson) => axios.post(lessonUrl, newLesson);

@@ -8,7 +8,7 @@ import RoomDetail from '../../RoomDetail/RoomDetail';
 import Selection from '../../Selection/Selection';
 import StudyProgress from '../../StudyProgress/StudyProgress';
 import TestList from '../../TestList/TestList';
-// import EditTestList from '../../EditTestList/EditTestList';
+import EditTestDetail from '../../EditTestDetail/EditTestDetail';
 
 const UserPage = ({user}) => {
     const { path } = useRouteMatch();
@@ -28,7 +28,9 @@ const UserPage = ({user}) => {
                     </Route>
                     <Route exact path={`${path}/information`}>
                         <TestList/>    
-                        {/* <EditTestList/>                     */}
+                    </Route>
+                    <Route path={`${path}/test/:id`}>
+                        <EditTestDetail/>
                     </Route>
                     <Route exact path={`${path}/room`}>
                         <RoomList/>

@@ -1,6 +1,7 @@
 import express from 'express';
 
 import Test from '../models/test.js';
+import evaluate from '../middleware/markScore.js';
 
 const router = express.Router();
 
@@ -59,6 +60,25 @@ export const updateTest = async (req, res) => {
                 duration: duration,
                 questions: questions,
                 isPractice: isPractice, 
+            },
+            {new: true}
+        );
+        res.status(200).json(updatedTest);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
+export const takeTest = async (req, res) => { 
+    const { id } = req.params;
+    const  record  = req.body;
+    try {
+        const test = await Test.findOne({id: id});
+        const markedRecord = evaluate(record);
+        const updatedTest = await Test.findOneAndUpdate(
+            {id: test.id},
+            {
+                $push: {record: markedRecord },
             },
             {new: true}
         );

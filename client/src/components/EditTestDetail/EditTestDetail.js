@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import './EditTestDetail.css';
 import random from '../../utils/RandomNumber.js';
-import { fetchTest, setNotification, updateTest } from '../../actions/user_actions';
+import { fetchTest, setNotification, updateTest, takeTest } from '../../actions/user_actions';
 import Test from '../../assets/imgs/test.jpg';
 import Practice from '../../assets/imgs/practice.jpg';
 
@@ -15,6 +15,7 @@ const TestDetail = () => {
     const modalRef = useRef();
     const currentUser = useSelector((state) => state.user_reducer.loggedInUser);
     const testList = useSelector((state) => state.user_reducer.testList);
+    const [testResult, setTestResult] = useState(null);
     const [doneTest, setDoneTest] = useState(false); 
     const [questionList, setQuestionList] = useState([]);
     const [test, setTest] = useState(null);
@@ -34,13 +35,23 @@ const TestDetail = () => {
         } else {
             setTest(testList.find((test) => test.id === id));
             setQuestionList(testList.find((test) => test.id === id).questions);
+            const temp = testList.find((test) => test.id === id).
+            record.filter((r) => r.userName === currentUser?.userName);
+            const lastTry = temp[temp.length-1];
+            setTestResult(lastTry);
+            
+            if (lastTry.score != 0)  {
+                setDoneTest(true);
+            } else {
+                setDoneTest(false);
+            }
         }
     },[testList]);
-        
+
     useEffect(() => {
         scrollToModal();
     },[]);
-        
+    
     const scrollToModal = () => {
         modalRef.current.scrollIntoView({
           behavior: "smooth",
@@ -101,11 +112,120 @@ const TestDetail = () => {
             questions: questionList || test.questions,
           };
             dispatch(updateTest(test.id, updatedTest))
-            .then(() => dispatch(fetchTest()))
             .then(() => setIsEditing(false));
     }
     
+    const onTakeTest = () => {
+        const record = {
+            userName: currentUser?.userName,
+            duration: 15,
+            score: 0,
+            answerSheet: [{
+                id: "11",
+                audioUrl: 'String',
+                imgUrl: 'String',
+                videoUrl: 'String',
+                text: 'String',
+                point: 0.25,
+                isAudio: false,
+                isVideo: false,
+                answerOptions: [{
+                    value: 'String',
+                    isCorrect: false,
+                    isSelected: false
+                },
+                {
+                    value: 'String',
+                    isCorrect: false,
+                    isSelected: false
+                },
+                {
+                    value: 'String',
+                    isCorrect: false,
+                    isSelected: false
+                },
+                {
+                    value: 'String',
+                    isCorrect: true,
+                    isSelected: true
+                }
+                ]
+            },
+            {
+                id: "12",
+                audioUrl: 'String',
+                imgUrl: 'String',
+                videoUrl: 'String',
+                text: 'String',
+                point: 0.25,
+                isAudio: false,
+                isVideo: false,
+                answerOptions: [{
+                    value: 'String',
+                    isCorrect: false,
+                    isSelected: false
+                },
+                {
+                    value: 'String',
+                    isCorrect: false,
+                    isSelected: false
+                },
+                {
+                    value: 'String',
+                    isCorrect: false,
+                    isSelected: false
+                },
+                {
+                    value: 'String',
+                    isCorrect: true,
+                    isSelected: false
+                }
+                ]
+            },
+            {
+                id: "13",
+                audioUrl: 'String',
+                imgUrl: 'String',
+                videoUrl: 'String',
+                text: 'String',
+                point: 0.25,
+                isAudio: false,
+                isVideo: false,
+                answerOptions: [{
+                    value: 'String',
+                    isCorrect: false,
+                    isSelected: false
+                },
+                {
+                    value: 'String',
+                    isCorrect: false,
+                    isSelected: false
+                },
+                {
+                    value: 'String',
+                    isCorrect: false,
+                    isSelected: false
+                },
+                {
+                    value: 'String',
+                    isCorrect: true,
+                    isSelected: false
+                }
+                ]
+            }
+            ]
+        };
+        dispatch(takeTest(test.id, record))
+        .then((setDoneTest(true)));
+
+    }
+
+    const onRestart = () => {
+        setDoneTest(false);
+    }
+
     const onInsert = () => {
+        const answerPoint = test?.maxScore / (questionList.length - 1);
         const sampleAnswer = [
             {value: 'Choice 1th', isCorrect: true},
             {value: 'Choice 2th', isCorrect: false},
@@ -118,6 +238,7 @@ const TestDetail = () => {
             text: 'Insert your question here?',
             isAudio: false,
             isVideo: false,
+            point: answerPoint,
             answerOptions: sampleAnswer,
         };
         setQuestionList([...questionList, question]);
@@ -143,6 +264,7 @@ const TestDetail = () => {
                 break;
         }
     }
+
 
     const renderQuestions = () => {
         let questions;
@@ -175,7 +297,8 @@ const TestDetail = () => {
                             (<div className="question shadow" key={key}> 
                                 <div className="question_title">
                                     {key + 1}. {question.text}
-                                    { !currentUser.isCoacher && !doneTest ? null  : <span>Answer: {question.answerOptions.find((q) => q.isCorrect === true).value}</span>}
+                                    <span style={{color: "black"}}> {Math.round(test?.maxScore / (questionList?.length)*100)/100} pts</span>
+                                    { !currentUser?.isCoacher && !doneTest ? null  : <span>Answer: {question.answerOptions.find((q) => q.isCorrect === true)?.value}</span>}
                                 </div>
                                 <div className="question_answer">
                                     {question?.answerOptions.map((answer,key) => 
@@ -196,9 +319,9 @@ const TestDetail = () => {
         <div className="test_detail_page shadow">
             <div ref={modalRef} className="scroll_position_holder"></div>
             <h2 className={isEditing ? "test_message corner_box_animation shadow" : "test_message shadow"}>
-                { currentUser.isCoacher ? "Test Editor" : doneTest ? "Correct: 100/120" : "Remaining Time: 120 mins"}
+                { currentUser?.isCoacher ? "Test Editor" : doneTest ? `Score: ${testResult?.score}` : "Remaining Time: 120 mins"}
                 <div className="button_group">
-                    { currentUser.isCoacher ?
+                    { currentUser?.isCoacher ?
                         <>
                         {
                             isEditing ? 
@@ -214,11 +337,13 @@ const TestDetail = () => {
                         }
                         </>
                         : <>
-                            {doneTest ? <button type="button" className="cancel_button shadow" onClick={() => {setDoneTest(false)}}>Quit</button>        
+                            {doneTest ? <>
+                                <button type="button" className="cancel_button shadow" onClick={() => history.push('/user/information')}>Back</button>
+                                <button type="button" className="refresh_button shadow" onClick={onRestart}>Restart</button>        
+                            </>        
                                 :
                                 <>
-                                    <button type="button" className="refresh_button shadow" onClick={() => {}}>Restart</button>        
-                                    <button type="button" className="save_button shadow" onClick={()=> {setDoneTest(true)}}>Submit</button>        
+                                    <button type="button" className="save_button shadow" onClick={onTakeTest}>Submit</button>        
 
                                 </> 
                             }

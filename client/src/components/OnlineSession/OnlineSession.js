@@ -115,7 +115,7 @@ const OnlineSession = () => {
                     {room?.roomCoacher}
                 </div>
                 <div className="session_board shadow">
-                    <div className="black_board">Black Board</div>
+                    {/* <div className="black_board">Black Board</div> */}
                     <div className="lesson_title shadow">{currentLessonIndex+1}.{contentList?.[currentLessonIndex]?.name}</div>
                     {renderBlackBoard()}
                 </div>

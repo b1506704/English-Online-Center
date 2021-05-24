@@ -74,6 +74,14 @@
     margin-bottom: 15px;
     width: 80%;
 }
+.session_container .session_board .black_board {
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    /* background-color: rgba(255, 235, 205, 0.466); */
+    margin-bottom: 15px;
+    width: 80%;
+}
 .session_container .session_user {
     position: absolute;
     bottom: 20px;

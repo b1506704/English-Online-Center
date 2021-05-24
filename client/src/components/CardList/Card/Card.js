@@ -197,7 +197,7 @@ const Card = ({room, course, user, bank, lesson, test, type, mode}) => {
       return (
         <div className="card_detail shadow">
           <div className="title_bar shadow">
-            { type === "room" ? room.id : type === "course" ? course.name : null }            
+            { type === "room" ? room.id : type === "course" ? course.name : type === "test" ? test.name : null }            
           </div>
           { 
             type === "room" 

@@ -107,7 +107,7 @@ const OnlineSession = () => {
             <div className="session_container corner_box corner_box_e shadow">
                 <div className="session_title neon shadow">
                     <button className="back_button shadow" type="button" onClick={exitRoom}>{"<"} Back</button>
-                    <button className="back_button shadow" type="button" onClick={prevLesson}>{"-"} Lesson</button>
+                    <button className="back_button shadow" type="button" onClick={prevLesson}>{"<"} Lesson</button>
                     <button className="back_button shadow" type="button" onClick={nextLesson}>{">"} Lesson</button>
                     <span>Room No. {id}</span>
                 </div>
@@ -115,8 +115,9 @@ const OnlineSession = () => {
                     {room?.roomCoacher}
                 </div>
                 <div className="session_board shadow">
+                    <div className="black_board">Black Board</div>
                     <div className="lesson_title shadow">{currentLessonIndex+1}.{contentList?.[currentLessonIndex]?.name}</div>
-                        {renderBlackBoard()}
+                    {renderBlackBoard()}
                 </div>
                 <div className="session_user shadow">
                     {renderUser()}

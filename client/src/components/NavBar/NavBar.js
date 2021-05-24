@@ -9,7 +9,6 @@ import Notification from './Notification/Notification';
 import UserInfo from '../views/UserPage/UserInfo/UserInfo';
 import {logout, setNotification} from '../../actions/user_actions';
 import './NavBar.css';
-import LoadingContainer from '../../utils/LoadingContainer/LoadingContainer';
 
 const NavBar = () => {
     const dispatch = useDispatch();
@@ -17,8 +16,8 @@ const NavBar = () => {
     const [userMode, setUserMode] = useState('');
     const [userName, setUserName] = useState('');
     const history = useHistory();
-    const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
     const [isCreditPageOpen, setIsCreditPageOpen] = useState(false);
+    const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
     const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
     const currentUserInfo = useSelector ((state) => state.user_reducer.loggedInUser);
     const currentNotif = useSelector((state) => state.user_reducer.notif);
@@ -39,7 +38,7 @@ const NavBar = () => {
         }
     },[currentUserInfo]);
 
-    
+       
     return(
         <header>
             <h1 className={ isLoading ? "corner_box_animation" : null}>Active <br></br>Learning<br></br>Center</h1>
@@ -54,18 +53,19 @@ const NavBar = () => {
                         Home
                         </a>
                 }
-                {
-                    userMode != "user" 
-                    ? null 
-                    : <a className="bank_nav" onClick={() => {
-                        setIsCreditPageOpen(true);
-                        setIsRegisterPopupOpen(false);
-                        setIsLoginPopupOpen(false);
-                        modal.current.open();
-                    }}>
-                        Bank
-                        </a>
-                }
+               {
+                   userMode != "user" 
+                   ? null 
+                   : <a className="bank_nav" onClick={() => {
+                           setIsCreditPageOpen(true);
+                           setIsRegisterPopupOpen(false);
+                           setIsLoginPopupOpen(false);
+                           modal.current.open();
+                   }}>
+                       Bank
+                       </a>
+               }
+               
                 {
                     userMode === "user" 
                     ? <>
@@ -84,8 +84,8 @@ const NavBar = () => {
                     userMode != "admin" && userMode != "user"
                     ? <a className="register_nav" onClick={() => {
                         setIsRegisterPopupOpen(true);
-                        setIsCreditPageOpen(false);
                         setIsLoginPopupOpen(false);
+                        setIsCreditPageOpen(false);
                         modal.current.open();
                     }}>
                         Register
@@ -107,8 +107,8 @@ const NavBar = () => {
                         </a> 
                     : <a className="login_nav" onClick={() => {
                         setIsLoginPopupOpen(true);
-                        setIsCreditPageOpen(false);
                         setIsRegisterPopupOpen(false);
+                        setIsCreditPageOpen(false);
                         modal.current.open();
                     }}>
                         Login

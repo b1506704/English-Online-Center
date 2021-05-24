@@ -16,6 +16,7 @@ const TestDetail = () => {
     const currentUser = useSelector((state) => state.user_reducer.loggedInUser);
     const testList = useSelector((state) => state.user_reducer.testList);
     const [testResult, setTestResult] = useState(null);
+    // done test from d
     const [doneTest, setDoneTest] = useState(false); 
     const [questionList, setQuestionList] = useState([]);
     const [test, setTest] = useState(null);
@@ -40,7 +41,7 @@ const TestDetail = () => {
             const lastTry = temp[temp.length-1];
             setTestResult(lastTry);
             
-            if (lastTry.score != 0)  {
+            if (lastTry?.score != 0)  {
                 setDoneTest(true);
             } else {
                 setDoneTest(false);
@@ -298,7 +299,7 @@ const TestDetail = () => {
                                 <div className="question_title">
                                     {key + 1}. {question.text}
                                     <span style={{color: "black"}}> {Math.round(test?.maxScore / (questionList?.length)*100)/100} pts</span>
-                                    { !currentUser?.isCoacher && !doneTest ? null  : <span>Answer: {question.answerOptions.find((q) => q.isCorrect === true)?.value}</span>}
+                                    { !doneTest ? null  : <span>Answer: {question.answerOptions.find((q) => q.isCorrect === true)?.value}</span>}
                                 </div>
                                 <div className="question_answer">
                                     {question?.answerOptions.map((answer,key) => 
@@ -351,7 +352,7 @@ const TestDetail = () => {
                     }
                 </div>
             </h2>
-            {doneTest ? null 
+            {!currentUser.isCoacher ? null 
             :
             <div className="test_detail">
                 <div className="detail_media shadow">
@@ -399,7 +400,7 @@ const TestDetail = () => {
             }
             <div className="content_container">
                 <div className="question_container">
-                    <h2>{ !doneTest ? "Questions" : "Results"}</h2>
+                    <h2>{ currentUser?.isCoacher ? "Questions" : "Results"}</h2>
                     <div className="questions">
                         {renderQuestions()}
                     </div>

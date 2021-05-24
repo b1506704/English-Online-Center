@@ -51,9 +51,10 @@
     transition: all 0.35s ease-in-out;
     margin: 0;
  }
- .button_container {
+ .bank_container .button_container {
      display: flex;
-     justify-content: space-evenly;
+     width: 100%;
+     justify-content: center;
      align-items: center;
      margin: 0;
  }

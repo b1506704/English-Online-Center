@@ -39,6 +39,9 @@ export const SET_NOTIFICATION = 'set_notification';
 export const SHOW_USER_INFO = 'show_user_info';
 export const IS_LOADING = 'is_loading';
 
+
+//
+export const OPEN_PAYPAL = 'open_paypal';
 // classroom 
 export const GET_ROOM_USER = 'get_room_user'
 export const GET_QUESTION = 'get_question'

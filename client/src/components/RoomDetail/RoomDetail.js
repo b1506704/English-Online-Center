@@ -39,6 +39,7 @@ const RoomDetail = () => {
     
     
     useEffect(() => {
+      dispatch(fetchRoom());
       const interval = setInterval(() => {
         dispatch(fetchRoom());
       }, 5000);
@@ -136,7 +137,7 @@ const RoomDetail = () => {
                         <span>{room?.roomCoacher}</span>
                     </div>
                     <div> Price: &nbsp;
-                        <span>{ room?.price + " VND"}</span>
+                        <span>{ room?.price + " USD"}</span>
                     </div>
                     <div> Start:&nbsp;
                         <span>{ room?.start ? room.start : "Not set"}</span>
@@ -151,7 +152,6 @@ const RoomDetail = () => {
                             {renderParticipants()}
                         </div>
                         <input type="submit" className="shadow neon" value="Join" onClick={onJoin}></input>
-                        <input type="submit" className="shadow neon" value="Invite"></input>
                     </form>
                 </div>
             </div>

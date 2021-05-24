@@ -31,7 +31,8 @@ import {
   SET_NOTIFICATION,
   SHOW_USER_INFO,
   IS_LOADING,
-  JOIN_ROOM
+  JOIN_ROOM,
+  OPEN_PAYPAL
 } from '../constants/actionTypes';
 const loggedInUser = JSON.parse(localStorage.getItem('user'));
 export default (state = { loggedInUser }, action) => {
@@ -121,6 +122,8 @@ export default (state = { loggedInUser }, action) => {
         return { ...state, updatedCourse: action.payload}                    
     case SET_NOTIFICATION:
         return { ...state, notif: action.payload}
+    case OPEN_PAYPAL:
+        return { ...state, isOpenPaypal: action.payload}
     case SHOW_USER_INFO:
         return { ...state, isShowUserInfo: action.payload}
     case IS_LOADING:

@@ -85,7 +85,7 @@ const CardList = ({context}) => {
         dispatch(createTest(
             {
                 id: random(1,20000),
-                name: 'N3 Test',
+                name: '... Test',
                 description: 'The most standard exam for testing language proficiency',
                 questions: [{
                     id: random(1,20000)

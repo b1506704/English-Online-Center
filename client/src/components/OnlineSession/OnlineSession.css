@@ -57,6 +57,7 @@
 
 .session_container .session_board {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background-image: url('../../assets/imgs/blackboard.png');
@@ -66,6 +67,12 @@
     color: rgb(255, 255, 255);
     height: 590px;
     width: 100%;
+}
+.session_container .session_board .lesson_title {
+    text-align: center;
+    background-color: rgba(255, 235, 205, 0.466);
+    margin-bottom: 15px;
+    width: 80%;
 }
 .session_container .session_user {
     position: absolute;

@@ -22,7 +22,6 @@ import {
   FILTER_ROOM_BY_ID,
   CREATE_ROOM,
   UPDATE_ROOM,
-  ADD_BANK,
   FETCH_CATEGORY,
   DELETE_CATEGORY,
   CREATE_CATEGORY,
@@ -30,7 +29,8 @@ import {
   SET_NOTIFICATION,
   SHOW_USER_INFO,
   IS_LOADING,
-  FETCH_USER
+  FETCH_USER,
+  OPEN_PAYPAL
 } from '../constants/actionTypes';
 
 import * as api from '../api/index.js';
@@ -92,11 +92,11 @@ export const updateUser = (userName, userInfo) => async (dispatch) => {
     await dispatch(setIsLoading(true));
     const { data } = await api.updateUser(userName, userInfo);
     await dispatch({ type: UPDATE_USER, payload: data});
-    await dispatch(setNotification("Cập nhật hoàn tất"));
+    await dispatch(setNotification("Update sucessfully"));
     await dispatch(fetchUser());
     await dispatch(setIsLoading(false));
   } catch (error) {
-    dispatch(setNotification("Cập nhật thất bại"));
+    dispatch(setNotification("Update sucessfully"));
   }
 };
 
@@ -127,19 +127,7 @@ export const register = (userInfo) => async (dispatch) => {
     dispatch(setNotification("Register failed!"));
   }
 };
-// bank
-export const addBank = (userName, bankInfo) => async (dispatch) => {
-  try {
-    await dispatch(setIsLoading(true));
-    const { data } = await api.addBank(userName, bankInfo);
-    await dispatch({ type: ADD_BANK, payload: data});
-    await dispatch(setIsLoading(false));
-    await dispatch(setNotification("Update successfully"));
-  } catch (error) {
-    dispatch(setIsLoading(false));
-    dispatch(setNotification("Update failed!"));
-  }
-};
+
 // test
 export const fetchTest = () => async (dispatch) => {
   try {
@@ -429,6 +417,15 @@ export const updateCourse = (id, courseInfo) => async (dispatch) => {
 export const setNotification = (notification) => async (dispatch) => {
   try {
     dispatch({ type: SET_NOTIFICATION, payload: notification});
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const openPaypal = (isOpen, joinRoom) => async (dispatch) => {
+  try {
+    dispatch({ type: OPEN_PAYPAL, payload: isOpen});
+    dispatch({ type: JOIN_ROOM, payload: joinRoom});
   } catch (error) {
     console.log(error.message);
   }

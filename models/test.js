@@ -15,7 +15,6 @@ const testSchema = mongoose.Schema({
             answerSheet: [{
                 id: {
                     type: String,
-                    unique: true
                 },
                 audioUrl: String,
                 imgUrl: String,
@@ -40,7 +39,6 @@ const testSchema = mongoose.Schema({
     questions: [{
         id: {
             type: String,
-            unique: true
         },
         audioUrl: String,
         imgUrl: String,

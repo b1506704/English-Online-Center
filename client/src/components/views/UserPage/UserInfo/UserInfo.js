@@ -106,10 +106,6 @@ const UserInfo = () => {
                         </select>)
                         }
                 </div>
-                <div style={{display: "block", textAlign:"center", backgroundColor: "rgb(184, 201, 255)"}}> Bank </div>
-                <div> ID: <span>{ user?.bankID } </span></div>
-                <div> Provider: <span>{ user?.bankProvider } </span></div>
-                <div> Balance: <span>{ user?.balance} VND &nbsp;</span></div>
                 {currentLoginUser && currentLoginUser.isCoacher === true ?
                     <>
                     <div> Coaching Rooms: &nbsp; 

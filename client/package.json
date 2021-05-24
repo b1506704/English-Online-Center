@@ -12,6 +12,7 @@
     "react-dom": "^17.0.2",
     "react-draft-wysiwyg": "^1.14.7",
     "react-file-base64": "^1.0.3",
+    "react-paypal-button-v2": "^2.6.3",
     "react-redux": "^7.2.3",
     "react-responsive-carousel": "^3.2.18",
     "react-router-dom": "^5.2.0",

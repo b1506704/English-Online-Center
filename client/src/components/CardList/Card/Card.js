@@ -13,7 +13,8 @@ import {
   updateRoom,
   updateUser,
   deleteTest,
-  deleteLesson
+  deleteLesson,
+  openPaypal
 } from '../../../actions/user_actions';
 import './Card.css';
 import Test from '../../../assets/imgs/test.jpg';
@@ -60,9 +61,12 @@ const Card = ({room, course, user, bank, lesson, test, type, mode}) => {
           dispatch(setNotification("Please login first!"));
         } else {
           // route user
-          history.push(`/user/room/${room.id}`);
-          // dispatch(registerRoom(currentLoginUser.userName, room))
-          // .then(() => dispatch(getUser(currentLoginUser.userName)));
+          if (room.roomParticipants.some((e) => e === currentLoginUser.userName)) {
+            history.push(`/user/room/${room.id}`);
+          } else {
+            dispatch(setNotification("Please pay first!"));
+            dispatch(openPaypal(true,room));
+          }
         } 
       }
       if (type === "test") {
@@ -209,7 +213,7 @@ const Card = ({room, course, user, bank, lesson, test, type, mode}) => {
                   }
                 </div>
                 <div> Price: &nbsp;
-                  { isEditing === false ? <span>{room.price + " VND"}</span>
+                  { isEditing === false ? <span>{room.price + " USD"}</span>
                     : (<input ref={roomInputRef.priceRef} type="text" defaultValue={room.price}></input>)
                   }
                 </div>

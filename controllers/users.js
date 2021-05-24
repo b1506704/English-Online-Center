@@ -1,9 +1,6 @@
 import express from 'express';
 
-import isValidPurchase from '../middleware/transaction_auth.js';
 import User from '../models/user.js';
-import Bank from '../models/bank.js';
-import Room from '../models/room.js';
 
 
 const router = express.Router();
@@ -88,24 +85,6 @@ export const updateUser = async (req, res) => {
     }
 }
 
-
-export const addBank = async (req, res) => { 
-    const { userName } = req.params;
-    const { id, provider } = req.body;
-    try {
-        const user = await User.findOne({userName: userName});
-        const bank = await Bank.findOne({id, provider});
-        if (bank.isOwned === false && bank.owner != user.userName) {
-            const updatedBank = await Bank.findOneAndUpdate({id: id, provider: provider},{isOwned: true, owner: user.userName}, {new: true});
-            const updatedUser = await User.findOneAndUpdate({userName: userName},{balance: updatedBank.value, bankID: bank.id, bankProvider: bank.provider}, {new: true});
-            res.status(200).json(updatedUser.balance);
-        } else {
-            res.status(404).json("Xảy ra lỗi!");
-        }
-    } catch (error) {
-        res.status(404).json({ message: error.message });
-    }
-}
 
 
 export const setNewPassword = async (req, res) => { 
